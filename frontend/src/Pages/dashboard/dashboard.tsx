@@ -10,7 +10,7 @@ export default function Dashboard(){
     const [showAttendence, setShowAttendence] = useState(false);
 
     useEffect(()=>{
-        if(date.toDateString().slice(0,3)==="Sun"){
+        if(date.toDateString()?.slice(0,3)==="Sun"){
             setShowAttendence(true);
         }else{
             setShowAttendence(false)

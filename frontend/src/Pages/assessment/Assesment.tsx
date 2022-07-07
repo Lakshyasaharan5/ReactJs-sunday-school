@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import React, { useState, useRef } from "react";
 import "./assessment.css"
 
 export default function Assessment(){
@@ -23,39 +23,55 @@ export default function Assessment(){
         total_marks:0
     })
     // const [assessmentvars,setAssessmentVars] = useState(initialValue)
-    const [assessmentValues] = useState({
-        attendance : createRef(),
-        songs:createRef(),
-        worship_message:createRef(),
-        table_message:createRef(),
-        behaviour:createRef(),
-        memory_verses:createRef(),
-        total_marks:createRef()
+    const [assessmentValues] = useState<{
+        attendance:React.MutableRefObject<HTMLInputElement | null>;
+        songs:React.MutableRefObject<HTMLInputElement | null>;
+        worship_message:React.MutableRefObject<HTMLSelectElement | null>;
+        table_message:React.MutableRefObject<HTMLSelectElement | null>;
+        behaviour:React.MutableRefObject<HTMLSelectElement | null>;
+        memory_verses:React.MutableRefObject<HTMLSelectElement | null>;
+        total_marks:React.MutableRefObject<HTMLInputElement | null>}>
+        
+        ({
+        attendance  : useRef<HTMLInputElement | null>(null),
+        songs:useRef<HTMLInputElement | null>(null),
+        worship_message:useRef<HTMLSelectElement | null>(null),
+        table_message:useRef<HTMLSelectElement | null>(null),
+        behaviour:useRef<HTMLSelectElement | null>(null),
+        memory_verses:useRef<HTMLSelectElement | null>(null),
+        total_marks:useRef<HTMLInputElement | null>(null),
     })
-    const HandleChange=(e)=>{
-        const {name,value} = e.target;
-        initialValue[name] = value
+    const HandleChange=()=>{
+        // e:React.ChangeEvent<HTMLInputElement>
+        // const {name,value} = e.target;
+        // initialValue[name] = value
 
         
-        let Attendance_marks,songs_marks;
-        if(assessmentValues.attendance.current.checked===false){
+        let Attendance_marks:number = 0;
+        let songs_marks:number = 0;
+        let worship_message_marks:number = 0;
+        let table_message_marks:number = 0;
+        let behaviour_marks:number = 0;
+        let memory_verses_marks:number = 0;
+
+        if(assessmentValues.attendance.current?.checked===false){
             Attendance_marks = 2;
         }else{
             Attendance_marks = 0;
         }
-        if(assessmentValues.songs.current.checked){
+        if(assessmentValues.songs.current?.checked){
             songs_marks = 1;
         }else{
             songs_marks = 0;
         }
-        const worship_message_marks = (isNaN(parseInt(assessmentValues.worship_message.current.value,10))? 0: parseInt(assessmentValues.worship_message.current.value,10));
-        const table_message_marks = (isNaN(parseInt(assessmentValues.table_message.current.value,10))? 0:parseInt(assessmentValues.table_message.current.value,10));
-        const behaviour_marks = (isNaN(parseInt(assessmentValues.behaviour.current.value,10))? 0:parseInt(assessmentValues.behaviour.current.value,10));
-        const memory_verses_marks = (isNaN(parseInt(assessmentValues.memory_verses.current.value,10))? 0:parseInt(assessmentValues.memory_verses.current.value,10));
+        if(assessmentValues.worship_message.current!==null) worship_message_marks = (isNaN(parseInt(assessmentValues.worship_message.current.value,10))? 0: parseInt(assessmentValues.worship_message.current.value,10));
+        if(assessmentValues.table_message.current!==null) table_message_marks = (isNaN(parseInt(assessmentValues.table_message.current.value,10))? 0:parseInt(assessmentValues.table_message.current.value,10));
+        if(assessmentValues.behaviour.current!==null) behaviour_marks = (isNaN(parseInt(assessmentValues.behaviour.current.value,10))? 0:parseInt(assessmentValues.behaviour.current.value,10));
+        if(assessmentValues.memory_verses.current!==null) memory_verses_marks = (isNaN(parseInt(assessmentValues.memory_verses.current.value,10))? 0:parseInt(assessmentValues.memory_verses.current.value,10));
 
         
-        console.log(assessmentValues.total_marks.current.value)
-        assessmentValues.total_marks.current.value = parseInt(Attendance_marks+songs_marks+worship_message_marks+table_message_marks+behaviour_marks+memory_verses_marks);
+        
+        if(assessmentValues.total_marks.current!==null) assessmentValues.total_marks.current.value = (Attendance_marks+songs_marks+worship_message_marks+table_message_marks+behaviour_marks+memory_verses_marks).toString();
     }
     return (
         <div className="container assessment-container shadow my-5">
@@ -68,7 +84,7 @@ export default function Assessment(){
                             const {id,attendance} = result;
                             return(
                                 <div className="form-check col-6" key={id}>
-                                    <input type="radio" className="form-check-input " ref={assessmentValues.attendance} defaultValue={initialValue.attendance} name="attendance" onChange={(e)=>{HandleChange(e)}} defaultChecked={initialValue.attendance===attendance} />
+                                    <input type="radio" className="form-check-input " ref={assessmentValues.attendance} defaultValue={initialValue.attendance} name="attendance" onChange={HandleChange} defaultChecked={initialValue.attendance===attendance} />
                                     <label className="form-check-label ">{attendance}</label>
                                 </div>
                             )
@@ -81,12 +97,12 @@ export default function Assessment(){
                 <div className="mb-3" >
                     <label htmlFor="songs" className="form-label">4 Songs</label>
                     <div className="form-check">
-                        <input className="form-check-input" type="checkbox" name="songs" ref={assessmentValues.songs} onChange={(e)=>{HandleChange(e)}} defaultChecked={initialValue.songs}/></div>
+                        <input className="form-check-input" type="checkbox" name="songs" ref={assessmentValues.songs} onChange={HandleChange} defaultChecked={initialValue.songs}/></div>
                     <div className="form-text">1 mark</div>
                 </div>   
                 <div className="mb-3">
                     <label htmlFor="worship_message" className="form-label">Worship Message</label>
-                    <select ref={assessmentValues.worship_message} name="worship_message" defaultValue={initialValue.worship_message} onChange={(e)=>{HandleChange(e)}} className="form-select form-select-sm">
+                    <select ref={assessmentValues.worship_message} name="worship_message" defaultValue={initialValue.worship_message} onChange={HandleChange} className="form-select form-select-sm">
                         <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -99,7 +115,7 @@ export default function Assessment(){
                 </div>  
                 <div className="mb-3">
                     <label htmlFor="table_message" className="form-label">Table Message</label>
-                    <select ref={assessmentValues.table_message} name="table_message" defaultValue={initialValue.table_message} onChange={(e)=>{HandleChange(e)}} className="form-select form-select-sm">
+                    <select ref={assessmentValues.table_message} name="table_message" defaultValue={initialValue.table_message} onChange={HandleChange} className="form-select form-select-sm">
                         <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -112,7 +128,7 @@ export default function Assessment(){
                 </div>  
                 <div className="mb-3">
                     <label htmlFor="behaviour" className="form-label">Behaviour</label>
-                    <select ref={assessmentValues.behaviour} name="behaviour" defaultValue={initialValue.behaviour} onChange={(e)=>{HandleChange(e)}} className="form-select form-select-sm">
+                    <select ref={assessmentValues.behaviour} name="behaviour" defaultValue={initialValue.behaviour} onChange={HandleChange} className="form-select form-select-sm">
                         <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -123,7 +139,7 @@ export default function Assessment(){
                 </div>  
                 <div className="mb-3">
                     <label htmlFor="memory_verses" className="form-label">Memory Verses</label>
-                    <select ref={assessmentValues.memory_verses} name="memory_verses" defaultValue={initialValue.memory_verses} onChange={(e)=>{HandleChange(e)}} className="form-select form-select-sm">
+                    <select ref={assessmentValues.memory_verses} name="memory_verses" defaultValue={initialValue.memory_verses} onChange={HandleChange} className="form-select form-select-sm">
                         <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -145,7 +161,7 @@ export default function Assessment(){
                 </div>  
                 <div className="mb-3" >
                     <label htmlFor="total_marks" className="form-label">Total Marks</label>
-                    <input ref={assessmentValues.total_marks} name="total_marks" defaultValue={initialValue.total_marks} type="text" onChange={(e)=>{HandleChange(e)}} className="form-control"  placeholder="0" disabled/>
+                    <input ref={assessmentValues.total_marks} name="total_marks" defaultValue={initialValue.total_marks} type="text" onChange={HandleChange} className="form-control"  placeholder="0" disabled/>
                 </div>
                 
             </form>
