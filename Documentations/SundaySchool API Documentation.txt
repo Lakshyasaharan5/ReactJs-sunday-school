@@ -1,0 +1,19 @@
+
+Adding Assessment Marks : 
+
+http://localhost:8080/addAssessment   POST
+
+{
+    "church_class" : "beersheba|junior|B",
+    "date" : "2022-08-08",
+    "student_name" : "Naruto Uzumaki",
+    "attendance" : "1",
+    "songs_4" : "1",
+    "worship_message" : "1",
+    "table_message" : "1",
+    "behaviour" : "1",
+    "memory_verses" : "1",
+    "total" : "1",
+    "remarks" : "",
+    
+}
