@@ -3,6 +3,7 @@ import { deleteArray } from "../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
 import { Link,useNavigate } from "react-router-dom";
 import { FinalAssessment } from "../InterfacesAndTypes"
+import { Modal} from '@mantine/core';
 
 
 export default function AssessmentStudentList(){
@@ -11,6 +12,7 @@ export default function AssessmentStudentList(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isEmpty,setIsEmpty] = useState(true); // component at default has nothing to show
+    const [submitModalOpened,setSubmitModalOpened] = useState(false);
     const storeAssessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray);
 
     const [assessmentArray,setAssessmentArray] = useState(storeAssessmentArray.map(
@@ -87,13 +89,37 @@ export default function AssessmentStudentList(){
             }
         }
         console.log(assessmentArray)
+        setSubmitModalOpened(true)
+        // dispatch(deleteArray())
+        // navigate("/")
+    }
+    const confirmClassAssessment = (e:any)=>{
+        e.preventDefault();
         dispatch(deleteArray())
         navigate("/")
     }
 
     
     return (
+
         <div className=" bg-blue-300 h-screen py-4">
+            <Modal
+                opened={submitModalOpened}
+                onClose={() => setSubmitModalOpened(false)}
+                title="Class Assessment Marks"
+            >
+                {assessmentArray.map(a=>(
+                    <div key={a.student_id}>
+                        <div className="inline-flex justify-start ">
+                            <p className="pr-1 font-bold ">{a.student_name}:</p><p className="px-1 ml-3">{a.total}</p>
+                        </div>
+                    </div>
+
+                ))}
+                <div className="flex justify-end">
+                        <button className=" bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>confirmClassAssessment(e)} >Confirm</button>
+                </div>
+            </Modal>
         { isEmpty ? null : 
         
             
