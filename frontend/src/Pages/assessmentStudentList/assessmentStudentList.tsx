@@ -2,12 +2,17 @@ import React,{useState , ChangeEvent, useEffect}from "react";
 import { deleteArray } from "../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
 import { Link,useNavigate } from "react-router-dom";
-import { FinalAssessment } from "../assessment/Assesment";
+import { FinalAssessment } from "../InterfacesAndTypes"
 
 
 export default function AssessmentStudentList(){
-   
+
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isEmpty,setIsEmpty] = useState(true); // component at default has nothing to show
     const storeAssessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray);
+
     const [assessmentArray,setAssessmentArray] = useState(storeAssessmentArray.map(
         s=>({
             "church_class" : s.church_class,
@@ -24,6 +29,7 @@ export default function AssessmentStudentList(){
             "remarks" : s.remarks,
         })
     ))
+
     const [newStudentsArray,setNewStudentsArray] = useState(assessmentArray.map(
         student=>({
             "id":student.student_id, 
@@ -31,15 +37,16 @@ export default function AssessmentStudentList(){
             "student_name":student.student_name,
             "attendance":student.attendance,
             buttonDisabled:true
-            })
-        ))
+        })
+    ))
+
+    // checks if the student is present and enables the button and viceversa
     for(let i in newStudentsArray){
         if(newStudentsArray[i].attendance==="present") newStudentsArray[i].buttonDisabled = false;
+        if(newStudentsArray[i].attendance==="absent") newStudentsArray[i].buttonDisabled = true;
     }
 
-    const navigate = useNavigate();
-    const [isEmpty,setIsEmpty] = useState(true);
-
+    // if the component has nothing to show it redirects to dashboard 
     useEffect(()=>{
         if(newStudentsArray.length === 0){
             navigate('/');
@@ -48,6 +55,7 @@ export default function AssessmentStudentList(){
         }
     },[newStudentsArray,navigate])
     
+
     const handleChange=(e:ChangeEvent<HTMLSelectElement>,id:number)=>{
         e.preventDefault();
         // console.log(e.target.value)
@@ -60,9 +68,6 @@ export default function AssessmentStudentList(){
         }
     }
 
-    
-
-    
     const toAssessmentPage = (id:number) =>{
         navigate("/assessment",{
             state:{
@@ -70,7 +75,7 @@ export default function AssessmentStudentList(){
             }
         })
     }
-    const dispatch = useDispatch();
+    
     const submitClassAssessment=(e:any)=>{
         e.preventDefault();
         

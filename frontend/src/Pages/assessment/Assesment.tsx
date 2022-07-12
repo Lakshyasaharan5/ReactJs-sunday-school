@@ -2,52 +2,24 @@ import React, { useState, useRef, useEffect } from "react";
 import {updateArray } from "../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
 import { Link,useLocation, useNavigate } from "react-router-dom";
+import { FinalAssessment,AssessmentInputs,LocationState } from "../InterfacesAndTypes"
 import "./assessment.css"
-
-interface AssessmentInputs{
-    
-    songs:React.MutableRefObject<HTMLSelectElement | null>;
-    worship_message:React.MutableRefObject<HTMLSelectElement | null>;
-    table_message:React.MutableRefObject<HTMLSelectElement | null>;
-    behaviour:React.MutableRefObject<HTMLSelectElement | null>;
-    memory_verses:React.MutableRefObject<HTMLSelectElement | null>;
-    total_marks:React.MutableRefObject<HTMLInputElement | null>;
-    remarks:React.MutableRefObject<HTMLTextAreaElement | null>;
-}
-
-export interface FinalAssessment{
-    church_class:string;
-    date:string;
-    student_id:number;
-    student_name:string;
-    attendance:string;
-    songs_4:string;
-    worship_message:string;
-    table_message:string;
-    behaviour:string;
-    memory_verses:string;
-    total:string;
-    remarks:string;
-}
-
-type LocationState = {
-    state:{
-        student_id: number;
-    };
-  }
-
 
 export default function Assessment(){
     
     const location = useLocation() as unknown as LocationState;
-    let student_id = -1
-    if(location.state) student_id = location.state.student_id;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    let student_id = -1;
+    if(location.state) student_id = location.state.student_id; 
     
     // console.log(student_id)
 
     const assessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray)
     const [studentAssessment,setStudentAssessment] = useState<FinalAssessment>(assessmentArray.filter(student=>student.student_id===student_id)[0]);
-    
+    const [isEmpty,setIsEmpty] = useState(true); // component at default has nothing to show
+
     const initialValue = {
         songs:studentAssessment?.songs_4,
         worship_message:studentAssessment?.worship_message,
@@ -57,18 +29,7 @@ export default function Assessment(){
         total_marks:2,
         remarks:studentAssessment?.remarks
     }
-    const navigate = useNavigate();
-    const [isEmpty,setIsEmpty] = useState(true);
 
-    // console.log(studentAssessment)
-    useEffect(()=>{
-        if(studentAssessment === undefined || student_id=== -1){
-            navigate('/');
-        }else{
-            setIsEmpty(false)
-        }
-    },[studentAssessment,student_id,navigate])
-    
     const [assessmentValues] = useState<AssessmentInputs>({
         songs:useRef<HTMLSelectElement | null>(null),
         worship_message:useRef<HTMLSelectElement | null>(null),
@@ -78,6 +39,17 @@ export default function Assessment(){
         total_marks:useRef<HTMLInputElement | null>(null),
         remarks:useRef<HTMLTextAreaElement | null>(null),
     })
+    
+    // console.log(studentAssessment)
+    useEffect(()=>{
+        if(student_id=== -1){
+            navigate('/');
+        }else{
+            setIsEmpty(false)
+        }
+    },[student_id,navigate])
+    
+    
     const HandleChange=(e:any)=>{
         
         let Attendance_marks:number = 2;
@@ -95,8 +67,6 @@ export default function Assessment(){
         if(assessmentValues.behaviour.current!==null) behaviour_marks = (isNaN(parseInt(assessmentValues.behaviour.current.value,10))? 0:parseInt(assessmentValues.behaviour.current.value,10));
         if(assessmentValues.memory_verses.current!==null) memory_verses_marks = (isNaN(parseInt(assessmentValues.memory_verses.current.value,10))? 0:parseInt(assessmentValues.memory_verses.current.value,10));
 
-        
-        
         if(assessmentValues.total_marks.current!==null){
             assessmentValues.total_marks.current.value = (Attendance_marks+songs_marks+worship_message_marks+table_message_marks+behaviour_marks+memory_verses_marks).toString();
             total = assessmentValues.total_marks.current.value
@@ -121,8 +91,7 @@ export default function Assessment(){
         // console.log(studentAssessment)
     }
 
-    const dispatch = useDispatch();
-
+    
     const uploadAssessment=(e:any)=>{
         e.preventDefault();
         // console.log([studentAssessment])

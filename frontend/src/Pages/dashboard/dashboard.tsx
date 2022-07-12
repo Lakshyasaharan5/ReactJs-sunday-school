@@ -3,24 +3,11 @@ import { initiateArray } from "../../redux/classAssessment"
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom"
 import Calendar from 'react-calendar';
+import studentsArray from '../students.json'
 import 'react-calendar/dist/Calendar.css';
 import "./dashboard.css"
 import "./calender.css"
 
-
-const studentsArray = [
-    {
-        "id":1,
-        "church_class" : "beersheba|junior|B",
-        "student_name" : "Naruto Uzumaki"
-        
-    },
-    {
-        "id":2,
-        "church_class" : "beersheba|junior|B",
-        "student_name" : "joy"
-    }
-]
 
 export default function Dashboard(){
     const [date,setDate] = useState(new Date());
@@ -55,13 +42,9 @@ export default function Dashboard(){
         "remarks" : "",
     }))
 
-    // console.log(assessmentArray)
     const dispatch = useDispatch();
-
-    // useEffect(()=>{
-        
-    // },[])
     const navigate = useNavigate();
+
     const toStudentList = (e:any) =>{
         e.preventDefault();
         dispatch(initiateArray(assessmentArray));
@@ -74,12 +57,7 @@ export default function Dashboard(){
                 <Calendar onChange={setDate} value={date} />
             </div>
             <div className="container">
-                {/* <div >
-                    {showAttendence ? <Link to="/assessment-studentlist"><div className="container rounded">
-                            <h3>Take Assesment</h3>
-                    </div></Link> : null}
-                    
-                </div> */}
+                
                 {showAttendence ? <button type="button" className="btn btn-secondary btn-lg" onClick={(e)=>toStudentList(e)}>Take class Assessment</button> : null}
                 
             </div>
