@@ -1,14 +1,29 @@
 import React,{useState , ChangeEvent, useEffect}from "react";
 import { deleteArray } from "../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { FinalAssessment } from "../assessment/Assesment";
 
 
 export default function AssessmentStudentList(){
    
-    const assessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray);
-    
+    const storeAssessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray);
+    const [assessmentArray,setAssessmentArray] = useState(storeAssessmentArray.map(
+        s=>({
+            "church_class" : s.church_class,
+            "date" : s.date,
+            "student_id":s.student_id,
+            "student_name" : s.student_name,
+            "attendance" : s.attendance,
+            "songs_4" : s.songs_4,
+            "worship_message" : s.worship_message,
+            "table_message" : s.table_message,
+            "behaviour" : s.behaviour,
+            "memory_verses" : s.memory_verses,
+            "total" : s.total,
+            "remarks" : s.remarks,
+        })
+    ))
     const [newStudentsArray,setNewStudentsArray] = useState(assessmentArray.map(
         student=>({
             "id":student.student_id, 
@@ -18,7 +33,10 @@ export default function AssessmentStudentList(){
             buttonDisabled:true
             })
         ))
-        
+    for(let i in newStudentsArray){
+        if(newStudentsArray[i].attendance==="present") newStudentsArray[i].buttonDisabled = false;
+    }
+
     const navigate = useNavigate();
     const [isEmpty,setIsEmpty] = useState(true);
 
@@ -55,12 +73,22 @@ export default function AssessmentStudentList(){
     const dispatch = useDispatch();
     const submitClassAssessment=(e:any)=>{
         e.preventDefault();
+        
+        for(let i in newStudentsArray){
+            if(newStudentsArray[i].attendance==="absent"){
+                setAssessmentArray(assessmentArray=>assessmentArray.map(
+                    obj=>obj.student_id===newStudentsArray[i].id ? Object.assign(obj,{attendance:"absent",songs_4:"0",memory_verses:"0",behaviour:"0",worship_message:"0",table_message:"0",remarks:"",total:"0"}) : obj
+                ))
+            }
+        }
         console.log(assessmentArray)
         dispatch(deleteArray())
+        navigate("/")
     }
 
     
     return (
+        <>{ isEmpty ? null : 
         <div className="container">
             <ul>
             {newStudentsArray.map(s=>( 
@@ -83,12 +111,13 @@ export default function AssessmentStudentList(){
             ))}    
             </ul>
             <div className="mb-3">
-
-                { isEmpty ? null : <button className="btn btn-primary float-end" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>}
+                <Link to="/"><button className="btn btn-secondary float-start" type="button">Back</button></Link>
+                <button className="btn btn-primary float-end" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>
             </div>
             
             <div className="clearfix"></div>
             
-        </div>
+        </div>}
+        </>
     );
 }

@@ -4,9 +4,9 @@ import {
   Routes, 
   Route,
 } from "react-router-dom";
+import AssessmentPage from './Pages/assessment/AssessmentPage';
+import ClassAssessmentPage from './Pages/assessmentStudentList/ClassAssessmentPage';
 import Dashboard from './Pages/dashboard/dashboard';
-import Assessment from './Pages/assessment/Assesment';
-import AssessmentStudentList from './Pages/assessmentStudentList/assessmentStudentList';
 
 
 function App() {
@@ -16,8 +16,8 @@ function App() {
     <Router>
         <Routes>
           <Route path="/" element={<Dashboard />}></Route>
-          <Route path="/assessment-studentlist" element={<AssessmentStudentList />}></Route>
-          <Route path="/assessment" element={<Assessment />}></Route>
+          <Route path="/assessment-studentlist" element={<ClassAssessmentPage />}></Route>
+          <Route path="/assessment" element={<AssessmentPage />}></Route>
         </Routes>
       </Router>
       

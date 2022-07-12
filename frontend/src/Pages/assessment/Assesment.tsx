@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import {updateArray } from "../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link,useLocation, useNavigate } from "react-router-dom";
 import "./assessment.css"
 
 interface AssessmentInputs{
@@ -43,7 +43,7 @@ export default function Assessment(){
     let student_id = -1
     if(location.state) student_id = location.state.student_id;
     
-    console.log(student_id)
+    // console.log(student_id)
 
     const assessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray)
     const [studentAssessment,setStudentAssessment] = useState<FinalAssessment>(assessmentArray.filter(student=>student.student_id===student_id)[0]);
@@ -60,7 +60,7 @@ export default function Assessment(){
     const navigate = useNavigate();
     const [isEmpty,setIsEmpty] = useState(true);
 
-    console.log(studentAssessment)
+    // console.log(studentAssessment)
     useEffect(()=>{
         if(studentAssessment === undefined || student_id=== -1){
             navigate('/');
@@ -125,16 +125,11 @@ export default function Assessment(){
 
     const uploadAssessment=(e:any)=>{
         e.preventDefault();
-        console.log([studentAssessment])
+        // console.log([studentAssessment])
         dispatch(updateArray([studentAssessment]))
         
     }
-    // const validate=(values:AssessmentInputs)=>{
-
-    //     if(values.behaviour.current?.value===initialValue.behaviour){
-
-    //     }
-    // }
+  
     return (
         <>
         {isEmpty ? null : <div className="container assessment-container shadow my-5">
@@ -221,7 +216,7 @@ export default function Assessment(){
                     <textarea ref={assessmentValues.remarks} className="form-control" defaultValue={initialValue.remarks} onChange={HandleChange} id="remarks" ></textarea>
                 </div>
                 <div className="mb-3">
-
+                    <Link to="/assessment-studentlist"><button className="btn btn-secondary float-start" type="button">Back</button></Link>
                     <button className="btn btn-primary float-end" type="button" onClick={(e)=>uploadAssessment(e)} >upload</button>
                 </div>
                 <div className="clearfix"></div>
