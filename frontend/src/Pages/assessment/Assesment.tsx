@@ -1,7 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {updateArray } from "../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./assessment.css"
 
 interface AssessmentInputs{
@@ -40,15 +40,14 @@ type LocationState = {
 export default function Assessment(){
     
     const location = useLocation() as unknown as LocationState;
-    const student_id = location.state.student_id;
-
+    let student_id = -1
+    if(location.state) student_id = location.state.student_id;
     
+    console.log(student_id)
 
     const assessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray)
     const [studentAssessment,setStudentAssessment] = useState<FinalAssessment>(assessmentArray.filter(student=>student.student_id===student_id)[0]);
-    // const [tempRemarks,setTempRemarks]=useState(studentAssessment?.remarks)
-    // console.log(studentAssessment)
-    // const [assessmentvars,setAssessmentVars] = useState(initialValue)
+    
     const initialValue = {
         songs:studentAssessment?.songs_4,
         worship_message:studentAssessment?.worship_message,
@@ -57,8 +56,19 @@ export default function Assessment(){
         memory_verses:studentAssessment?.memory_verses,
         total_marks:2,
         remarks:studentAssessment?.remarks
-        
     }
+    const navigate = useNavigate();
+    const [isEmpty,setIsEmpty] = useState(true);
+
+    console.log(studentAssessment)
+    useEffect(()=>{
+        if(studentAssessment === undefined || student_id=== -1){
+            navigate('/');
+        }else{
+            setIsEmpty(false)
+        }
+    },[studentAssessment,student_id,navigate])
+    
     const [assessmentValues] = useState<AssessmentInputs>({
         songs:useRef<HTMLSelectElement | null>(null),
         worship_message:useRef<HTMLSelectElement | null>(null),
@@ -126,7 +136,8 @@ export default function Assessment(){
     //     }
     // }
     return (
-        <div className="container assessment-container shadow my-5">
+        <>
+        {isEmpty ? null : <div className="container assessment-container shadow my-5">
             <div className="">
                 <h4>Student Name : {studentAssessment?.student_name}</h4>   
             </div>
@@ -218,6 +229,7 @@ export default function Assessment(){
            
             
             
-        </div>
+        </div>}
+        </>
     );
 }

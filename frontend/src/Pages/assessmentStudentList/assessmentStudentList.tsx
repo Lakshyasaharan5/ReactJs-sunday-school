@@ -1,31 +1,11 @@
-import React,{useState , ChangeEvent}from "react";
+import React,{useState , ChangeEvent, useEffect}from "react";
 import { deleteArray } from "../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FinalAssessment } from "../assessment/Assesment";
 
-// const studentsArray = [
-//     {
-//         "id":1,
-//         "church_class" : "beersheba|junior|B",
-//         "student_name" : "Naruto Uzumaki"
-        
-//     },
-//     {
-//         "id":2,
-//         "church_class" : "beersheba|junior|B",
-//         "student_name" : "joy"
-//     }
-// ]
-// type LocationState = {
-//     state:{
-//         student_id: number;
-//     };
-//   }
 
 export default function AssessmentStudentList(){
-
-    // const location = useLocation() as unknown as LocationState;
    
     const assessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray);
     
@@ -38,6 +18,17 @@ export default function AssessmentStudentList(){
             buttonDisabled:true
             })
         ))
+        
+    const navigate = useNavigate();
+    const [isEmpty,setIsEmpty] = useState(true);
+
+    useEffect(()=>{
+        if(newStudentsArray.length === 0){
+            navigate('/');
+        }else{
+            setIsEmpty(false)
+        }
+    },[newStudentsArray,navigate])
     
     const handleChange=(e:ChangeEvent<HTMLSelectElement>,id:number)=>{
         e.preventDefault();
@@ -51,8 +42,9 @@ export default function AssessmentStudentList(){
         }
     }
 
-    const navigate = useNavigate();
+    
 
+    
     const toAssessmentPage = (id:number) =>{
         navigate("/assessment",{
             state:{
@@ -66,6 +58,8 @@ export default function AssessmentStudentList(){
         console.log(assessmentArray)
         dispatch(deleteArray())
     }
+
+    
     return (
         <div className="container">
             <ul>
@@ -90,10 +84,11 @@ export default function AssessmentStudentList(){
             </ul>
             <div className="mb-3">
 
-                <button className="btn btn-primary float-end" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>
+                { isEmpty ? null : <button className="btn btn-primary float-end" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>}
             </div>
             
             <div className="clearfix"></div>
+            
         </div>
     );
 }
