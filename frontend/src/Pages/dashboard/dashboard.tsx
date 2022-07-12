@@ -52,13 +52,14 @@ export default function Dashboard(){
     }
 
     return (
-        <div className="container">
-            <div className="calendar-container">
+        <div className="container grid grid-cols-1">
+            <div className=" container flex justify-center calendar-container">
                 <Calendar onChange={setDate} value={date} />
             </div>
-            <div className="container">
+            
+            <div className="container flex justify-center my-3">
                 
-                {showAttendence ? <button type="button" className="btn btn-secondary btn-lg" onClick={(e)=>toStudentList(e)}>Take class Assessment</button> : null}
+                {showAttendence ? <button type="button" className=" bg-cyan-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " onClick={(e)=>toStudentList(e)}>Take class Assessment</button> : null}
                 
             </div>
         </div>

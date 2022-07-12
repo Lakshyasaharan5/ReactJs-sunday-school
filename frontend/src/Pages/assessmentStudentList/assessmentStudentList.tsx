@@ -93,36 +93,48 @@ export default function AssessmentStudentList(){
 
     
     return (
-        <>{ isEmpty ? null : 
-        <div className="container">
-            <ul>
+        <div className=" bg-blue-300 h-screen py-4">
+        { isEmpty ? null : 
+        
+            
+            <form className="bg-white shadow-md px-8 pt-6 pb-8 mx-3  rounded-lg grid gap-3 font-serif">
+            <div className="flex justify-center ">
+                <h1 className="  text-xl">BEERSHEBA JUNIOR BOYS </h1>
+            </div>
+            <ul className="divide-y-2  ">
             {newStudentsArray.map(s=>( 
                     <li key={s.id}>
-                        <div className="border-bottom py-2">
-                            <h3>{s.student_name}</h3>
+                        <div className="  py-2 grid gap-2 ">
+                            <div className="inline-flex justify-start ">
+                                <p className="pr-1 font-bold ">Student Name:</p><p className="px-1 ml-3">{s.student_name}</p>
+                            </div>
+                            
                             <div className="container">
-                                <div className="row" >
-                                <label htmlFor="attendance" className="form-label col">Attendance :</label>
-                                    <select name="attendance" defaultValue={s.attendance} onChange={(e)=>handleChange(e,s.id)} className="form-select form-select-sm col">
+                                <div className="flex" >
+                                <label htmlFor="attendance" className="font-bold pr-1">Attendance :</label>
+                                    <select className="ml-7 px-3 pl-5 rounded-sm bg-gray-200 text-gray-700 border border-gray-200" name="attendance" defaultValue={s.attendance} onChange={(e)=>handleChange(e,s.id)} >
                                         <option value="present">Present</option>
                                         <option value="absent">Absent</option>
                                         
                                     </select>
                                 </div>
                             </div>
-                            <button className="btn btn-secondary btn-sm" disabled={s.buttonDisabled} onClick={()=>toAssessmentPage(s.id)}>give assessment</button>
+                            
+                            <div className="flex justify-end">
+                                <button className=" bg-cyan-500 hover:bg-cyan-700 text-white text-sm font-sans font-semibold py-1 px-2 rounded disabled:bg-cyan-700"  disabled={s.buttonDisabled} onClick={()=>toAssessmentPage(s.id)}>Assign marks</button>
+                            </div>
                         </div>
                     </li>
             ))}    
             </ul>
-            <div className="mb-3">
-                <Link to="/"><button className="btn btn-secondary float-start" type="button">Back</button></Link>
-                <button className="btn btn-primary float-end" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>
+            <div className="flex justify-between">
+                <Link to="/"><button className=" bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></Link>
+                <button className=" bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>
             </div>
             
             <div className="clearfix"></div>
-            
-        </div>}
-        </>
+            </form>
+        }
+        </div>
     );
 }

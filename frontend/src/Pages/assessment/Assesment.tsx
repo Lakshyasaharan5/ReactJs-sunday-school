@@ -10,7 +10,7 @@ export default function Assessment(){
     const location = useLocation() as unknown as LocationState;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const [total,setTotal]= useState("2");
     let student_id = -1;
     if(location.state) student_id = location.state.student_id; 
     
@@ -42,12 +42,13 @@ export default function Assessment(){
     
     // console.log(studentAssessment)
     useEffect(()=>{
-        if(student_id=== -1){
+        if(studentAssessment===undefined||student_id=== -1){
             navigate('/');
         }else{
             setIsEmpty(false)
         }
-    },[student_id,navigate])
+    },[studentAssessment,student_id,navigate])
+    // console.log(studentAssessment)
     
     
     const HandleChange=(e:any)=>{
@@ -72,7 +73,7 @@ export default function Assessment(){
             total = assessmentValues.total_marks.current.value
         } 
         if(assessmentValues.remarks.current!==null) remarks = assessmentValues.remarks.current.value;
-
+        setTotal(total)
         const updatedAssessmentValues:FinalAssessment = {
             "church_class": studentAssessment?.church_class,
             "date": studentAssessment?.date,
@@ -100,63 +101,76 @@ export default function Assessment(){
     }
   
     return (
-        <>
-        {isEmpty ? null : <div className="container assessment-container shadow my-5">
-            <div className="">
-                <h4>Student Name : {studentAssessment?.student_name}</h4>   
+        <div className="bg-blue-300 h-screen py-4">
+        {isEmpty ? null : <div className="bg-white shadow-md px-8 pt-6 pb-8 mx-3  rounded-lg grid gap-2 font-serif">
+            <div className="flex justify-center">
+                <p className="pr-1 font-bold ">Student Name : </p><p className="px-1 ml-3"> {studentAssessment?.student_name}</p>   
             </div>
-            <form className="container-fluid py-3">
+            <form className="py-2 grid gap-4 ">
                 
-                <div className="mb-3" >
-                    <label htmlFor="songs" className="form-label">4 Songs</label>
-                     <select ref={assessmentValues.songs} name="worship_message" defaultValue={initialValue.songs} onChange={HandleChange} className="form-select form-select-sm">
-                        
+                <div className="grid gap-1" >
+                    <div className="flex justify-between">
+                    <label htmlFor="songs" className="pr-2 font-bold">4 Songs: </label>
+                     <select className="ml-3 pl-1   rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" ref={assessmentValues.songs} name="songs_4" defaultValue={initialValue.songs} onChange={HandleChange} >
+                        <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         
                     </select>
-                    <div className="form-text">1 mark</div>
+                    </div>
+                    <div className=" font-sans text-xs font-extralight">1 mark</div>
                 </div>   
-                <div className="mb-3">
-                    <label htmlFor="worship_message" className="form-label">Worship Message</label>
-                    <select ref={assessmentValues.worship_message} name="worship_message" defaultValue={initialValue.worship_message} onChange={HandleChange} className="form-select form-select-sm">
+
+                <div className="grid gap-1" >
+                    <div className="flex justify-between">
+                        <label htmlFor="worship_message" className="pr-2 font-bold">Worship Message</label>
+                        <select ref={assessmentValues.worship_message} name="worship_message" defaultValue={initialValue.worship_message} onChange={HandleChange} className="ml-2 pl-1 rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans">
+                            <option value="DEFAULT" disabled>select marks</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div className=" font-sans text-xs font-extralight">5 Marks</div>
+                </div>  
+
+                <div className="grid gap-1" >
+                    <div className="flex justify-between">
+                        <label htmlFor="table_message" className="pr-2 font-bold">Table Message</label>
+                        <select ref={assessmentValues.table_message} name="table_message" defaultValue={initialValue.table_message} onChange={HandleChange} className="ml-3 pl-1  rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans">
+                            <option value="DEFAULT" disabled>select marks</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div className=" font-sans text-xs font-extralight">5 Marks</div>
+                </div>  
+
+               <div className="grid gap-1" >
+                    <div className="flex justify-between">
+                    <label htmlFor="behaviour" className="pr-2 font-bold">Behaviour</label>
+                    <select ref={assessmentValues.behaviour} name="behaviour" defaultValue={initialValue.behaviour} onChange={HandleChange} className="ml-3 pl-1  rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans">
                         <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
                     </select>
-                    <div className="form-text">5 Marks</div>
+                    </div>
+                    <div className=" font-sans text-xs font-extralight">3 Marks</div>
                 </div>  
-                <div className="mb-3">
-                    <label htmlFor="table_message" className="form-label">Table Message</label>
-                    <select ref={assessmentValues.table_message} name="table_message" defaultValue={initialValue.table_message} onChange={HandleChange} className="form-select form-select-sm">
-                        <option value="DEFAULT" disabled>select marks</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                    <div className="form-text">5 Marks</div>
-                </div>  
-                <div className="mb-3">
-                    <label htmlFor="behaviour" className="form-label">Behaviour</label>
-                    <select ref={assessmentValues.behaviour} name="behaviour" defaultValue={initialValue.behaviour} onChange={HandleChange} className="form-select form-select-sm">
-                        <option value="DEFAULT" disabled>select marks</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                    <div className="form-text">3 Marks</div>
-                </div>  
-                <div className="mb-3">
-                    <label htmlFor="memory_verses" className="form-label">Memory Verses</label>
-                    <select ref={assessmentValues.memory_verses} name="memory_verses" defaultValue={initialValue.memory_verses} onChange={HandleChange} className="form-select form-select-sm">
+
+                <div className="grid gap-1" >
+                    <div className="flex justify-between">
+                    <label htmlFor="memory_verses" className="pr-2 font-bold">Memory Verses</label>
+                    <select ref={assessmentValues.memory_verses} name="memory_verses" defaultValue={initialValue.memory_verses} onChange={HandleChange} className="ml-3 pl-1  rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans">
                         <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -174,19 +188,29 @@ export default function Assessment(){
                         <option value="13">13</option>
                         <option value="14">14</option>
                     </select>
-                    <div className="form-text">14 Marks</div>
+                    </div>
+                    <div className=" font-sans text-xs font-extralight">14 Marks</div>
                 </div>  
-                <div className="mb-3" >
-                    <label htmlFor="total_marks" className="form-label">Total Marks</label>
-                    <input ref={assessmentValues.total_marks} name="total_marks" defaultValue={initialValue.total_marks} type="text" onChange={HandleChange} className="form-control"  placeholder="0" disabled/>
+
+                <div className="grid gap-1" >
+                    <div className="flex justify-between">
+                    <label htmlFor="total_marks" className="pr-2 font-bold">Total Marks:</label>
+                    {/* <input ref={assessmentValues.total_marks} name="total_marks" defaultValue={initialValue.total_marks} type="text" onChange={HandleChange} className=" w-40 pl-6   rounded-sm bg-gray-200 text-black font-bold border border-gray-200 font-sans disabled:text-black" disabled/> */}
+                        <p ref={assessmentValues.total_marks}  defaultValue={initialValue.total_marks}  onChange={HandleChange} className=" w-40 pl-6  font-bold "> {total}</p>
+                    </div>
+                    <div className=" font-sans text-xs font-extralight">30 Marks</div>
                 </div>
-                <div className="mb-3" >
-                    <label htmlFor="remarks" className="form-label">Remarks</label>
-                    <textarea ref={assessmentValues.remarks} className="form-control" defaultValue={initialValue.remarks} onChange={HandleChange} id="remarks" ></textarea>
+
+                <div className="grid gap-2 grid-cols-1" >
+                    
+                    <label htmlFor="remarks" className="pr-2 font-bold">Remarks</label>
+                    <textarea ref={assessmentValues.remarks} className="border-2 border-gray-500 rounded-md h-20 font-sans" defaultValue={initialValue.remarks} onChange={HandleChange} id="remarks" ></textarea>
+                    
                 </div>
-                <div className="mb-3">
-                    <Link to="/assessment-studentlist"><button className="btn btn-secondary float-start" type="button">Back</button></Link>
-                    <button className="btn btn-primary float-end" type="button" onClick={(e)=>uploadAssessment(e)} >upload</button>
+
+                <div className="flex justify-between">
+                    <Link to="/assessment-studentlist"><button className="bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></Link>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>uploadAssessment(e)} >upload</button>
                 </div>
                 <div className="clearfix"></div>
             </form>
@@ -194,6 +218,6 @@ export default function Assessment(){
             
             
         </div>}
-        </>
+        </div>
     );
 }
