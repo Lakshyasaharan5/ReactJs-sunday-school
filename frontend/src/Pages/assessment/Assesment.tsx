@@ -5,13 +5,14 @@ import { Link,useLocation, useNavigate } from "react-router-dom";
 import { FinalAssessment,AssessmentInputs,LocationState } from "../InterfacesAndTypes"
 import "./assessment.css"
 
-export default function Assessment(){
+const Assessment = ()=>{
     
     const location = useLocation() as unknown as LocationState;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [total,setTotal]= useState("2");
-    let student_id = -1;
+
+    let student_id = "";
     if(location.state) student_id = location.state.student_id; 
     
     // console.log(student_id)
@@ -42,7 +43,7 @@ export default function Assessment(){
     
     // console.log(studentAssessment)
     useEffect(()=>{
-        if(studentAssessment===undefined||student_id=== -1){
+        if(studentAssessment===undefined||student_id=== ""){
             navigate('/');
         }else{
             setIsEmpty(false)
@@ -221,3 +222,5 @@ export default function Assessment(){
         </div>
     );
 }
+
+export default Assessment;
