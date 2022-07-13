@@ -18,7 +18,9 @@ http://localhost:8080/addAssessment   POST
     
 }
 
+
 Expecting student list
+
 [
     {
         "id":1,
@@ -31,6 +33,7 @@ Expecting student list
         "church_class" : "beersheba|junior|B",
         "student_name" : "joy"
     }
+
 ]
 
 
@@ -64,4 +67,5 @@ final assessment to back when submit
         "total": "0",
         "remarks": ""
     }
+
 ]
