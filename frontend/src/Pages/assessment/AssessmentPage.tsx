@@ -5,7 +5,7 @@ export default function AssessmentPage(){
 
     return (
         <>
-        <Assessment/>
+            <Assessment/>
         </>
     );
 }

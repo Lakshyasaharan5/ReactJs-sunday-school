@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link,useNavigate } from "react-router-dom";
 import { FinalAssessment } from "../InterfacesAndTypes"
 import { Modal} from '@mantine/core';
+import StudentCard from "./studentCard";
 
 
-export default function AssessmentStudentList(){
+const AssessmentStudentList=()=>{
 
 
     const navigate = useNavigate();
@@ -58,7 +59,7 @@ export default function AssessmentStudentList(){
     },[newStudentsArray,navigate])
     
 
-    const handleChange=(e:ChangeEvent<HTMLSelectElement>,id:number)=>{
+    const handleChange=(e:ChangeEvent<HTMLSelectElement>,id:string)=>{
         e.preventDefault();
         // console.log(e.target.value)
         if(e.target.value==="present"){
@@ -70,7 +71,7 @@ export default function AssessmentStudentList(){
         }
     }
 
-    const toAssessmentPage = (id:number) =>{
+    const toAssessmentPage = (id:string) =>{
         navigate("/assessment",{
             state:{
                 student_id:id
@@ -90,9 +91,8 @@ export default function AssessmentStudentList(){
         }
         console.log(assessmentArray)
         setSubmitModalOpened(true)
-        // dispatch(deleteArray())
-        // navigate("/")
     }
+
     const confirmClassAssessment = (e:any)=>{
         e.preventDefault();
         dispatch(deleteArray())
@@ -102,65 +102,56 @@ export default function AssessmentStudentList(){
     
     return (
 
-        <div className=" bg-blue-300 h-screen py-4">
+        <>
             <Modal
                 opened={submitModalOpened}
                 onClose={() => setSubmitModalOpened(false)}
                 title="Class Assessment Marks"
             >
-                {assessmentArray.map(a=>(
-                    <div key={a.student_id}>
-                        <div className="inline-flex justify-start ">
-                            <p className="pr-1 font-bold ">{a.student_name}:</p><p className="px-1 ml-3">{a.total}</p>
-                        </div>
+            {assessmentArray.map(a=>(
+                <div key={a.student_id}>
+                    <div className="inline-flex justify-start ">
+                        <p className="pr-1 font-bold ">{a.student_name}:</p><p className="px-1 ml-3">{a.total}</p>
                     </div>
+                </div>
 
-                ))}
+            ))}
                 <div className="flex justify-end">
                         <button className=" bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>confirmClassAssessment(e)} >Confirm</button>
                 </div>
             </Modal>
+
+
         { isEmpty ? null : 
         
-            
             <form className="bg-white shadow-md px-8 pt-6 pb-8 mx-3  rounded-lg grid gap-3 font-serif">
-            <div className="flex justify-center ">
-                <h1 className="  text-xl">BEERSHEBA JUNIOR BOYS </h1>
-            </div>
-            <ul className="divide-y-2  ">
-            {newStudentsArray.map(s=>( 
-                    <li key={s.id}>
-                        <div className="  py-2 grid gap-2 ">
-                            <div className="inline-flex justify-start ">
-                                <p className="pr-1 font-bold ">Student Name:</p><p className="px-1 ml-3">{s.student_name}</p>
-                            </div>
-                            
-                            <div className="container">
-                                <div className="flex" >
-                                <label htmlFor="attendance" className="font-bold pr-1">Attendance :</label>
-                                    <select className="ml-7 px-3 pl-5 rounded-sm bg-gray-200 text-gray-700 border border-gray-200" name="attendance" defaultValue={s.attendance} onChange={(e)=>handleChange(e,s.id)} >
-                                        <option value="present">Present</option>
-                                        <option value="absent">Absent</option>
-                                        
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div className="flex justify-end">
-                                <button className=" bg-cyan-500 hover:bg-cyan-700 text-white text-sm font-sans font-semibold py-1 px-2 rounded disabled:bg-cyan-700"  disabled={s.buttonDisabled} onClick={()=>toAssessmentPage(s.id)}>Assign marks</button>
-                            </div>
-                        </div>
-                    </li>
-            ))}    
-            </ul>
-            <div className="flex justify-between">
-                <Link to="/"><button className=" bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></Link>
-                <button className=" bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>
-            </div>
-            
-            <div className="clearfix"></div>
+                <div className="flex justify-center ">
+                    <h1 className="  text-xl">BEERSHEBA JUNIOR BOYS </h1>
+                </div>
+                <ul className="divide-y-2  ">
+                    {newStudentsArray.map(s=>( 
+                        <li key={s.id}>
+                            <StudentCard
+                                id={s.id}
+                                student_name={s.student_name}
+                                attendance={s.attendance}
+                                buttonDisabled = {s.buttonDisabled}
+                                handleChange = {handleChange}
+                                toAssessmentPage = {toAssessmentPage} 
+                                />
+                        </li>
+                    ))}    
+                </ul>
+                <div className="flex justify-between">
+                    <Link to="/"><button className=" bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></Link>
+                    <button className=" bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>
+                </div>
+                
+                <div className="clearfix"></div>
             </form>
         }
-        </div>
+        </>
     );
 }
+
+export default AssessmentStudentList;
