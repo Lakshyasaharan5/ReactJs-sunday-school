@@ -6,7 +6,8 @@ import {
 } from "react-router-dom";
 import AssessmentPage from './Pages/assessment/AssessmentPage';
 import ClassAssessmentPage from './Pages/assessmentStudentList/ClassAssessmentPage';
-import Dashboard from './Pages/dashboard/dashboard';
+// import Dashboard from './Pages/dashboard/dashboard';
+import DashboardPage from './Pages/dashboard/dashboardPage';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
 
     <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />}></Route>
+          <Route path="/" element={<DashboardPage />}></Route>
           <Route path="/assessment-studentlist" element={<ClassAssessmentPage />}></Route>
           <Route path="/assessment" element={<AssessmentPage />}></Route>
         </Routes>

@@ -2,19 +2,18 @@ import React,{useEffect, useState} from "react";
 import { initiateArray } from "../../redux/classAssessment"
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom"
-import Calendar from 'react-calendar';
 import studentsArray from '../students.json'
 import 'react-calendar/dist/Calendar.css';
 import "./dashboard.css"
-import "./calender.css"
+import { dashboardProps } from "../InterfacesAndTypes";
 
 
-export default function Dashboard(){
-    const [date,setDate] = useState(new Date());
+export default function Dashboard(props:dashboardProps){
+    const date = props.date;
     const [showAttendence, setShowAttendence] = useState(false);
 
     useEffect(()=>{
-        if(date.toDateString()?.slice(0,3)==="Sun"){
+        if(date?.toDateString()?.slice(0,3)==="Sun"){
             setShowAttendence(true);
         }else{
             setShowAttendence(false)
@@ -52,12 +51,9 @@ export default function Dashboard(){
     }
 
     return (
-        <div className="container grid grid-cols-1">
-            <div className=" container flex justify-center calendar-container">
-                <Calendar onChange={setDate} value={date} />
-            </div>
+        <div className=" grid grid-cols-1">
             
-            <div className="container flex justify-center my-3">
+            <div className=" flex justify-center my-3">
                 
                 {showAttendence ? <button type="button" className=" bg-cyan-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " onClick={(e)=>toStudentList(e)}>Take class Assessment</button> : null}
                 

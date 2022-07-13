@@ -12,7 +12,7 @@ export interface AssessmentInputs{
 export interface FinalAssessment{
     church_class:string;
     date:string;
-    student_id:number;
+    student_id:string;
     student_name:string;
     attendance:string;
     songs_4:string;
@@ -26,6 +26,19 @@ export interface FinalAssessment{
 
 export type LocationState = {
     state:{
-        student_id: number;
+        student_id: string;
     };
   }
+
+export interface dashboardProps{
+    date:Date|null
+}
+
+export interface studentCardProps{
+    id:string,
+    student_name:string,
+    attendance:string,
+    buttonDisabled:boolean,
+    handleChange:(e:any,id:string)=> void;
+    toAssessmentPage:(id:string)=> void
+}
