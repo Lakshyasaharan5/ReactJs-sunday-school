@@ -1,10 +1,15 @@
 package com.sundayschool.controllers;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sundayschool.dao.AssessmentMarksDAO;
@@ -45,6 +50,18 @@ public class SundaySchoolController {
 			return HttpStatus.BAD_REQUEST.getReasonPhrase();
 		}	
 
+	}
+	
+	@RequestMapping(value="/getStudentsForAssessment", method=RequestMethod.GET)
+	public String sendStudentListForAssessmentMarks(@RequestParam("username") String TeacherUsername) {
+		
+		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
+		try {
+			return assessmentMarksHandler.getStudentsListByTeacherUsername(TeacherUsername);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpStatus.BAD_REQUEST.getReasonPhrase();
+		}
 	}
 	
 	@RequestMapping(value = "/addTeacher", method = RequestMethod.POST)
