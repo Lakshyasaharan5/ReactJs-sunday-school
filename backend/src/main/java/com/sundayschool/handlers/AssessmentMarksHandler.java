@@ -2,11 +2,15 @@ package com.sundayschool.handlers;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.json.*;
 
 import com.sundayschool.databaseutility.*;
 import com.sundayschool.dao.AssessmentMarksDAO;
+import com.sundayschool.dao.StudentDAO;
 
 
 public class AssessmentMarksHandler {
@@ -69,5 +73,86 @@ public class AssessmentMarksHandler {
 		return status;
 		
 	}
+
+	public String getStudentsListByTeacherUsername(String teacherUsername) throws SQLException {
+		
+		ConnectionUtility.loadDriver();
+		Connection con = ConnectionUtility.getConnection();
+		PreparedStatement ps;
+		ArrayList<StudentDAO> studentDaoList = new ArrayList<StudentDAO>();
+		String JsonResponse = "";
+		
+		try {
+				String query = "SELECT * FROM students WHERE church_class = " + getChurchClassByTeacherUsernameFromUsers(teacherUsername) + " AND enabled = true;";
+				ps = con.prepareStatement(query);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					StudentDAO studentDao = new StudentDAO();
+					studentDao.setId_student(rs.getInt("id_student"));
+					studentDao.setUniqueID(rs.getString("uniqueID"));
+					studentDao.setStudent_name(rs.getString("student_name"));
+					studentDao.setChurch_class(rs.getString("church_class"));
+					studentDao.setDetails(rs.getString("details"));
+					studentDaoList.add(studentDao);
+				}
+			
+		}catch (Exception e) {
+			e.printStackTrace();			
+			return null;
+		}
+		try {
+			JsonResponse = createJsonResponse(studentDaoList);
+			
+		}catch (Exception e) {
+			e.printStackTrace();			
+			return null;
+		}
+		finally {
+			con.close();
+		}
+		return JsonResponse;
+	}
 	
+	private String createJsonResponse(ArrayList<StudentDAO> studentDaoList) {
+		
+		JSONObject responseJson = new JSONObject();
+		JSONArray studentsArray = new JSONArray();
+		
+		for(int i=0; i<studentDaoList.size(); i++) {
+			JSONObject tempObj = new JSONObject();
+			tempObj.put("uniqueID", studentDaoList.get(i).getUniqueID());
+			tempObj.put("student_name", studentDaoList.get(i).getStudent_name());
+			tempObj.put("church_class", studentDaoList.get(i).getChurch_class());			
+			studentsArray.put(tempObj);
+		}
+		
+		responseJson.put("Students", studentsArray);
+		return responseJson.toString();
+	}
+
+	public String getChurchClassByTeacherUsernameFromUsers(String teacherUsername) throws SQLException {
+		
+		ConnectionUtility.loadDriver();
+		Connection con = ConnectionUtility.getConnection();
+		PreparedStatement ps;
+		String churchClass = "";
+		
+		try {
+				String query = "SELECT (church_class) FROM users WHERE username="+teacherUsername+";";
+				ps = con.prepareStatement(query);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					churchClass = rs.getString("church_class");
+				}
+			
+		}catch (Exception e) {
+			e.printStackTrace();			
+			return null;
+		}
+		finally {
+			con.close();
+		}
+		
+		return churchClass;
+	}
 }

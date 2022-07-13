@@ -17,3 +17,19 @@ http://localhost:8080/addAssessment   POST
     "remarks" : "",
     
 }
+
+
+
+[
+    {
+        "id":1,
+        "church_class" : "beersheba|junior|B",
+        "student_name" : "Naruto Uzumaki"
+        
+    },
+    {
+        "id":2,
+        "church_class" : "beersheba|junior|B",
+        "student_name" : "joy"
+    }
+]
