@@ -19,6 +19,7 @@ http://localhost:8080/addAssessment   POST
 }
 
 
+Expecting student list
 
 [
     {
@@ -32,4 +33,39 @@ http://localhost:8080/addAssessment   POST
         "church_class" : "beersheba|junior|B",
         "student_name" : "joy"
     }
+
+]
+
+
+final assessment to back when submit
+[
+    {
+        "church_class": "beersheba|junior|B",
+        "date": "2022-07-13",
+        "student_id": 1,
+        "student_name": "Naruto Uzumaki",
+        "attendance": "present",
+        "songs_4": "1",
+        "worship_message": "5",
+        "table_message": "5",
+        "behaviour": "3",
+        "memory_verses": "14",
+        "total": "30",
+        "remarks": "455"
+    },
+    {
+        "church_class": "beersheba|junior|B",
+        "date": "2022-07-13",
+        "student_id": 2,
+        "student_name": "joy",
+        "attendance": "absent",
+        "songs_4": "0",
+        "worship_message": "0",
+        "table_message": "0",
+        "behaviour": "0",
+        "memory_verses": "0",
+        "total": "0",
+        "remarks": ""
+    }
+
 ]
