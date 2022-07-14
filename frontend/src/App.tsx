@@ -8,6 +8,7 @@ import AssessmentPage from './Pages/assessment/AssessmentPage';
 import ClassAssessmentPage from './Pages/assessmentStudentList/ClassAssessmentPage';
 // import Dashboard from './Pages/dashboard/dashboard';
 import DashboardPage from './Pages/dashboard/dashboardPage';
+import TeacherProfile from './Pages/profilePage/teacherProfile';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<DashboardPage />}></Route>
           <Route path="/assessment-studentlist" element={<ClassAssessmentPage />}></Route>
           <Route path="/assessment" element={<AssessmentPage />}></Route>
+          <Route path="/profile" element={<TeacherProfile />}></Route>
         </Routes>
       </Router>
       
