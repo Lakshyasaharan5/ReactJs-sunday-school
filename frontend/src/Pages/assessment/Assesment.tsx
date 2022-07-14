@@ -102,15 +102,18 @@ const Assessment = ()=>{
     }
   
     return (
-        <div className="bg-blue-300 h-screen py-4">
-        {isEmpty ? null : <div className="bg-white shadow-md px-8 pt-6 pb-8 mx-3  rounded-lg grid gap-2 font-serif">
+        <div className=" h-screen  ">
+        {isEmpty ? null : 
             <div className="flex justify-center">
-                <p className="pr-1 font-bold ">Student Name : </p><p className="px-1 ml-3"> {studentAssessment?.student_name}</p>   
-            </div>
-            <form className="py-2 grid gap-4 ">
-                
+
+            <form className="flex flex-col gap-6 bg-white shadow-2xl px-5 py-5 mx-3  rounded-2xl font-serif w-[20.2rem]">
+                <div className="">
+                    <div className="flex justify-center ">
+                        <p className="pr-1 font-bold ">Student Name : </p><p className="px-1 ml-3"> {studentAssessment?.student_name}</p>   
+                    </div>
+                </div>
                 <div className="grid gap-1" >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                     <label htmlFor="songs" className="pr-2 font-bold">4 Songs: </label>
                      <select className="ml-3 pl-1   rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" ref={assessmentValues.songs} name="songs_4" defaultValue={initialValue.songs} onChange={HandleChange} >
                         <option value="DEFAULT" disabled>select marks</option>
@@ -123,7 +126,7 @@ const Assessment = ()=>{
                 </div>   
 
                 <div className="grid gap-1" >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                         <label htmlFor="worship_message" className="pr-2 font-bold">Worship Message</label>
                         <select ref={assessmentValues.worship_message} name="worship_message" defaultValue={initialValue.worship_message} onChange={HandleChange} className="ml-2 pl-1 rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans">
                             <option value="DEFAULT" disabled>select marks</option>
@@ -139,7 +142,7 @@ const Assessment = ()=>{
                 </div>  
 
                 <div className="grid gap-1" >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                         <label htmlFor="table_message" className="pr-2 font-bold">Table Message</label>
                         <select ref={assessmentValues.table_message} name="table_message" defaultValue={initialValue.table_message} onChange={HandleChange} className="ml-3 pl-1  rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans">
                             <option value="DEFAULT" disabled>select marks</option>
@@ -155,7 +158,7 @@ const Assessment = ()=>{
                 </div>  
 
                <div className="grid gap-1" >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                     <label htmlFor="behaviour" className="pr-2 font-bold">Behaviour</label>
                     <select ref={assessmentValues.behaviour} name="behaviour" defaultValue={initialValue.behaviour} onChange={HandleChange} className="ml-3 pl-1  rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans">
                         <option value="DEFAULT" disabled>select marks</option>
@@ -169,7 +172,7 @@ const Assessment = ()=>{
                 </div>  
 
                 <div className="grid gap-1" >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                     <label htmlFor="memory_verses" className="pr-2 font-bold">Memory Verses</label>
                     <select ref={assessmentValues.memory_verses} name="memory_verses" defaultValue={initialValue.memory_verses} onChange={HandleChange} className="ml-3 pl-1  rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans">
                         <option value="DEFAULT" disabled>select marks</option>
@@ -194,17 +197,17 @@ const Assessment = ()=>{
                 </div>  
 
                 <div className="grid gap-1" >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                     <label htmlFor="total_marks" className="pr-2 font-bold">Total Marks:</label>
                     {/* <input ref={assessmentValues.total_marks} name="total_marks" defaultValue={initialValue.total_marks} type="text" onChange={HandleChange} className=" w-40 pl-6   rounded-sm bg-gray-200 text-black font-bold border border-gray-200 font-sans disabled:text-black" disabled/> */}
-                        <p ref={assessmentValues.total_marks}  defaultValue={initialValue.total_marks}  onChange={HandleChange} className=" w-40 pl-6  font-bold "> {total}</p>
+                        <p ref={assessmentValues.total_marks}  defaultValue={initialValue.total_marks}  onChange={HandleChange} className=" w-32 pl-6  font-bold "> {total}</p>
                     </div>
                     <div className=" font-sans text-xs font-extralight">30 Marks</div>
                 </div>
 
                 <div className="grid gap-2 grid-cols-1" >
                     
-                    <label htmlFor="remarks" className="pr-2 font-bold">Remarks</label>
+                    <label htmlFor="remarks" className="pr-2 font-bold  text-sm">Remarks</label>
                     <textarea ref={assessmentValues.remarks} className="border-2 border-gray-500 rounded-md h-20 font-sans" defaultValue={initialValue.remarks} onChange={HandleChange} id="remarks" ></textarea>
                     
                 </div>
@@ -215,6 +218,7 @@ const Assessment = ()=>{
                 </div>
                 <div className="clearfix"></div>
             </form>
+       
            
             
             

@@ -102,11 +102,12 @@ const AssessmentStudentList=()=>{
     
     return (
 
-        <>
+        <div className="flex flex-col ">
             <Modal
                 opened={submitModalOpened}
                 onClose={() => setSubmitModalOpened(false)}
                 title="Class Assessment Marks"
+                
             >
             {assessmentArray.map(a=>(
                 <div key={a.student_id}>
@@ -123,8 +124,8 @@ const AssessmentStudentList=()=>{
 
 
         { isEmpty ? null : 
-        
-            <form className="bg-white shadow-md px-8 pt-6 pb-8 mx-3  rounded-lg grid gap-3 font-serif">
+        <div className="flex justify-center">
+            <form className="bg-white shadow-2xl px-8 py-5 mx-3  rounded-2xl grid gap-3 font-serif w-[20.2rem]">
                 <div className="flex justify-center ">
                     <h1 className="  text-xl">BEERSHEBA JUNIOR BOYS </h1>
                 </div>
@@ -149,8 +150,10 @@ const AssessmentStudentList=()=>{
                 
                 <div className="clearfix"></div>
             </form>
+        </div>
         }
-        </>
+        
+        </div>
     );
 }
 
