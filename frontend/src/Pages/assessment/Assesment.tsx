@@ -76,7 +76,8 @@ const Assessment = ()=>{
         if(assessmentValues.remarks.current!==null) remarks = assessmentValues.remarks.current.value;
         setTotal(total)
         const updatedAssessmentValues:FinalAssessment = {
-            "church_class": studentAssessment?.church_class,
+            "church": studentAssessment?.church,
+            "class":studentAssessment?.class,
             "date": studentAssessment?.date,
             "student_id": studentAssessment?.student_id,
             "student_name": studentAssessment?.student_name,

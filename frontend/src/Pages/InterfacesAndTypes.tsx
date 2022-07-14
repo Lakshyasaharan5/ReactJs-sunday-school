@@ -10,7 +10,8 @@ export interface AssessmentInputs{
 }
 
 export interface FinalAssessment{
-    church_class:string;
+    church:string;
+    class:string;
     date:string;
     student_id:string;
     student_name:string;

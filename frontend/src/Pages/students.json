@@ -4,13 +4,13 @@
 	"students":[
 			{
 				"id" : "naruto-beersheba-boys-uzumaki",
-				"student-name" : "Naruto Uzumaki",
+				"student_name" : "Naruto Uzumaki",
 				"mobile" : "7023332609"
 			},
 
 			{
 				"id" : "sasuke-beersheba-boys-uchiha",
-				"student-name" : "Sasuke Uchiha",
+				"student_name" : "Sasuke Uchiha",
 				"mobile" : "7023332609"
 			}
 
