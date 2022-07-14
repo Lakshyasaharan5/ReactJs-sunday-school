@@ -27,24 +27,10 @@ export default function DashboardPage(){
 
     return (
         <div className="  h-screen p-0 flex flex-col gap-5">
-            <Header />
-            {/* <header className="flex justify-between   sticky shadow-2xl p-1">
-                <div className="p-2">
-                    <Burger
-                        opened={navbarOpened}
-                        onClick={() => setNavbarOpened((o:boolean) => !o)}
-                        title={title}
-                    />
-                </div>
-                <div className="p-2 text-xl font-semibold m-auto">
-                    <h1>SUNDAY SCHOOL</h1>
-                </div>
-                <div className="p-2">
-                    <FaUserCircle 
-                    style={{fontSize:"2rem"}}/>
-                </div>
-                
-            </header> */}
+            <Header 
+            userIcon= {true}
+            headerTitle={"Sunday School"}/>
+            
             <main className="relative  flex flex-col gap-4">
                 <div className="flex justify-center">
                     <div className="container shadow-2xl rounded-2xl bg-white w-[20.2rem]">

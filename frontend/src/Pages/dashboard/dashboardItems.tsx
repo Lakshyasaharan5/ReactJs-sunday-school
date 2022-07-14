@@ -2,12 +2,12 @@ import React,{useEffect, useState} from "react";
 import { initiateArray } from "../../redux/classAssessment"
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom"
-import studentsArray from '../students.json'
+import studentsData from '../students.json'
 import 'react-calendar/dist/Calendar.css';
 import "./dashboard.css"
 import { dashboardProps } from "../InterfacesAndTypes";
 import {IoLocationOutline} from 'react-icons/io5'
-
+import teacherData from '../teacher.json'
 
 export default function DashboardItems(props:dashboardProps){
     const date = props.date;
@@ -27,6 +27,7 @@ export default function DashboardItems(props:dashboardProps){
     const yyyy = today.getFullYear();
     const currDate = yyyy+"-"+mm+"-"+dd;
     
+    const studentsArray = studentsData.students
     const assessmentArray = studentsArray.map(s=>({
         "church_class" : s.church_class,
         "date" : currDate,

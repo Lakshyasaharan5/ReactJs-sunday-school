@@ -42,3 +42,9 @@ export interface studentCardProps{
     handleChange:(e:any,id:string)=> void;
     toAssessmentPage:(id:string)=> void
 }
+
+export interface headerProps{
+    userIcon:boolean,
+    headerTitle:string
+}
+
