@@ -49,3 +49,8 @@ export interface headerProps{
     headerTitle:string
 }
 
+export interface studentDetails{
+    id:string,
+    student_name:string,
+    mobile:string
+}
