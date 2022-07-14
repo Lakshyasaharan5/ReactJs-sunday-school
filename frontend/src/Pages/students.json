@@ -1,13 +1,24 @@
-[
-    {
-        "id":"one",
-        "church_class" : "beersheba|junior|B",
-        "student_name" : "Naruto Uzumaki"
-        
-    },
-    {
-        "id":"two",
-        "church_class" : "beersheba|junior|B",
-        "student_name" : "joy"
-    }
-]
+
+
+{
+	"students":[
+			{
+				"id" : "naruto-beersheba-boys-uzumaki",
+				"student-name" : "Naruto Uzumaki",
+				"mobile" : "7023332609"
+			},
+
+			{
+				"id" : "sasuke-beersheba-boys-uchiha",
+				"student-name" : "Sasuke Uchiha",
+				"mobile" : "7023332609"
+			}
+
+		],
+
+	
+	"church" : "Beersheba",
+	"class" : "intermediate-Boys"
+
+	
+}

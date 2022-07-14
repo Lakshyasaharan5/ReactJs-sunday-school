@@ -2,13 +2,14 @@ import React,{useEffect, useState} from "react";
 import { initiateArray } from "../../redux/classAssessment"
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom"
-import studentsArray from '../students.json'
+import studentsData from '../students.json'
 import 'react-calendar/dist/Calendar.css';
 import "./dashboard.css"
 import { dashboardProps } from "../InterfacesAndTypes";
+import {IoLocationOutline} from 'react-icons/io5'
+import teacherData from '../teacher.json'
 
-
-export default function Dashboard(props:dashboardProps){
+export default function DashboardItems(props:dashboardProps){
     const date = props.date;
     const [showAttendence, setShowAttendence] = useState(false);
 
@@ -26,6 +27,7 @@ export default function Dashboard(props:dashboardProps){
     const yyyy = today.getFullYear();
     const currDate = yyyy+"-"+mm+"-"+dd;
     
+    const studentsArray = studentsData.students
     const assessmentArray = studentsArray.map(s=>({
         "church_class" : s.church_class,
         "date" : currDate,
@@ -51,12 +53,36 @@ export default function Dashboard(props:dashboardProps){
     }
 
     return (
-        <div className=" grid grid-cols-1">
+        <div className=" grid grid-cols-1 mb-2">
             
-            <div className=" flex justify-center my-3">
+            <div className=" flex justify-center mt-2 mb-7">
                 
-                {showAttendence ? <button type="button" className=" bg-cyan-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " onClick={(e)=>toStudentList(e)}>Take class Assessment</button> : null}
                 
+                
+                
+                
+                
+                {showAttendence ? 
+                <a href="/#" className="  flex flex-col justify-between w-64 h-20 " onClick={(e)=>toStudentList(e)}>
+                    <div className="bg-blue-200 rounded-2xl shadow-lg">
+                        <div className="text-xs p-3 px-4 flex justify-between">
+                        <p className="  ">Junior Boys</p>
+                        <div className="flex"><IoLocationOutline style={{fontSize:"0.9rem"}}/> <p className="px-1">Beersheba</p></div>
+                        </div>
+                        <div>
+                        <p className=" p-4 px-8 font-semibold ">Take class Assessment</p>
+                        </div>
+                    </div>
+
+                    
+                </a>
+                :
+                    <div className="">
+                        <div>
+                            <p className=" pt-2 px-8 font-extralight text-sm">Nothing to show here</p>
+                        </div>
+                    </div> 
+                }
             </div>
         </div>
     );
