@@ -18,7 +18,8 @@ const AssessmentStudentList=()=>{
 
     const [assessmentArray,setAssessmentArray] = useState(storeAssessmentArray.map(
         s=>({
-            "church_class" : s.church_class,
+            "church" : s.church,
+            "class":s.class,
             "date" : s.date,
             "student_id":s.student_id,
             "student_name" : s.student_name,
@@ -36,7 +37,8 @@ const AssessmentStudentList=()=>{
     const [newStudentsArray,setNewStudentsArray] = useState(assessmentArray.map(
         student=>({
             "id":student.student_id, 
-            "church_class":student.church_class,
+            "church":student.church,
+            "class":student.class,
             "student_name":student.student_name,
             "attendance":student.attendance,
             buttonDisabled:true
