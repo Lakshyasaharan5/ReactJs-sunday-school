@@ -69,3 +69,49 @@ final assessment to back when submit
     }
 
 ]
+
+
+
+
+
+
+
+
+
+
+************************************************************************************************************************************************************************************
+
+Teacher json:
+
+{
+	students:[
+			{
+				"id" : "naruto-beersheba-boys-uzumaki",
+				"student-name" : "Naruto Uzumaki",
+				"mobile" : "7023332609"
+			},
+
+			{
+				"id" : "sasuke-beersheba-boys-uchiha",
+				"student-name" : "Sasuke Uchiha",
+				"mobile" : "7023332609"
+			}
+
+		],
+
+	
+	"church" : "Beersheba",
+	"class" : "intermediate-Boys"
+
+	
+}
+
+Student json:
+
+{
+	"userID" : "Itachi94132"
+	"full-name" : "Itachi Uchiha"
+	"church" : "Beersheba"
+	"class" : "intermediate-Boys"
+	"mobile" : "7023332609"
+}
