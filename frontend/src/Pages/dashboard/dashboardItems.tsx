@@ -6,8 +6,8 @@ import studentsData from '../students.json'
 import 'react-calendar/dist/Calendar.css';
 import "./dashboard.css"
 import { dashboardProps } from "../InterfacesAndTypes";
-import {IoLocationOutline} from 'react-icons/io5'
-import teacherData from '../teacher.json'
+import {IoLocationOutline} from 'react-icons/io5';
+// import teacherData from '../teacher.json'
 
 export default function DashboardItems(props:dashboardProps){
     const date = props.date;
@@ -29,7 +29,8 @@ export default function DashboardItems(props:dashboardProps){
     
     const studentsArray = studentsData.students
     const assessmentArray = studentsArray.map(s=>({
-        "church_class" : s.church_class,
+        "church" : studentsData.church,
+        "class": studentsData.class,
         "date" : currDate,
         "student_id":s.id,
         "student_name" : s.student_name,

@@ -10,7 +10,8 @@ export interface AssessmentInputs{
 }
 
 export interface FinalAssessment{
-    church_class:string;
+    church:string;
+    class:string;
     date:string;
     student_id:string;
     student_name:string;
@@ -48,3 +49,8 @@ export interface headerProps{
     headerTitle:string
 }
 
+export interface studentDetails{
+    id:string,
+    student_name:string,
+    mobile:string
+}

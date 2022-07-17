@@ -68,7 +68,7 @@ export default function Header(props:headerProps) {
                                         <Link to="/"><p>Dashboard</p></Link>
                                     </div>
                                     <div>
-                                        <Link to="/#"><p>My Students</p></Link>
+                                        <Link to="/students"><p>My Students</p></Link>
                                     </div>
                                     <div>
                                         <Link to="/#"><p>Logout</p></Link>
