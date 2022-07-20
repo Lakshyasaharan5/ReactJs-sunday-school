@@ -1,10 +1,45 @@
-import React from 'react'
-import Header from '../Components/header'
-import userImage from '../images/user.png'
-import teacherData from '../teacher.json'
+import React, { useEffect, useState } from 'react'
+import Header from '../../Components/header'
+import userImage from '../../assets/images/user.png'
+import useAxiosPrivate from '../../Hooks/useAxiosPrivate';
+import { useLocation, useNavigate } from 'react-router-dom';
+// import teacherData from '../teacher.json'
+interface userData{
+  userID:string,
+  full_name:string,
+  church:string,
+  class:string,
+  mobile:string
+}
 
 export default function TeacherProfile() {
+  const [teacherData, setTeacherData] = useState<userData>();
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  useEffect(()=>{
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const getUsers = async () => {
+        try {
+            const response = await axiosPrivate.get('/user');
+            console.log(response.data);
+            isMounted && setTeacherData(response.data.userData);
+        } catch (err) {
+            console.error(err);
+            navigate('/login', { state: { from: location }, replace: true });
+        }
+    }
+
+    getUsers();
+
+    return () => {
+        isMounted = false;
+        controller.abort();
+    }
+  },[])
   return (
     <div className='h-screen p-0 flex flex-col gap-5'>
             <Header 
@@ -16,7 +51,7 @@ export default function TeacherProfile() {
                   <img src={userImage} className=" w-[88px]" alt="userImage.png"/>
                   </div>
                   <div className='py-3 flex justify-center'>
-                      <h3 className=' text-xl font-extrabold '>{teacherData.userID}</h3>
+                      <h3 className=' text-xl font-extrabold '>{teacherData?.userID}</h3>
                   </div>
               </div>
               <div className="flex justify-center">
@@ -27,19 +62,19 @@ export default function TeacherProfile() {
                         <div className='flex flex-col gap-4'>
                           <div className='flex flex-col gap-1'>
                             <h1 className="text-sm">Full Name</h1>
-                            <p className='text-xs font-extralight'>{teacherData['full-name']}</p>
+                            <p className='text-xs font-extralight'>{teacherData?.full_name}</p>
                           </div>
                           <div className='flex flex-col gap-1'>
                             <h1 className=" text-sm">Church</h1>
-                            <p className='text-xs font-extralight'>{teacherData.church}</p>
+                            <p className='text-xs font-extralight'>{teacherData?.church}</p>
                           </div>
                           <div className='flex flex-col gap-1'>
                             <h1 className="text-sm">Class/Section</h1>
-                            <p className='text-xs font-extralight'>{teacherData.class}</p>
+                            <p className='text-xs font-extralight'>{teacherData?.class}</p>
                           </div>
                           <div className='flex flex-col gap-1'>
                             <h1 className="text-sm">Phone Number</h1>
-                            <p className='text-xs font-extralight'>{teacherData.mobile}</p>
+                            <p className='text-xs font-extralight'>{teacherData?.mobile}</p>
                           </div>
                           
                         </div>

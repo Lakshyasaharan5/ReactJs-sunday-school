@@ -1,15 +1,18 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import { Burger } from '@mantine/core';
 import {FaUserCircle} from 'react-icons/fa'
-import userImage from '../images/user.png'
+import userImage from '../assets/images/user.png'
 
 import { Box, Drawer } from '@mui/material'
 import { Link } from 'react-router-dom';
-import { headerProps } from '../InterfacesAndTypes';
+import { headerProps } from '../Pages/InterfacesAndTypes';
+import { AuthContext } from '../Hooks/auth';
 
 export default function Header(props:headerProps) {
     const [navbarOpened, setNavbarOpened] = useState(false);
     const title = navbarOpened ? 'Close navigation' : 'Open navigation';
+    const { logout } = useContext(AuthContext);
+    
   return (
         <>
             <header className="flex justify-between   sticky shadow-2xl p-1">
@@ -71,7 +74,8 @@ export default function Header(props:headerProps) {
                                         <Link to="/students"><p>My Students</p></Link>
                                     </div>
                                     <div>
-                                        <Link to="/#"><p>Logout</p></Link>
+                                        <a href="/#" onClick={logout}><p>Logout</p></a>
+                                        
                                     </div>
                                 </div>
                             </main>

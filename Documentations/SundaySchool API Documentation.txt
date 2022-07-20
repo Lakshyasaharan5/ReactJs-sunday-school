@@ -81,19 +81,19 @@ final assessment to back when submit
 
 ************************************************************************************************************************************************************************************
 
-Teacher json:
+class json:
 
 {
 	students:[
 			{
 				"id" : "naruto-beersheba-boys-uzumaki",
-				"student-name" : "Naruto Uzumaki",
+				"student_name" : "Naruto Uzumaki",
 				"mobile" : "7023332609"
 			},
 
 			{
 				"id" : "sasuke-beersheba-boys-uchiha",
-				"student-name" : "Sasuke Uchiha",
+				"student_name" : "Sasuke Uchiha",
 				"mobile" : "7023332609"
 			}
 
@@ -101,17 +101,17 @@ Teacher json:
 
 	
 	"church" : "Beersheba",
-	"class" : "intermediate-Boys"
+	"class" : "intermediate_Boys"
 
 	
 }
 
-Student json:
+Teacher json:
 
 {
-	"userID" : "Itachi94132"
-	"full-name" : "Itachi Uchiha"
+	"userID" : "Itachi7023"
+	"full_name" : "Itachi Uchiha"
 	"church" : "Beersheba"
-	"class" : "intermediate-Boys"
+	"class" : "intermediate_Boys"
 	"mobile" : "7023332609"
 }
