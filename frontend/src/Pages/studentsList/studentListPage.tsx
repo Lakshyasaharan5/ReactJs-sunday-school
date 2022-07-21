@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
-import Header from '../Components/header'
+import Header from '../../Components/header'
 import studentsData from '../students.json'
 import { Modal} from '@mantine/core';
 import { studentDetails } from '../InterfacesAndTypes';

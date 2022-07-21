@@ -54,3 +54,8 @@ export interface studentDetails{
     student_name:string,
     mobile:string
 }
+export interface token{
+    iat: number,
+    role: string,
+    username: string
+}

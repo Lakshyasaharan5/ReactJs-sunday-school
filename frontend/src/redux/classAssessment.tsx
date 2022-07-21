@@ -11,8 +11,6 @@ export const assessmentSlice = createSlice({
       state.assessmentArray = action.payload
     },
     updateArray: (state,action) => {
-        // const i = state.assessmentArray.findIndex(s=>s.student_id===action.payload.student_id)
-    // state.assessmentArray = [...state.assessmentArray,...action.payload]
     state.assessmentArray = state.assessmentArray.map(obj=> action.payload.find(o=>o.student_id === obj.student_id)|| obj);
 
     },
@@ -23,6 +21,8 @@ export const assessmentSlice = createSlice({
 })
 
 
+
+
 export const { initiateArray, updateArray, deleteArray } = assessmentSlice.actions
 
-export default assessmentSlice.reducer
+export default assessmentSlice.reducer;
