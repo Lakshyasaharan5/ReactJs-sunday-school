@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Header from '../../Components/header'
 import userImage from '../../assets/images/user.png'
 import useAxiosPrivate from '../../Hooks/useAxiosPrivate';
@@ -39,7 +39,7 @@ export default function TeacherProfile() {
         isMounted = false;
         controller.abort();
     }
-  },[])
+  },[axiosPrivate,location,navigate])
   return (
     <div className='h-screen p-0 flex flex-col gap-5'>
             <Header 

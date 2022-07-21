@@ -115,3 +115,14 @@ Teacher json:
 	"class" : "intermediate_Boys"
 	"mobile" : "7023332609"
 }
+************************************************************************************************************************************************************************************
+
+req after login to spring server
+req:{
+    headers:{
+        ...,
+        ...,
+        authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hcnV0byIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU4MzkwMTU3LCJleHAiOjE2NTgzOTAyMTd9.IS5zPnd3SwarIBVdYToOMgEolK2A0NzEFSWRXG6AaaQ',
+        ...,
+    }
+}
