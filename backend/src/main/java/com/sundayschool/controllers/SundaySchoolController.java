@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sundayschool.jwt;
 import com.sundayschool.dao.AssessmentMarksDAO;
 import com.sundayschool.handlers.AssessmentMarksHandler;
 
@@ -80,6 +81,12 @@ public class SundaySchoolController {
 		
 	}
 	
+	@RequestMapping(value="/tokens")
+	public void tokens() {
+		jwt j = new jwt();
+		String token = j.createToken();
+		j.verifyToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hcnV0byIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU4NTk0NzAwLCJleHAiOjE2NTg2ODExMDB9.48Rzj_6wb0YIgA3Lv7Nh_qUhOSKA0CcMQqH4zfKXDXw");
+	}
 	
 	
 }
