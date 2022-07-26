@@ -1,12 +1,15 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import Header from '../../../Components/header';
 import AssessmentStudentList from './assessmentStudentList';
 
 
 export default function ClassAssessmentPage(){
+    const role = useSelector((state:any)=>state.auth.role)
 
     return (
-        
+        <>
+        {role==="user" ? 
         <div className='h-screen p-0 flex flex-col gap-5'>
             <Header 
             userIcon={false}
@@ -15,5 +18,8 @@ export default function ClassAssessmentPage(){
                 <AssessmentStudentList />
             </main>
         </div>
+        :null}
+        </>
+        
     );
 }

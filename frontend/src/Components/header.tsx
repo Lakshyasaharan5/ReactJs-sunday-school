@@ -84,10 +84,10 @@ export default function Header(props:headerProps) {
                                     { role==="admin" ?
                                     <>
                                         <div>
-                                            <Link to="/students"><p>Manage Students</p></Link>
+                                            <Link to="/managestudents"><p>Manage Students</p></Link>
                                         </div>
                                         <div>
-                                            <Link to="/students"><p>Manage Teachers</p></Link>
+                                            <Link to="/manageteachers"><p>Manage Teachers</p></Link>
                                         </div>
                                         <div>
                                             <Link to="/students"><p>Manage Student Assessments</p></Link>

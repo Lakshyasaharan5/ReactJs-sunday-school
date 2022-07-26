@@ -13,6 +13,10 @@ import { ProtectedRoute } from './Pages/login/ProtectedRoute';
 import TeacherProfile from './Pages/profilePage/teacherProfile';
 import StudentListPage from './Pages/studentsList/studentListPage';
 import ClassAssessmentPage from './Pages/userPages/assessmentStudentList/ClassAssessmentPage';
+import ManageStudentsPage from './Pages/AdminPages/ManageStudents/ManageStudentsPage';
+import ManageTeachersPage from './Pages/AdminPages/ManageTeachers/ManageTeachersPage';
+import AddStudent from './Pages/AdminPages/ManageStudents/AddStudent';
+import AddTeacher from './Pages/AdminPages/ManageTeachers/AddTeacher';
 
 
 function App() {
@@ -28,6 +32,10 @@ function App() {
           <Route path="/assessment" element={<ProtectedRoute><AssessmentPage /></ProtectedRoute>}></Route>
           <Route path="/profile" element={<ProtectedRoute><TeacherProfile /></ProtectedRoute>}></Route>
           <Route path="/students" element={<ProtectedRoute><StudentListPage /></ProtectedRoute>}></Route>
+          <Route path="/managestudents" element={<ProtectedRoute><ManageStudentsPage /></ProtectedRoute>}></Route>
+          <Route path="/addstudent" element={<ProtectedRoute><AddStudent /></ProtectedRoute>}></Route>
+          <Route path="/manageteachers" element={<ProtectedRoute><ManageTeachersPage /></ProtectedRoute>}></Route>
+          <Route path="/addteacher" element={<ProtectedRoute><AddTeacher /></ProtectedRoute>}></Route>
         </Routes>
       </Router>
       </AuthProvider>
