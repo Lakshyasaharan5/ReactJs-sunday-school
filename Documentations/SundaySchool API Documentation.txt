@@ -115,3 +115,32 @@ Student json:
 	"class" : "intermediate-Boys"
 	"mobile" : "7023332609"
 }
+
+************************************************************************************************************************************************************************************
+
+
+ADDING TEACHER:
+
+http://localhost:8080/addTeacher	POST
+
+{
+    "username" : "kakashi70233",
+    "teacher_name" : "Kakashi Hatake",
+    "church_class" : "beersheba-intermediate-B",
+    "mobile" : "7023332609"
+}
+
+
+ADDING STUDENT:
+
+http://localhost:8080/addStudent	POST
+
+{
+    "uniqueID" : "naruto-intermediate",
+    "student_name" : "Naruto Uzumaki",
+    "church_class" : "beersheba-intermediate-B",
+    "details" : "7023332609"
+}
+
+
+************************************************************************************************************************************************************************************
