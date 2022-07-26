@@ -1,10 +1,9 @@
 import React,{useEffect, useState} from "react";
 import { initiateArray } from "../../redux/classAssessment"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom"
 import studentsData from '../students.json'
 import 'react-calendar/dist/Calendar.css';
-import "./dashboard.css"
 import { dashboardProps } from "../InterfacesAndTypes";
 import {IoLocationOutline} from 'react-icons/io5';
 // import teacherData from '../teacher.json'
@@ -52,18 +51,13 @@ export default function DashboardItems(props:dashboardProps){
         dispatch(initiateArray(assessmentArray));
         navigate("/assessment-studentlist")
     }
-
+    const role = useSelector((state:any)=>state.auth.role)
     return (
         <div className=" grid grid-cols-1 mb-2">
             
             <div className=" flex justify-center mt-2 mb-7">
                 
-                
-                
-                
-                
-                
-                {showAttendence ? 
+                {showAttendence && role==="user"? 
                 <a href="/#" className="  flex flex-col justify-between w-64 h-20 " onClick={(e)=>toStudentList(e)}>
                     <div className="bg-blue-200 rounded-2xl shadow-lg">
                         <div className="text-xs p-3 px-4 flex justify-between">

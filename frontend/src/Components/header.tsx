@@ -4,18 +4,24 @@ import {FaUserCircle} from 'react-icons/fa'
 import userImage from '../assets/images/user.png'
 
 import { Box, Drawer } from '@mui/material'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { headerProps } from '../Pages/InterfacesAndTypes';
 import { AuthContext } from '../Hooks/auth';
+import { useSelector } from 'react-redux';
 
 export default function Header(props:headerProps) {
     const [navbarOpened, setNavbarOpened] = useState(false);
     const title = navbarOpened ? 'Close navigation' : 'Open navigation';
+    const navigate = useNavigate();
     const { logout } = useContext(AuthContext);
-    
+    const role = useSelector((state:any)=>state.auth.role);
+    const logoutHandler = () =>{
+        logout();
+        navigate("/login");
+    }
   return (
         <>
-            <header className="flex justify-between   sticky shadow-2xl p-1">
+            <header className="flex justify-between   sticky shadow-2xl p-1 ">
                 <div className="p-2">
                     <Burger
                         opened={navbarOpened}
@@ -70,11 +76,26 @@ export default function Header(props:headerProps) {
                                     <div>
                                         <Link to="/"><p>Dashboard</p></Link>
                                     </div>
-                                    <div>
+
+                                    { role==="user" ?<div>
                                         <Link to="/students"><p>My Students</p></Link>
-                                    </div>
+                                    </div>  :null}
+
+                                    { role==="admin" ?
+                                    <>
+                                        <div>
+                                            <Link to="/students"><p>Manage Students</p></Link>
+                                        </div>
+                                        <div>
+                                            <Link to="/students"><p>Manage Teachers</p></Link>
+                                        </div>
+                                        <div>
+                                            <Link to="/students"><p>Manage Student Assessments</p></Link>
+                                        </div> 
+                                    </>   
+                                    : null}
                                     <div>
-                                        <a href="/#" onClick={logout}><p>Logout</p></a>
+                                        <a href="/#" onClick={logoutHandler}><p>Logout</p></a>
                                         
                                     </div>
                                 </div>

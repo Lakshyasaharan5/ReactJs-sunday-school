@@ -3,7 +3,7 @@ import { Calendar } from '@mantine/dates';
 
 import DashboardItems from "./dashboardItems";
 import Header from "../../Components/header";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 
 export default function DashboardPage(){
@@ -15,7 +15,7 @@ export default function DashboardPage(){
     
     // console.log(assessmentDate)
     // console.log(todayDate?.toDateString()?.slice(0,15))
-    console.log(useSelector((state:any)=>state.auth.token))
+    // console.log(useSelector((state:any)=>state.auth.token))
     useEffect(()=>{
         const month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sep","Oct","Nov","Dec"];    
         const todayDate = new Date();

@@ -1,5 +1,5 @@
 import React from "react";
-import { studentCardProps } from "../InterfacesAndTypes";
+import { studentCardProps } from "../../InterfacesAndTypes";
 
 const StudentCard = (props:studentCardProps)=>{
     return (
