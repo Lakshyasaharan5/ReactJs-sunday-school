@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sundayschool.jwt;
 import com.sundayschool.dao.AssessmentMarksDAO;
 import com.sundayschool.handlers.AssessmentMarksHandler;
+import com.sundayschool.handlers.StudentHandler;
+import com.sundayschool.handlers.TeacherHandler;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -66,19 +68,40 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value = "/addTeacher", method = RequestMethod.POST)
-	public void addTeacher(@RequestBody String JsonData) {
+	public String addTeacher(@RequestBody String JsonData) throws SQLException {
 		
-		// TODO : Parse json data into teacherDAO object
-		// TODO : send this data to handler to store inside mysql database
+		boolean status = false;
+		TeacherHandler teacherHandler = new TeacherHandler();
+		status = teacherHandler.storeNewTeacher(JsonData);
+		
+		if(status) {
+			// SHOW A MESSAGE OF SUCCESS
+			return HttpStatus.OK.getReasonPhrase();
+			
+		}else {
+			// ASK TO RETRY
+			return HttpStatus.BAD_REQUEST.getReasonPhrase();
+		}	
+
 		
 	}
 
 	@RequestMapping(value = "/addStudent", method = RequestMethod.POST)
-	public void addStudent(@RequestBody String JsonData) {
+	public String addStudent(@RequestBody String JsonData) throws SQLException {
 		
-		// TODO : Parse json data into studentDAO object
-		// TODO : send this data to handler to store inside mysql database
+		boolean status = false;
 		
+		StudentHandler studentHandler = new StudentHandler();
+		status = studentHandler.storeNewStudent(JsonData);
+		if(status) {
+			// SHOW A MESSAGE OF SUCCESS
+			return HttpStatus.OK.getReasonPhrase();
+			
+		}else {
+			// ASK TO RETRY
+			return HttpStatus.BAD_REQUEST.getReasonPhrase();
+		}	
+
 	}
 	
 	@RequestMapping(value="/tokens")
