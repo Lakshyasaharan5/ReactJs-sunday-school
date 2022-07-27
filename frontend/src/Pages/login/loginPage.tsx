@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { decodeToken } from "react-jwt";
 import { setCredentials } from '../../redux/authSlice';
-import axios from '../../api/axios';
+import axios from '../../api/services/userService';
 
 import { useNavigate } from 'react-router-dom';
 import { token } from '../InterfacesAndTypes';

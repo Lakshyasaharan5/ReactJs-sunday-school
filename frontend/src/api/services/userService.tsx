@@ -1,7 +1,11 @@
-import useAxiosPrivate from '../../Hooks/useAxiosPrivate';
+import axios from 'axios';
+const BASE_URL = 'http://localhost:3001/api/v1';
 
-export const GetUserData = async()=>{
-    const axiosPrivate = useAxiosPrivate();
-    const respomse = await axiosPrivate.get('/user');
-    return respomse;
-}
+export default axios.create({
+    baseURL: BASE_URL
+});
+
+export const axiosPrivate = axios.create({
+    baseURL: BASE_URL,
+    headers: { 'Content-Type': 'application/json' }
+});
