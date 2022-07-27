@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import {updateArray } from "../../redux/classAssessment"
+import {updateArray } from "../../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
 import { Link,useLocation, useNavigate } from "react-router-dom";
-import { FinalAssessment,AssessmentInputs,LocationState } from "../InterfacesAndTypes"
-import "./assessment.css"
+import { FinalAssessment,AssessmentInputs,LocationState } from "../../InterfacesAndTypes"
 
 const Assessment = ()=>{
     
