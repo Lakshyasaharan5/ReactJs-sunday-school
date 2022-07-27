@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from '../../../api/axios';
 import Header from '../../../Components/header';
 
 const AddTeacher = () => {
     const role = useSelector((state:any)=>state.auth.role)
     const [TeacherDetails,setTeacherDetails] = useState({
-        teacherFirstName:"",
+        teacherFullName:"",
         teacherMobile:"",
         church:"DEFAULT",
         selectedClass:"DEFAULT"
     })
-    const [invalidFirstName,setInvalidFirstName] = useState(false);
+    const [invalidFullName,setInvalidFullName] = useState(false);
     const [invalidMobile,setInvalidMobile] = useState(false);
     const [invalidChurch,setInvalidChurch] = useState(false);
     const [invalidClassName,setInvalidClassName] = useState(false);
@@ -23,15 +24,17 @@ const AddTeacher = () => {
       classData = beershebaClasses
     }
     const AddTeacherHandler = (e:any) =>{
-        if(TeacherDetails.teacherFirstName==="") setInvalidFirstName(true);
+        if(TeacherDetails.teacherFullName==="") setInvalidFullName(true);
         if(TeacherDetails.teacherMobile==="") setInvalidMobile(true);
         if(TeacherDetails.church==="DEFAULT") setInvalidChurch(true);
         if(TeacherDetails.selectedClass==="DEFAULT") setInvalidClassName(true);
+        axios.post("http://localhost:8080/addTeacher",{
 
+        })
     }
     const HandleChange = (e:any) =>{
         const {name,value} = e.target;
-        setInvalidFirstName(false);
+        setInvalidFullName(false);
         setInvalidMobile(false);
         setInvalidChurch(false);
         setInvalidClassName(false);
@@ -53,10 +56,10 @@ const AddTeacher = () => {
                     <form className='flex flex-col gap-6 bg-white shadow-2xl px-8  py-5 mx-3  rounded-2xl font-serif w-[20.2rem]'>
                         
                         <div className='flex justify-between text-sm'>
-                            <label className=" font-bold">First Name :</label>
+                            <label className=" font-bold">Full Name :</label>
                             <div>
-                                <input name="teacherFirstName" type="text" className="border-2 border-gray-500 rounded-md  font-sans w-[10rem]" defaultValue={TeacherDetails.teacherFirstName} onChange={(e)=>HandleChange(e)}/>
-                                { invalidFirstName ?<p className='text-xs mx-2 text-red-600 font-sans'>Please enter firstname</p> : null}
+                                <input name="teacherFullName" type="text" className="border-2 border-gray-500 rounded-md  font-sans w-[10rem]" defaultValue={TeacherDetails.teacherFullName} onChange={(e)=>HandleChange(e)}/>
+                                { invalidFullName ?<p className='text-xs mx-2 text-red-600 font-sans'>Please enter FullName</p> : null}
                             </div>
                         </div>
                         

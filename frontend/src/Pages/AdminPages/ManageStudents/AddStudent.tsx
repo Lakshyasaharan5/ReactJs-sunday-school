@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import axios from '../../../api/axios'
 import Header from '../../../Components/header'
 
 const AddStudent = () => {
-    const role = useSelector((state:any)=>state.auth.role)
+    const role = useSelector((state:any)=>state.auth.role);
+    // const axiosPrivate = useAxiosPrivate();
     const [StudentDetails,setStudentDetails] = useState({
         studentFirstName:"",
         studentSurname:"",
@@ -18,7 +20,6 @@ const AddStudent = () => {
     const [invalidChurch,setInvalidChurch] = useState(false);
     const [invalidClassName,setInvalidClassName] = useState(false);
 
-
     let classData = null;
     const beershebaClasses = ["BEGINNER","PRIMARY_BOYS","PRIMARY_GIRLS","JUNIOUR_BOYS","JUNIOUR_GIRLS","INTERMEDIATE_BOYS","INTERMEDIATE_GIRLS","SENIOR_BOYS","SENIOR_GIRLS"];
     if (StudentDetails.church==="BEERSHEBA"){
@@ -30,6 +31,9 @@ const AddStudent = () => {
         if(StudentDetails.studentMobile==="") setInvalidMobile(true);
         if(StudentDetails.church==="DEFAULT") setInvalidChurch(true);
         if(StudentDetails.selectedClass==="DEFAULT") setInvalidClassName(true);
+        axios.post("http://localhost:8080/addStudent",{
+
+        })
 
     }
     const HandleChange = (e:any) =>{
