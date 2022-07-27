@@ -22,10 +22,10 @@ Adding Teacher:
 SENDING ->
 POST Req:{
     body:{
-        FullName:"",
-        Mobile:"",
+        full_name:"",
+        mobile:"",
         church:"",
-        assignedClass:""
+        assigned_class:""
     }
 }
 
