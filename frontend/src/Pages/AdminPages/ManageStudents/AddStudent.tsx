@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import axios from '../../../api/axios'
+import axios from '../../../api/services/userService'
 import Header from '../../../Components/header'
 
 const AddStudent = () => {
