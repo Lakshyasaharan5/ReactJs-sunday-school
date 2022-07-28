@@ -24,10 +24,18 @@ const AddTeacher = () => {
       classData = beershebaClasses
     }
     const AddTeacherHandler = (e:any) =>{
+        e.preventDefault();
         if(TeacherDetails.teacherFullName==="") setInvalidFullName(true);
         if(TeacherDetails.teacherMobile==="") setInvalidMobile(true);
         if(TeacherDetails.church==="DEFAULT") setInvalidChurch(true);
         if(TeacherDetails.selectedClass==="DEFAULT") setInvalidClassName(true);
+        const teacherObject = {
+            full_name:TeacherDetails.teacherFullName,
+            mobile:TeacherDetails.teacherMobile,
+            church:TeacherDetails.church,
+            assigned_class:TeacherDetails.selectedClass
+          }
+          console.log(teacherObject)
         axios.post("http://localhost:8080/addTeacher",{
 
         })
