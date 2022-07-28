@@ -81,13 +81,22 @@ const ManageStudentsPage = () => {
     e.preventDefault();
     setFieldDisabled(false)
   }
-  const SubmitStudentHandler = (e:any) =>{
+  const SubmitEditStudentHandler = (e:any) =>{
     e.preventDefault();
-    
+    const studentObject = {
+      student_id:selectedStudentId,
+      first_name:student.first_name,
+      surname:student.surname,
+      mobile:student.mobile,
+      church:student.church,
+      class:student.class
+    }
+    console.log(studentObject)
+    setStudentModalOpened(false)
   }
   const DeleteStudentHandler = (e:any) =>{
     e.preventDefault();
-    
+    console.log(selectedStudentId)
   }
   return (
     <>
@@ -197,7 +206,7 @@ const ManageStudentsPage = () => {
                             </div>
                             <div className='flex justify-between'>
                                 <button className=" bg-cyan-500 hover:bg-cyan-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditStudentHandler(e)} >Edit</button>
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitStudentHandler(e)} disabled={fieldDisabled}>Submit</button>
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitEditStudentHandler(e)} disabled={fieldDisabled}>Submit</button>
                             </div>
                             <div className='flex justify-end'>
                                 <button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded disabled:opacity-50" type="button" onClick={(e)=>DeleteStudentHandler(e)} disabled={fieldDisabled} >Remove</button>

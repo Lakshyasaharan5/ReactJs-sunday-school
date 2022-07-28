@@ -26,11 +26,20 @@ const AddStudent = () => {
       classData = beershebaClasses
     }
     const AddStudentHandler = (e:any) =>{
+        e.preventDefault();
         if(StudentDetails.studentFirstName==="") setInvalidFirstName(true);
         if(StudentDetails.studentSurname==="") setInvalidSurname(true);
         if(StudentDetails.studentMobile==="") setInvalidMobile(true);
         if(StudentDetails.church==="DEFAULT") setInvalidChurch(true);
         if(StudentDetails.selectedClass==="DEFAULT") setInvalidClassName(true);
+        const studentObject = {
+            first_name:StudentDetails.studentFirstName,
+            surname:StudentDetails.studentSurname,
+            mobile:StudentDetails.studentMobile,
+            church:StudentDetails.church,
+            class:StudentDetails.selectedClass
+          }
+        console.log(studentObject)
         axios.post("http://localhost:8080/addStudent",{
 
         })

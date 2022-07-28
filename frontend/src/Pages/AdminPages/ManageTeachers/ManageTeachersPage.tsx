@@ -53,13 +53,21 @@ const ManageTeachersPage = () => {
     e.preventDefault();
     setFieldDisabled(false)
   }
-  const SubmitTeacherHandler = (e:any) =>{
+  const SubmitEditTeacherHandler = (e:any) =>{
     e.preventDefault();
-    
+    const teacherObject = {
+      teacher_id : selectedTeacherId,
+      full_name:teacher.teacher_name,
+      mobile:teacher.mobile,
+      church:teacher.church,
+      assigned_class:teacher.assigned_class
+    }
+    console.log(teacherObject)
+    setTeacherModalOpened(false)
   }
   const DeleteTeacherHandler = (e:any) =>{
     e.preventDefault();
-    
+    console.log(selectedTeacherId)
   }
 
 
@@ -122,7 +130,7 @@ const ManageTeachersPage = () => {
                             <div className='flex justify-between text-sm'>
                                 <label className=" font-bold">Full Name :</label>
                                 <div>
-                                    <input name="teacherFullName" type="text" className="border-2 border-gray-500 rounded-md  font-sans w-[10rem]" defaultValue={teacher?.teacher_name} onChange={(e)=>HandleEditChange(e)} disabled={fieldDisabled}/>
+                                    <input name="teacher_name" type="text" className="border-2 border-gray-500 rounded-md  font-sans w-[10rem] disabled:bg-gray-300" defaultValue={teacher?.teacher_name} onChange={(e)=>HandleEditChange(e)} disabled={fieldDisabled}/>
                                     { invalidFullName ?<p className='text-xs mx-2 text-red-600 font-sans'>Please enter FullName</p> : null}
                                 </div>
                             </div>
@@ -131,7 +139,7 @@ const ManageTeachersPage = () => {
                                 
                                 <label className=" font-bold">Mobile :</label>
                                 <div>
-                                    <input name="teacherMobile" type="text" className="border-2 border-gray-500 rounded-md  font-sans w-[10rem]" defaultValue={teacher?.mobile} onChange={(e)=>HandleEditChange(e)} disabled={fieldDisabled} />
+                                    <input name="mobile" type="text" className="border-2 border-gray-500 rounded-md  font-sans w-[10rem] disabled:bg-gray-300" defaultValue={teacher?.mobile} onChange={(e)=>HandleEditChange(e)} disabled={fieldDisabled} />
                                     { invalidMobile ?<p className='text-xs mx-2 text-red-600 font-sans'>Please enter Mobile</p> : null}
                                 </div>
                             </div>
@@ -159,7 +167,7 @@ const ManageTeachersPage = () => {
                                 
                                 <label className=" font-bold">Assign class :</label>
                                 <div>
-                                    <select name="selectedClass" className="w-[10rem] p-1 rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" defaultValue={teacher?.assigned_class} onChange={(e)=>HandleEditChange(e)} disabled={fieldDisabled} >
+                                    <select name="assigned_class" className="w-[10rem] p-1 rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" defaultValue={teacher?.assigned_class} onChange={(e)=>HandleEditChange(e)} disabled={fieldDisabled} >
                                         <option value="DEFAULT" disabled>select class</option>
                                         {classData?.map(c=>(
                                             <option key={c} value={c}>{c.replace(/_+/g, ' ')}</option>
@@ -171,7 +179,7 @@ const ManageTeachersPage = () => {
                             </div>
                             <div className='flex justify-between'>
                                 <button className=" bg-cyan-500 hover:bg-cyan-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditTeacherHandler(e)} >Edit</button>
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitTeacherHandler(e)} disabled={fieldDisabled}>Submit</button>
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitEditTeacherHandler(e)} disabled={fieldDisabled}>Submit</button>
                             </div>
                             <div className='flex justify-end'>
                                 <button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded disabled:opacity-50" type="button" onClick={(e)=>DeleteTeacherHandler(e)} disabled={fieldDisabled} >Remove</button>
