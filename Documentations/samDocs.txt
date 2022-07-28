@@ -101,3 +101,65 @@ EXPECTING ->
                     }
                 ]
 }
+********************************************************************************************************************************************************
+edit student
+
+SENDING ->
+PUT Req http://localhost:8080/editstudent
+{
+    student_id:"",
+    first_name:"",
+    surname:"",
+    mobile:"",
+    church:"",
+    class:""
+
+}
+
+EXPECTING ->
+OK : Success
+BAD_REQUEST : Failure
+********************************************************************************************************************************************************
+edit teacher
+
+SENDING ->
+PUT Req http://localhost:8080/editteacher
+
+{
+    teacher_id : "",
+    full_name:"",
+    mobile:"",
+    church:"",
+    assigned_class:""
+}
+
+EXPECTING ->
+OK : Success
+BAD_REQUEST : Failure
+********************************************************************************************************************************************************
+delete student
+
+SENDING ->
+DELETE Req http://localhost:8080/deletestudent
+{
+    student_id:""
+
+}
+
+EXPECTING ->
+OK : Success
+BAD_REQUEST : Failure
+********************************************************************************************************************************************************
+delete teacher
+
+SENDING ->
+DELETE Req http://localhost:8080/deleteteacher
+
+{
+    teacher_id : ""
+}
+
+EXPECTING ->
+OK : Success
+BAD_REQUEST : Failure
+********************************************************************************************************************************************************

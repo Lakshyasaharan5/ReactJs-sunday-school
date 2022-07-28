@@ -55,6 +55,12 @@ export interface studentDetails{
     surname:string,
     mobile:string
 }
+export interface teacherDetails{
+    teacher_id : string,
+    teacher_name : string,
+    mobile : string,
+    assigned_class:string
+}
 export interface token{
     iat: number,
     role: string,

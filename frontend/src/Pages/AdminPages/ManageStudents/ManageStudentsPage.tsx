@@ -202,6 +202,7 @@ const ManageStudentsPage = () => {
                             <div className='flex justify-end'>
                                 <button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded disabled:opacity-50" type="button" onClick={(e)=>DeleteStudentHandler(e)} disabled={fieldDisabled} >Remove</button>
                             </div>
+                            <div className='clearfix'></div>
                         </div>
                     </Modal>
                     <ul className='grid gap-3'>
