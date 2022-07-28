@@ -50,8 +50,9 @@ export interface headerProps{
 }
 
 export interface studentDetails{
-    id:string,
-    student_name:string,
+    student_id:string,
+    first_name:string,
+    surname:string,
     mobile:string
 }
 export interface token{
