@@ -11,10 +11,10 @@ GET Req:{
 }
 EXPECTING ->
 {
-    FullName:"",
+    full_name:"",
     Mobile:"",
     church:"",
-    assignedClass:""
+    assigned_class:""
 }
 
 ********************************************************************************************************************************************************
@@ -40,11 +40,11 @@ Adding student
 SENDING ->
 POST Req:{
     body:{
-        FirstName:"",
-        SurName:"",
-        Mobile:"",
+        first_name:"",
+        surname:"",
+        mobile:"",
         church:"",
-        Class:""
+        class:""
     }
 }
 
@@ -64,16 +64,16 @@ EXPECTING ->
     "students":[
                     {
                         student_id:"",
-                        FirstName:"",
-                        SurName:"",
-                        Mobile:""
+                        first_name:"",
+                        surname:"",
+                        mobile:""
                     },
 
                     {
                         student_id:"",
-                        FirstName:"",
-                        SurName:"",
-                        Mobile:""
+                        first_name:"",
+                        surname:"",
+                        mobile:""
                     }
                 ]
 }
@@ -96,7 +96,7 @@ EXPECTING ->
 
                     {
                         "teacher_id" : "",
-                        "teacher" : "",
+                        "teacher_name" : "",
                         "mobile" : ""
                     }
                 ]
