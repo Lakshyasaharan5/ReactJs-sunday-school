@@ -91,13 +91,15 @@ EXPECTING ->
                     {
                         "teacher_id" : "",
                         "teacher_name" : "",
-                        "mobile" : ""
+                        "mobile" : "",
+                        assigned_class:""
                     },
 
                     {
                         "teacher_id" : "",
                         "teacher_name" : "",
-                        "mobile" : ""
+                        "mobile" : "",
+                        assigned_class:""
                     }
                 ]
 }
