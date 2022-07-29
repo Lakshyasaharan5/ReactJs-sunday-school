@@ -8,7 +8,7 @@ export const addTeacher = (teacherObject:teacherObject) =>{
     return axios.post(`${SPRING_SERVER_BASE_URL}/addteacher`,teacherObject);
 }
 export const viewTeacher = (church:string) => {
-    return axios.get(`${SPRING_SERVER_BASE_URL}/viewteachers?church=${church}`)
+    return axios.get<teacherDetails[]>(`${SPRING_SERVER_BASE_URL}/viewteachers?church=${church}`)
 }
 export const editTeacher = (teacherObject:teacherDetails) => {
     return axios.put(`${SPRING_SERVER_BASE_URL}/editstudent`,teacherObject);

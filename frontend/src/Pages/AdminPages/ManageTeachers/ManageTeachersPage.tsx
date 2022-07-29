@@ -2,9 +2,10 @@ import { Modal } from '@mantine/core'
 import {useState,useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { deleteTeacher, editTeacher, viewTeacher } from '../../../api/services/SpringServer/AdminServices/TeacherService'
 import Header from '../../../Components/header'
 import { teacherDetails } from '../../InterfacesAndTypes'
-import teachersData from '../../teacher.json'
+// import teachersData from '../../teacher.json'
 
 const ManageTeachersPage = () => {
     const role = useSelector((state:any)=>state.auth.role)
@@ -19,8 +20,8 @@ const ManageTeachersPage = () => {
       assigned_class:""
     })
     const [selectedTeacherId,setSelectedTeacherId]=useState("");
-    const teachers = teachersData.teachers;
-    const church = teachersData.church
+    // const teachers = teachersData.teachers;
+    // const church = teachersData.church
     const [invalidFullName,setInvalidFullName] = useState(false);
     const [invalidMobile,setInvalidMobile] = useState(false);
     const [invalidChurch,setInvalidChurch] = useState(false);
@@ -57,37 +58,46 @@ const ManageTeachersPage = () => {
     e.preventDefault();
     const teacherObject = {
       teacher_id : selectedTeacherId,
-      full_name:teacher.teacher_name,
+      teacher_name:teacher.teacher_name,
       mobile:teacher.mobile,
       church:teacher.church,
       assigned_class:teacher.assigned_class
     }
-    console.log(teacherObject)
-    setTeacherModalOpened(false)
+    editTeacher(teacherObject).then(res=>{
+      console.log(res)
+      setTeacherModalOpened(false)
+    })
   }
   const DeleteTeacherHandler = (e:any) =>{
     e.preventDefault();
-    console.log(selectedTeacherId)
+    // console.log(selectedTeacherId)
+    deleteTeacher(selectedTeacherId).then(res=>{
+      console.log(res)
+    })
   }
 
-
   useEffect(()=>{
-    if(selectedChurch===teachersData.church){
-      setTeachersList(teachersData.teachers)
+    if(selectedChurch!=="DEFAULT"){
+      viewTeacher(selectedChurch).then(res=>{
+        setTeachersList(res.data)
+      })
     }else{
       setTeachersList([])
     }
   },[selectedChurch])
 
   useEffect(()=>{
-    const t = teachers.filter(teacher=>teacher.teacher_id === selectedTeacherId)[0]
-    setTeacher({
-      teacher_name : t?.teacher_name,
-      mobile : t?.mobile,
-      church:church,
-      assigned_class:t?.assigned_class
-    })
-},[church,selectedTeacherId,teachers])
+    const t = teachersList?.filter(teacher=>teacher.teacher_id === selectedTeacherId)[0]
+    if(t!==undefined){
+      setTeacher({
+        teacher_name : t?.teacher_name,
+        mobile : t?.mobile,
+        church:selectedChurch,
+        assigned_class:t?.assigned_class
+      })
+    }
+},[teachersList,selectedTeacherId,selectedChurch])
+
   return (
     <>
     {
