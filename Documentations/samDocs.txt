@@ -11,7 +11,7 @@ GET Req:{
 }
 EXPECTING ->
 {
-    full_name:"",
+    teacher_name:"",
     Mobile:"",
     church:"",
     assigned_class:""
@@ -23,7 +23,7 @@ Adding Teacher:
 SENDING ->
 POST Req:{
     body:{
-        full_name:"",
+        teacher_name:"",
         mobile:"",
         church:"",
         assigned_class:""
@@ -92,6 +92,7 @@ EXPECTING ->
                         "teacher_id" : "",
                         "teacher_name" : "",
                         "mobile" : "",
+                        "church":"",
                         assigned_class:""
                     },
 
@@ -99,6 +100,7 @@ EXPECTING ->
                         "teacher_id" : "",
                         "teacher_name" : "",
                         "mobile" : "",
+                        "church":"",
                         assigned_class:""
                     }
                 ]
@@ -129,7 +131,7 @@ PUT Req http://localhost:8080/editteacher
 
 {
     teacher_id : "",
-    full_name:"",
+    teacher_name:"",
     mobile:"",
     church:"",
     assigned_class:""
@@ -155,11 +157,8 @@ BAD_REQUEST : Failure
 delete teacher
 
 SENDING ->
-DELETE Req http://localhost:8080/deleteteacher
+DELETE Req http://localhost:8080/deleteteacher/teacher_id
 
-{
-    teacher_id : ""
-}
 
 EXPECTING ->
 OK : Success
