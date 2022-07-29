@@ -1,3 +1,6 @@
+"Begineer","Primary-Boys","Primary-Girls","Juniour-Boys","Juniour-Girls","Intermediate-Boys","Intermediate-Girls","Senior-Boys","Senior-Girls"
+
+********************************************************************************************************************************************************
 req after login to spring server
 
 SENDING ->
@@ -11,10 +14,10 @@ GET Req:{
 }
 EXPECTING ->
 {
-    teacher_name:"",
-    Mobile:"",
-    church:"",
-    assigned_class:""
+    teacher_name:"Kakashi Hatake",
+    mobile:"9876545670",
+    church:"Beersheba",
+    assigned_class:"Juniour-Boys"
 }
 
 ********************************************************************************************************************************************************
@@ -23,10 +26,10 @@ Adding Teacher:
 SENDING ->
 POST Req:{
     body:{
-        teacher_name:"",
-        mobile:"",
-        church:"",
-        assigned_class:""
+        teacher_name:"Kakashi Hatake",
+        mobile:"9876545670",
+        church:"Beersheba",
+        assigned_class:"Juniour-Boys"
     }
 }
 
@@ -40,11 +43,11 @@ Adding student
 SENDING ->
 POST Req:{
     body:{
-        first_name:"",
-        surname:"",
-        mobile:"",
-        church:"",
-        class:""
+        first_name:"Naruto",
+        surname:"Uzumaki",
+        mobile:"9876545670",
+        church:"Beersheba",
+        class:"Juniour-Boys"
     }
 }
 
@@ -56,24 +59,24 @@ BAD_REQUEST : Failure
 view students
 
 SENDING ->
-GET Req http://localhost:8080/viewstudents?church=BEERSHEBA&class=BEGINNER
+GET Req http://localhost:8080/viewstudents?church=Beersheba&class=Juniour-Boys
 
 EXPECTING ->
 
 {
     "students":[
                     {
-                        student_id:"",
-                        first_name:"",
-                        surname:"",
-                        mobile:""
+                        student_id:"Naruto5670",
+                        first_name:"Naruto",
+                        surname:"Uzumaki",
+                        mobile:"9876545670"
                     },
 
                     {
-                        student_id:"",
-                        first_name:"",
-                        surname:"",
-                        mobile:""
+                        student_id:"Naruto5670",
+                        first_name:"Naruto",
+                        surname:"Uzumaki",
+                        mobile:"9876545670"
                     }
                 ]
 }
@@ -82,26 +85,26 @@ EXPECTING ->
 view teachers
 
 SENDING ->
-GET Req http://localhost:8080/viewteachers?church=BEERSHEBA
+GET Req http://localhost:8080/viewteachers?church=Beersheba
 
 EXPECTING ->
 
 {
     "teachers":[
                     {
-                        "teacher_id" : "",
-                        "teacher_name" : "",
-                        "mobile" : "",
-                        "church":"",
-                        assigned_class:""
+                        teacher_id:"Kakashi5670",
+                        teacher_name:"Kakashi Hatake",
+                        mobile:"9876545670",
+                        church:"Beersheba",
+                        assigned_class:"Juniour-Boys"
                     },
 
                     {
-                        "teacher_id" : "",
-                        "teacher_name" : "",
-                        "mobile" : "",
-                        "church":"",
-                        assigned_class:""
+                        teacher_id:"Kakashi5670",
+                        teacher_name:"Kakashi Hatake",
+                        mobile:"9876545670",
+                        church:"Beersheba",
+                        assigned_class:"Juniour-Boys"
                     }
                 ]
 }
@@ -111,12 +114,12 @@ edit student
 SENDING ->
 PUT Req http://localhost:8080/editstudent
 {
-    student_id:"",
-    first_name:"",
-    surname:"",
-    mobile:"",
-    church:"",
-    class:""
+    student_id:"Naruto5670",
+    first_name:"Naruto",
+    surname:"Uzumaki",
+    mobile:"9876545670",
+    church:"Beersheba",
+    class:"Juniour-Boys"
 
 }
 
@@ -130,11 +133,11 @@ SENDING ->
 PUT Req http://localhost:8080/editteacher
 
 {
-    teacher_id : "",
-    teacher_name:"",
-    mobile:"",
-    church:"",
-    assigned_class:""
+    teacher_id:"Kakashi5670",
+    teacher_name:"Kakashi Hatake",
+    mobile:"9876545670",
+    church:"Beersheba",
+    assigned_class:"Juniour-Boys"
 }
 
 EXPECTING ->
@@ -144,11 +147,7 @@ BAD_REQUEST : Failure
 delete student
 
 SENDING ->
-DELETE Req http://localhost:8080/deletestudent
-{
-    student_id:""
-
-}
+DELETE Req http://localhost:8080/deletestudent/student_id
 
 EXPECTING ->
 OK : Success
