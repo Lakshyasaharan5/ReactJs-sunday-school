@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addTeacher } from '../../../api/services/SpringServer/AdminServices/TeacherService';
 import axios from '../../../api/services/userService';
 import Header from '../../../Components/header';
 
@@ -30,14 +31,13 @@ const AddTeacher = () => {
         if(TeacherDetails.church==="DEFAULT") setInvalidChurch(true);
         if(TeacherDetails.selectedClass==="DEFAULT") setInvalidClassName(true);
         const teacherObject = {
-            full_name:TeacherDetails.teacherFullName,
+            teacher_name:TeacherDetails.teacherFullName,
             mobile:TeacherDetails.teacherMobile,
             church:TeacherDetails.church,
             assigned_class:TeacherDetails.selectedClass
           }
-          console.log(teacherObject)
-        axios.post("http://localhost:8080/addTeacher",{
-
+        addTeacher(teacherObject).then(res=>{
+            console.log(res)
         })
     }
     const HandleChange = (e:any) =>{

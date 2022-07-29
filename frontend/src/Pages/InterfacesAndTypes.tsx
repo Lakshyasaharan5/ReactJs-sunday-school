@@ -55,12 +55,27 @@ export interface studentDetails{
     surname:string,
     mobile:string
 }
+export interface studentObject{
+    first_name:string,
+    surname:string,
+    mobile:string,
+    church:string,
+    class:string
+}
 export interface teacherDetails{
     teacher_id : string,
     teacher_name : string,
     mobile : string,
+    church:string,
     assigned_class:string
 }
+export interface teacherObject{
+    teacher_name : string,
+    mobile : string,
+    church : string,
+    assigned_class:string
+}
+
 export interface token{
     iat: number,
     role: string,

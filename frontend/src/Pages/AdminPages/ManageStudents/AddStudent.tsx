@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { addStudent } from '../../../api/services/SpringServer/AdminServices/StudentService'
 import axios from '../../../api/services/userService'
 import Header from '../../../Components/header'
 
@@ -39,19 +40,21 @@ const AddStudent = () => {
             church:StudentDetails.church,
             class:StudentDetails.selectedClass
           }
-        console.log(studentObject)
-        axios.post("http://localhost:8080/addStudent",{
-
+        // console.log(studentObject)
+        addStudent(studentObject).then(res=>{
+            console.log(res)
         })
 
     }
     const HandleChange = (e:any) =>{
-        const {name,value} = e.target;
+        
         setInvalidFirstName(false);
         setInvalidSurname(false);
         setInvalidMobile(false);
         setInvalidChurch(false);
         setInvalidClassName(false);
+
+        const {name,value} = e.target;
         setStudentDetails({
             ...StudentDetails,
             [name]:value

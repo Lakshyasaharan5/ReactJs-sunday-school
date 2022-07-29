@@ -170,7 +170,7 @@ const ManageTeachersPage = () => {
                                     <select name="assigned_class" className="w-[10rem] p-1 rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" defaultValue={teacher?.assigned_class} onChange={(e)=>HandleEditChange(e)} disabled={fieldDisabled} >
                                         <option value="DEFAULT" disabled>select class</option>
                                         {classData?.map(c=>(
-                                            <option key={c} value={c}>{c.replace(/_+/g, ' ')}</option>
+                                            <option key={c} value={c}>{c}</option>
                                         ))}
                                 
                                     </select>

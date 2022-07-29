@@ -79,7 +79,7 @@ const ManageStudentsPage = () => {
   const [fieldDisabled,setFieldDisabled] = useState(true);
   const EditStudentHandler = (e:any) =>{
     e.preventDefault();
-    setFieldDisabled(false)
+    setFieldDisabled((o)=>!o)
   }
   const SubmitEditStudentHandler = (e:any) =>{
     e.preventDefault();
@@ -205,11 +205,12 @@ const ManageStudentsPage = () => {
                                 </div>
                             </div>
                             <div className='flex justify-between'>
-                                <button className=" bg-cyan-500 hover:bg-cyan-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditStudentHandler(e)} >Edit</button>
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitEditStudentHandler(e)} disabled={fieldDisabled}>Submit</button>
+                                {fieldDisabled ?<button className=" bg-cyan-500 hover:bg-cyan-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditStudentHandler(e)} >Edit</button>:null}
+                                {fieldDisabled ?null:<button className=" bg-yellow-500 hover:bg-yellow-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditStudentHandler(e)} >cancel</button>}
+                                {fieldDisabled ? null : <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded " type="button" onClick={(e)=>SubmitEditStudentHandler(e)} >Submit</button>}
                             </div>
                             <div className='flex justify-end'>
-                                <button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded disabled:opacity-50" type="button" onClick={(e)=>DeleteStudentHandler(e)} disabled={fieldDisabled} >Remove</button>
+                                {fieldDisabled ? null : <button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded " type="button" onClick={(e)=>DeleteStudentHandler(e)}  >Remove</button>}
                             </div>
                             <div className='clearfix'></div>
                         </div>
