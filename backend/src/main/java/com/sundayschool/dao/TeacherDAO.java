@@ -2,11 +2,12 @@ package com.sundayschool.dao;
 
 public class TeacherDAO {
 	
-	public int id_teacher = 0;
-	public String username = "";
-	public String teacher_name = "";
-	public String church_class = "";
-	public String mobile = "";
+	private int 		id_teacher 			= 0;
+	private String 		username 			= "";
+	private String 		teacher_name 		= "";
+	private String 		church 				= "";
+	private String 		mobile 				= "";
+	private String 		assigned_class		= "";
 	
 	public TeacherDAO() {
 		super();
@@ -28,12 +29,21 @@ public class TeacherDAO {
 		this.username = username;
 	}
 
+	
 	public String getTeacher_name() {
 		return teacher_name;
 	}
 
 	public void setTeacher_name(String teacher_name) {
 		this.teacher_name = teacher_name;
+	}
+
+	public String getChurch() {
+		return church;
+	}
+
+	public void setChurch(String church) {
+		this.church = church;
 	}
 
 	public String getMobile() {
@@ -43,14 +53,14 @@ public class TeacherDAO {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+
+	public String getAssigned_class() {
+		return assigned_class;
+	}
+
+	public void setAssigned_class(String assigned_class) {
+		this.assigned_class = assigned_class;
+	}
+
 	
-	public String getChurch_class() {
-		return church_class;
-	}
-
-	public void setChurch_class(String church_class) {
-		this.church_class = church_class;
-	}
-
-
 }
