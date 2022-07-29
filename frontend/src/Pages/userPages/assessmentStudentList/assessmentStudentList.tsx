@@ -1,8 +1,8 @@
 import React,{useState , ChangeEvent, useEffect}from "react";
-import { deleteArray } from "../../redux/classAssessment"
+import { deleteArray } from "../../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
 import { Link,useNavigate } from "react-router-dom";
-import { FinalAssessment } from "../InterfacesAndTypes"
+import { FinalAssessment } from "../../InterfacesAndTypes"
 import { Modal} from '@mantine/core';
 import StudentCard from "./studentCard";
 

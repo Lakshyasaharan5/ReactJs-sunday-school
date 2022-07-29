@@ -3,5 +3,20 @@
 	"full-name" : "Itachi Uchiha",
 	"church" : "Beersheba",
 	"class" : "intermediate-Boys",
-	"mobile" : "7023332609"
+	"mobile" : "7023332609",
+	"teachers":[
+		{
+			"teacher_id" : "Itachi94132",
+			"teacher_name" : "Itachi Uchiha",
+			"mobile" : "7023332609",
+			"assigned_class":"intermediate-Boys"
+		},
+
+		{
+			"teacher_id" : "Kakashi56546",
+			"teacher_name" : "Kakashi Hatake",
+			"mobile" : "6665456546",
+			"assigned_class":"Senior-Boys"
+		}
+	]
 }

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { decodeToken } from "react-jwt";
 import { setCredentials } from '../../redux/authSlice';
-import axios from '../../api/axios';
+import axios from '../../api/services/userService';
 
 import { useNavigate } from 'react-router-dom';
 import { token } from '../InterfacesAndTypes';
@@ -35,6 +35,7 @@ const LoginPage=()=>{
                 // console.log(res.data.accessToken)
                 // console.log(typeof(res.data.accessToken))
                 if(res.statusText==="OK"){
+                    console.log(res.data)
                     if(res.data.accessToken){
                         decodedToken = decodeToken(res.data.accessToken)
                         dispatch(setCredentials({
@@ -45,19 +46,20 @@ const LoginPage=()=>{
                             userRole:decodedToken?.role
                         }))
                         // localStorage.setItem('token', res.data.accessToken)
-                        if(decodedToken?.role==="user"){
-                            navigate("/",{
-                                state:{
-                                    username:decodedToken?.username
-                                }
-                            })
-                        }else if(decodedToken?.role==="admin"){
-                            navigate("/admindashboard",{
-                                state:{
-                                    username:decodedToken?.username
-                                }
-                            })
-                        } 
+                        // if(decodedToken?.role==="user"){
+                        //     navigate("/",{
+                        //         state:{
+                        //             username:decodedToken?.username
+                        //         }
+                        //     })
+                        // }else if(decodedToken?.role==="admin"){
+                        //     navigate("/admindashboard",{
+                        //         state:{
+                        //             username:decodedToken?.username
+                        //         }
+                        //     })
+                        // } 
+                        navigate("/");
                         }else{
                             setInputValues({
                                 username:"",
