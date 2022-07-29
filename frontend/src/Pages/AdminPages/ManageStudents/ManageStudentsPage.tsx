@@ -28,6 +28,7 @@ const ManageStudentsPage = () => {
       
       setStudentModalOpened(true);
   }
+  
     // const church = studentsData.church;
     // const class_name = studentsData.class;
     // const selectChurchHandler = (e:any) =>{
@@ -59,16 +60,29 @@ const ManageStudentsPage = () => {
       classData = beershebaClasses
     }
 
+    // runs and updates the teacherArray when church and class selected
     useEffect(()=>{
       if(selectedClass!=="DEFAULT"&&selectedChurch!=="DEFAULT"){
         viewStudent(selectedChurch,selectedClass).then(res=>{
-          setStudentsList(res.data)
+          console.log(res.data)
+          setStudentsList(res.data.students)
         })
       }else{
         setStudentsList([])
       }
     },[selectedClass,selectedChurch])
+    
+    // runs and updates the teacherArray when model is openned or closed
+    useEffect(()=>{
+      viewStudent(selectedChurch,selectedClass).then(res=>{
+        console.log(res.data)
+        setStudentsList(res.data.students)
+      })
+      if(!studentModalOpened) setFieldDisabled(true)
+      // console.log(studentModalOpened)
+    },[selectedClass,selectedChurch,studentModalOpened])
 
+    // runs and updates the teacherArray student id is selected
     useEffect(()=>{
       const s = studentsList?.filter(student=>student.uniqueID === selectedStudentId)[0]
       if(s!==undefined){
@@ -99,6 +113,7 @@ const ManageStudentsPage = () => {
       church:student.church,
       class:student.class
     }
+    // console.log(studentObject);
     editStudent(studentObject).then(res=>{
       console.log(res);
     })
@@ -107,7 +122,7 @@ const ManageStudentsPage = () => {
 
   const DeleteStudentHandler = (e:any) =>{
     e.preventDefault();
-    console.log(selectedStudentId)
+    // console.log(selectedStudentId)
     deleteStudent(selectedStudentId).then(res=>{
       console.log(res)
     })

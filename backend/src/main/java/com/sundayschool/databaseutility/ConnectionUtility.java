@@ -8,7 +8,7 @@ public class ConnectionUtility {
 
 	public static String dbUrl = "jdbc:mysql://localhost:3306/sundayschool_db1";
 	public static String dbUname = "root";
-	public static String dbPasswd = "chandan1997";
+	public static String dbPasswd = "Sam012345";
 	public static String dbDriver = "com.mysql.cj.jdbc.Driver";
 	
 	

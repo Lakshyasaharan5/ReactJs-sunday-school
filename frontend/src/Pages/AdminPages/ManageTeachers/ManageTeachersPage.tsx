@@ -50,10 +50,14 @@ const ManageTeachersPage = () => {
           [name]:value
       })
   }
+
+
   const EditTeacherHandler = (e:any) =>{
     e.preventDefault();
-    setFieldDisabled(false)
+    setFieldDisabled(o=>!o)
   }
+
+
   const SubmitEditTeacherHandler = (e:any) =>{
     e.preventDefault();
     const teacherObject = {
@@ -68,6 +72,8 @@ const ManageTeachersPage = () => {
       setTeacherModalOpened(false)
     })
   }
+
+
   const DeleteTeacherHandler = (e:any) =>{
     e.preventDefault();
     // console.log(selectedTeacherId)
@@ -76,15 +82,23 @@ const ManageTeachersPage = () => {
     })
   }
 
+
   useEffect(()=>{
     if(selectedChurch!=="DEFAULT"){
       viewTeacher(selectedChurch).then(res=>{
-        setTeachersList(res.data)
+        setTeachersList(res.data.teachers)
       })
     }else{
       setTeachersList([])
     }
   },[selectedChurch])
+
+  useEffect(()=>{
+    viewTeacher(selectedChurch).then(res=>{
+      setTeachersList(res.data.teachers)
+    })
+    if(!teacherModalOpened) setFieldDisabled(true);
+  },[selectedChurch,teacherModalOpened])
 
   useEffect(()=>{
     const t = teachersList?.filter(teacher=>teacher.username === selectedTeacherId)[0]
@@ -188,11 +202,12 @@ const ManageTeachersPage = () => {
                                 </div>
                             </div>
                             <div className='flex justify-between'>
-                                <button className=" bg-cyan-500 hover:bg-cyan-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditTeacherHandler(e)} >Edit</button>
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitEditTeacherHandler(e)} disabled={fieldDisabled}>Submit</button>
+                                {fieldDisabled?<button className=" bg-cyan-500 hover:bg-cyan-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditTeacherHandler(e)} >Edit</button>:null}
+                                {fieldDisabled?null:<button className=" bg-yellow-500 hover:bg-yellow-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditTeacherHandler(e)} >Cancel</button>}
+                                {fieldDisabled?null:<button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitEditTeacherHandler(e)} >Submit</button>}
                             </div>
                             <div className='flex justify-end'>
-                                <button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded disabled:opacity-50" type="button" onClick={(e)=>DeleteTeacherHandler(e)} disabled={fieldDisabled} >Remove</button>
+                                {fieldDisabled?null:<button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded disabled:opacity-50" type="button" onClick={(e)=>DeleteTeacherHandler(e)}>Remove</button>}
                             </div>
                             <div className='clearfix'></div>
                         </div>

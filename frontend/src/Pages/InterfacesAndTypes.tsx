@@ -83,3 +83,10 @@ export interface token{
     role: string,
     username: string
 }
+export interface getStudentsArray{
+    "students":studentDetails[]
+}
+
+export interface getTeachersArray{
+    "teachers":teacherDetails[]
+}

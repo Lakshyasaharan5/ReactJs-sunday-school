@@ -35,7 +35,7 @@ const LoginPage=()=>{
                 // console.log(res.data.accessToken)
                 // console.log(typeof(res.data.accessToken))
                 if(res.statusText==="OK"){
-                    console.log(res.data)
+                    // console.log(res.data)
                     if(res.data.accessToken){
                         decodedToken = decodeToken(res.data.accessToken)
                         dispatch(setCredentials({
