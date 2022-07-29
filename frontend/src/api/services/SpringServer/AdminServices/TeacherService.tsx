@@ -5,14 +5,14 @@ import axios from "../../userService"
 const SPRING_SERVER_BASE_URL = "http://localhost:8080/";
 
 export const addTeacher = (teacherObject:teacherObject) =>{
-    return axios.post(`${SPRING_SERVER_BASE_URL}/addteacher`,teacherObject);
+    return axios.post(`${SPRING_SERVER_BASE_URL}/addTeacher`,teacherObject);
 }
 export const viewTeacher = (church:string) => {
-    return axios.get<teacherDetails[]>(`${SPRING_SERVER_BASE_URL}/viewteachers?church=${church}`)
+    return axios.get<teacherDetails[]>(`${SPRING_SERVER_BASE_URL}/viewTeacher?church=${church}`)
 }
 export const editTeacher = (teacherObject:teacherDetails) => {
-    return axios.put(`${SPRING_SERVER_BASE_URL}/editstudent`,teacherObject);
+    return axios.put(`${SPRING_SERVER_BASE_URL}/editTeacher`,teacherObject);
 }
-export const deleteTeacher = (teacherId:string) => {
-    return axios.delete(`${SPRING_SERVER_BASE_URL}/deletestudent/${teacherId}`)
+export const deleteTeacher = (teacherUsername:string) => {
+    return axios.delete(`${SPRING_SERVER_BASE_URL}/deleteTeacher?username=${teacherUsername}`)
 }

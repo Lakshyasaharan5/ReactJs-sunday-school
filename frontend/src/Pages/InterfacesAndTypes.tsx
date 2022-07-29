@@ -50,9 +50,11 @@ export interface headerProps{
 }
 
 export interface studentDetails{
-    student_id:string,
+    uniqueID:string,
     first_name:string,
     surname:string,
+    church:string,
+    class:string,
     mobile:string
 }
 export interface studentObject{
@@ -63,7 +65,7 @@ export interface studentObject{
     class:string
 }
 export interface teacherDetails{
-    teacher_id : string,
+    username : string,
     teacher_name : string,
     mobile : string,
     church:string,

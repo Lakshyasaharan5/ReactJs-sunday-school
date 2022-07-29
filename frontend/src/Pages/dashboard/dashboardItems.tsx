@@ -31,7 +31,7 @@ export default function DashboardItems(props:dashboardProps){
         "church" : studentsData.church,
         "class": studentsData.class,
         "date" : currDate,
-        "student_id":s.student_id,
+        "student_id":s.uniqueID,
         "student_name" : s.first_name+" "+s.surname,
         "attendance" : "absent",
         "songs_4" : "0",

@@ -70,7 +70,7 @@ const ManageStudentsPage = () => {
     },[selectedClass,selectedChurch])
 
     useEffect(()=>{
-      const s = studentsList?.filter(student=>student.student_id === selectedStudentId)[0]
+      const s = studentsList?.filter(student=>student.uniqueID === selectedStudentId)[0]
       if(s!==undefined){
         setStudent({
           first_name:s?.first_name,
@@ -92,7 +92,7 @@ const ManageStudentsPage = () => {
   const SubmitEditStudentHandler = (e:any) =>{
     e.preventDefault();
     const studentObject = {
-      student_id:selectedStudentId,
+      uniqueID:selectedStudentId,
       first_name:student.first_name,
       surname:student.surname,
       mobile:student.mobile,
@@ -232,10 +232,10 @@ const ManageStudentsPage = () => {
                     </Modal>
                     <ul className='grid gap-3'>
                       {studentsList?.map(s=>(
-                        <li key={s.student_id}>
+                        <li key={s.uniqueID}>
                           <div className='flex justify-between'>
                               <p className=''>{s.first_name+" "+s.surname}</p>
-                              <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2 font-sans' onClick={(e)=>viewStudentDetails(e,s.student_id)}>view details</button>
+                              <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2 font-sans' onClick={(e)=>viewStudentDetails(e,s.uniqueID)}>view details</button>
                           </div>
                         </li>
                       ))}

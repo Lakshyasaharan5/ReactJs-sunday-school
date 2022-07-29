@@ -57,7 +57,7 @@ const ManageTeachersPage = () => {
   const SubmitEditTeacherHandler = (e:any) =>{
     e.preventDefault();
     const teacherObject = {
-      teacher_id : selectedTeacherId,
+      username : selectedTeacherId,
       teacher_name:teacher.teacher_name,
       mobile:teacher.mobile,
       church:teacher.church,
@@ -87,7 +87,7 @@ const ManageTeachersPage = () => {
   },[selectedChurch])
 
   useEffect(()=>{
-    const t = teachersList?.filter(teacher=>teacher.teacher_id === selectedTeacherId)[0]
+    const t = teachersList?.filter(teacher=>teacher.username === selectedTeacherId)[0]
     if(t!==undefined){
       setTeacher({
         teacher_name : t?.teacher_name,
@@ -199,10 +199,10 @@ const ManageTeachersPage = () => {
                     </Modal>
                     <ul className='grid gap-3'>
                       {teachersList?.map(t=>(
-                        <li key={t.teacher_id}>
+                        <li key={t.username}>
                           <div className='flex justify-between'>
                               <p className=''>{t.teacher_name}</p>
-                              <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2 font-sans' onClick={(e)=>viewTeacherDetails(e,t.teacher_id)}>view details</button>
+                              <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2 font-sans' onClick={(e)=>viewTeacherDetails(e,t.username)}>view details</button>
                           </div>
                         </li>
                       ))}

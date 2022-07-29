@@ -18,7 +18,7 @@ export default function StudentListPage() {
         setStudentModalOpened(true);
     }
     useEffect(()=>{
-        setStudent(students.filter(student=>student.student_id === selectedStudentId)[0])
+        setStudent(students.filter(student=>student.uniqueID === selectedStudentId)[0])
     },[students,selectedStudentId])
     
   return (
@@ -50,10 +50,10 @@ export default function StudentListPage() {
                         </div>
                         <ul className=' flex flex-col gap-3'>
                             {students.map(s=>(
-                                <li key={s.student_id}>
+                                <li key={s.uniqueID}>
                                     <div className='flex justify-between'>
                                         <p className=''>{s.first_name+" "+s.surname}</p>
-                                        <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2' onClick={(e)=>viewStudentDetails(e,s.student_id)}>view details</button>
+                                        <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2' onClick={(e)=>viewStudentDetails(e,s.uniqueID)}>view details</button>
                                     </div>
                                 </li>
                             ))}
