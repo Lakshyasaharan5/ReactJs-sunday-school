@@ -23,14 +23,16 @@ EXPECTING ->
 ********************************************************************************************************************************************************
 Adding Teacher:
 
+http://localhost:8080/addTeacher        POST
+
 SENDING ->
 POST Req:{
     body:{
-        teacher_name:"Kakashi Hatake",
-        mobile:"9876545670",
-        church:"Beersheba",
-        assigned_class:"Juniour-Boys"
-    }
+        "teacher_name" : "Kakashi Hatake",
+        "church" : "Beersheba",
+        "assigned_class" : "Senior-Boys",
+        "mobile" : "7023332609"
+}
 }
 
 EXPECTING ->
@@ -40,16 +42,18 @@ BAD_REQUEST : Failure
 ********************************************************************************************************************************************************
 Adding student
 
+http://localhost:8080/addStudent        POST
+
 SENDING ->
 POST Req:{
     body:{
-        first_name:"Naruto",
-        surname:"Uzumaki",
-        mobile:"9876545670",
-        church:"Beersheba",
-        class:"Juniour-Boys"
+            "first_name" : "Naruto",
+            "surname" : "Uzumaki",
+            "church" : "Beersheba",
+            "class" : "Intermediate-Boys",
+            "mobile" : "7023332609"
+        }
     }
-}
 
 EXPECTING ->
 OK : Success
@@ -59,68 +63,69 @@ BAD_REQUEST : Failure
 view students
 
 SENDING ->
-GET Req http://localhost:8080/viewstudents?church=Beersheba&class=Juniour-Boys
+http://localhost:8080/viewStudent?church=Beersheba&class=Intermediate-Boys      GET
 
 EXPECTING ->
 
 {
-    "students":[
-                    {
-                        student_id:"Naruto5670",
-                        first_name:"Naruto",
-                        surname:"Uzumaki",
-                        mobile:"9876545670"
-                    },
-
-                    {
-                        student_id:"Naruto5670",
-                        first_name:"Naruto",
-                        surname:"Uzumaki",
-                        mobile:"9876545670"
-                    }
-                ]
+      "students": [
+                {
+                  "surname": "Uzumaki",
+                  "church": "Beersheba",
+                  "mobile": "7023332609",
+                  "first_name": "Naruto",
+                  "class": "Intermediate-Boys",
+                  "uniqueID": "Naruto-7023332609-Uzumaki"
+                },
+                {
+                  "surname": "Uchiha",
+                  "church": "Beersheba",
+                  "mobile": "7023332609",
+                  "first_name": "Sasuke",
+                  "class": "Intermediate-Boys",
+                  "uniqueID": "Sasuke-7023332609-Uchiha"
+                }
+            ]
 }
 
 ********************************************************************************************************************************************************
 view teachers
 
 SENDING ->
-GET Req http://localhost:8080/viewteachers?church=Beersheba
+http://localhost:8080/viewTeacher?church=Beersheba          GET
 
 EXPECTING ->
 
 {
-    "teachers":[
+    "teachers" : [
                     {
-                        teacher_id:"Kakashi5670",
-                        teacher_name:"Kakashi Hatake",
-                        mobile:"9876545670",
-                        church:"Beersheba",
-                        assigned_class:"Juniour-Boys"
-                    },
-
-                    {
-                        teacher_id:"Kakashi5670",
-                        teacher_name:"Kakashi Hatake",
-                        mobile:"9876545670",
-                        church:"Beersheba",
-                        assigned_class:"Juniour-Boys"
-                    }
-                ]
+                        "teacher_name":"Kakashi Hatake",
+                        "church":"Beersheba",
+                        "mobile":"7023332609",
+                        "assigned_class":"Senior-Boys",
+                        "username":"kakashi32609"
+                     },
+                     {
+                        "teacher_name":"Saturo Gojo",
+                        "church":"Beersheba",
+                        "mobile":"7023332609",
+                        "assigned_class":"Intermediate-Boys",
+                        "username":"saturo32609"
+                      }
+                 ]
 }
 ********************************************************************************************************************************************************
 edit student
 
 SENDING ->
-PUT Req http://localhost:8080/editstudent
+http://localhost:8080/editStudent       PUT
 {
-    student_id:"Naruto5670",
-    first_name:"Naruto",
-    surname:"Uzumaki",
-    mobile:"9876545670",
-    church:"Beersheba",
-    class:"Juniour-Boys"
-
+    "uniqueID" : "Naruto-7023332609-Uzumaki",
+    "first_name" : "Naruto",
+    "surname" : "Uzumaki",
+    "church" : "Beersheba",
+    "class" : "Intermediate-Girls",
+    "mobile" : "9928722998"
 }
 
 EXPECTING ->
@@ -130,14 +135,14 @@ BAD_REQUEST : Failure
 edit teacher
 
 SENDING ->
-PUT Req http://localhost:8080/editteacher
+http://localhost:8080/editTeacher      PUT
 
 {
-    teacher_id:"Kakashi5670",
-    teacher_name:"Kakashi Hatake",
-    mobile:"9876545670",
-    church:"Beersheba",
-    assigned_class:"Juniour-Boys"
+    "username" : "saturo32609",
+    "teacher_name" : "Saturo Gojo",
+    "church" : "Beersheba",
+    "assigned_class" : "Intermediate-Boys",
+    "mobile" : "7023332609"
 }
 
 EXPECTING ->
@@ -147,7 +152,7 @@ BAD_REQUEST : Failure
 delete student
 
 SENDING ->
-DELETE Req http://localhost:8080/deletestudent/student_id
+http://localhost:8080/deleteStudent?uniqueID=Naruto-9928722998-Uzumaki      DELETE
 
 EXPECTING ->
 OK : Success
@@ -156,7 +161,7 @@ BAD_REQUEST : Failure
 delete teacher
 
 SENDING ->
-DELETE Req http://localhost:8080/deleteteacher/teacher_id
+http://localhost:8080/deleteTeacher?username=saturo32609    DELETE
 
 
 EXPECTING ->
