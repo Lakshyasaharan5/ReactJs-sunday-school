@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addStudent } from '../../../api/services/SpringServer/AdminServices/StudentService'
-import axios from '../../../api/services/userService'
+
 import Header from '../../../Components/header'
 
 const AddStudent = () => {
