@@ -1,3 +1,6 @@
+"Begineer","Primary-Boys","Primary-Girls","Juniour-Boys","Juniour-Girls","Intermediate-Boys","Intermediate-Girls","Senior-Boys","Senior-Girls"
+
+********************************************************************************************************************************************************
 req after login to spring server
 
 SENDING ->
@@ -144,11 +147,7 @@ BAD_REQUEST : Failure
 delete student
 
 SENDING ->
-DELETE Req http://localhost:8080/deletestudent
-{
-    student_id:""
-
-}
+DELETE Req http://localhost:8080/deletestudent/student_id
 
 EXPECTING ->
 OK : Success
