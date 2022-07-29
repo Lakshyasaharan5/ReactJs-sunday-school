@@ -4,9 +4,11 @@ public class StudentDAO {
 	
 	private int id_student = 0;
 	private String uniqueID = "";
-	private String student_name = "";
-	private String church_class = "";
-	private String details = "";
+	private String first_name = "";
+	private String surname = "";
+	private String church = "";
+	private String assigned_class = "";
+	private String mobile = "";
 	
 	public StudentDAO() {
 		
@@ -28,30 +30,46 @@ public class StudentDAO {
 		this.uniqueID = uniqueID;
 	}
 
-	public String getChurch_class() {
-		return church_class;
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setChurch_class(String church_class) {
-		this.church_class = church_class;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
 	}
 
-	public String getDetails() {
-		return details;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setDetails(String details) {
-		this.details = details;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
-	public String getStudent_name() {
-		return student_name;
+	public String getChurch() {
+		return church;
 	}
 
-	public void setStudent_name(String student_name) {
-		this.student_name = student_name;
+	public void setChurch(String church) {
+		this.church = church;
 	}
+
+	public String getAssigned_class() {
+		return assigned_class;
+	}
+
+	public void setAssigned_class(String assigned_class) {
+		this.assigned_class = assigned_class;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
 	
 	
-
 }
