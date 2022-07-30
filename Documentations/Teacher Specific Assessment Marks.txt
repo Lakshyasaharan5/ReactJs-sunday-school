@@ -199,3 +199,16 @@ OK : Success
 BAD REQUEST : Failure
 
 ***************************************************************************************************************
+Get teacher details
+
+SENDING ->
+http://localhost:8080/getTeachersData?username=kakashi32609	GET
+
+EXPECTING->
+{
+	"teacher_name":"Kakashi Hatake",
+    	"mobile":"9876545670",
+    	"church":"Beersheba",
+    	"assigned_class":"Juniour-Boys"
+
+}
