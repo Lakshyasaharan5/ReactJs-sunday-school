@@ -1,4 +1,53 @@
 
+When teacher clicks on Take Assessment
+
+SENDING ->
+http://localhost:8080/viewAssessmentMarks?username=kakashi32609		GET
+
+EXPECTING ->
+{
+	studentsMarks : [
+				{
+   					 "church" : "Beersheba",	
+   					 "class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"student_name" : "Naruto Uzumaki",
+    					"attendance" : "0",
+					 "songs_4" : "0",
+    					"worship_message" : "0",
+    					"table_message" : "0",
+    					"behaviour" : "0",
+    					"memory_verses" : "0",
+    					"total" : "0",
+    					"remarks" : "",
+    
+				},
+
+				{
+					"uniqueID" : "Sasuke-9928722998-Uchiha",
+   					 "church" : "Beersheba",	
+   					 "class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"student_name" : "Sasuke Uchiha",
+    					"attendance" : "0",
+					 "songs_4" : "0",
+    					"worship_message" : "0",
+    					"table_message" : "0",
+    					"behaviour" : "0",
+    					"memory_verses" : "0",
+    					"total" : "0",
+    					"remarks" : "",
+    
+				}
+
+			
+			],
+
+	"username" : "kakashi32609",
+	"church" : "Beersheba",
+	"class" : "Junior Boys"
+
+}
 
 ***************************************************************************************************************
 
@@ -11,7 +60,8 @@ SENDING ->
 {
 	studentsMarks : [
 				{
-   					 "church" : "Beersheba",	
+   					 "uniqueID" : "Naruto-7023332609-Uzumaki",
+					 "church" : "Beersheba",	
    					 "class" : "Junior Boys",
     					"date" : "2022-08-08",
     					"student_name" : "Naruto Uzumaki",
