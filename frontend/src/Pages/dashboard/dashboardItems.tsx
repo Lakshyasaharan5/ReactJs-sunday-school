@@ -2,16 +2,17 @@ import React,{useEffect, useState} from "react";
 import { initiateArray } from "../../redux/classAssessment"
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom"
-import studentsData from '../students.json'
+// import studentsData from '../students.json'
 import 'react-calendar/dist/Calendar.css';
-import { dashboardProps } from "../InterfacesAndTypes";
+import { dashboardProps, studentDetails } from "../InterfacesAndTypes";
 import {IoLocationOutline} from 'react-icons/io5';
+import { getStudentsData } from "../../api/services/SpringServer/UserService/AssessmentsService";
 // import teacherData from '../teacher.json'
 
 export default function DashboardItems(props:dashboardProps){
     const date = props.date;
     const [showAttendence, setShowAttendence] = useState(false);
-
+    
     useEffect(()=>{
         if(date?.toDateString()?.slice(0,3)==="Sun"){
             setShowAttendence(true);
@@ -26,14 +27,18 @@ export default function DashboardItems(props:dashboardProps){
     const yyyy = today.getFullYear();
     const currDate = yyyy+"-"+mm+"-"+dd;
     
-    const studentsArray = studentsData.students
-    const assessmentArray = studentsArray.map(s=>({
-        "church" : studentsData.church,
-        "class": studentsData.class,
+    // const studentsArray = studentsData.students
+    const [studentsArray,setStudentsArray] = useState<studentDetails[]>();
+    const [church_name,setChurch_name] = useState("");
+    const [class_name,setClass_name] = useState("");
+    const assessmentArray = studentsArray?.map(s=>({
+        "church" : church_name,
+        "class": class_name,
         "date" : currDate,
-        "student_id":s.uniqueID,
-        "student_name" : s.first_name+" "+s.surname,
-        "attendance" : "absent",
+        "uniqueID":s.uniqueID,
+        "first_name" : s.first_name,
+        "surname":s.surname,
+       "attendance" : "absent",
         "songs_4" : "0",
         "worship_message" : "0",
         "table_message" : "0",
@@ -52,6 +57,15 @@ export default function DashboardItems(props:dashboardProps){
         navigate("/assessment-studentlist")
     }
     const role = useSelector((state:any)=>state.auth.role)
+    const user:string = useSelector((state:any)=>state.auth.user)
+    
+    useEffect(()=>{
+        getStudentsData(user).then(res=>{
+            setStudentsArray(res.data.students);
+            setChurch_name(res.data.church);
+            setClass_name(res.data.class);
+        })
+    })
     return (
         <div className=" grid grid-cols-1 mb-2">
             

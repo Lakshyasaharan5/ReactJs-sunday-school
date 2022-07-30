@@ -5,6 +5,7 @@ import { Link,useNavigate } from "react-router-dom";
 import { FinalAssessment } from "../../InterfacesAndTypes"
 import { Modal} from '@mantine/core';
 import StudentCard from "./studentCard";
+import { addAssessment } from "../../../api/services/SpringServer/UserService/AssessmentsService";
 
 
 const AssessmentStudentList=()=>{
@@ -12,6 +13,7 @@ const AssessmentStudentList=()=>{
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const user:string = useSelector((state:any)=>state.auth.user)
     const [isEmpty,setIsEmpty] = useState(true); // component at default has nothing to show
     const [submitModalOpened,setSubmitModalOpened] = useState(false);
     const storeAssessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray);
@@ -21,8 +23,9 @@ const AssessmentStudentList=()=>{
             "church" : s.church,
             "class":s.class,
             "date" : s.date,
-            "student_id":s.student_id,
-            "student_name" : s.student_name,
+            "uniqueID": s.uniqueID,
+            "first_name": s.first_name,
+            "surname": s.surname,
             "attendance" : s.attendance,
             "songs_4" : s.songs_4,
             "worship_message" : s.worship_message,
@@ -36,10 +39,11 @@ const AssessmentStudentList=()=>{
 
     const [newStudentsArray,setNewStudentsArray] = useState(assessmentArray.map(
         student=>({
-            "id":student.student_id, 
+            "id":student.uniqueID, 
             "church":student.church,
             "class":student.class,
-            "student_name":student.student_name,
+            "first_name": student.first_name,
+            "surname": student.surname,
             "attendance":student.attendance,
             buttonDisabled:true
         })
@@ -87,7 +91,7 @@ const AssessmentStudentList=()=>{
         for(let i in newStudentsArray){
             if(newStudentsArray[i].attendance==="absent"){
                 setAssessmentArray(assessmentArray=>assessmentArray.map(
-                    obj=>obj.student_id===newStudentsArray[i].id ? Object.assign(obj,{attendance:"absent",songs_4:"0",memory_verses:"0",behaviour:"0",worship_message:"0",table_message:"0",remarks:"",total:"0"}) : obj
+                    obj=>obj.uniqueID===newStudentsArray[i].id ? Object.assign(obj,{attendance:"absent",songs_4:"0",memory_verses:"0",behaviour:"0",worship_message:"0",table_message:"0",remarks:"",total:"0"}) : obj
                 ))
             }
         }
@@ -97,8 +101,17 @@ const AssessmentStudentList=()=>{
 
     const confirmClassAssessment = (e:any)=>{
         e.preventDefault();
-        dispatch(deleteArray())
-        navigate("/")
+        const AssessmentsObject = {
+            studentsMarks:assessmentArray,
+            username:user
+        }
+        console.log(AssessmentsObject)
+        addAssessment(AssessmentsObject).then(res=>{
+            console.log(res);
+            dispatch(deleteArray())
+            navigate("/")
+        })
+        
     }
 
     
@@ -112,9 +125,9 @@ const AssessmentStudentList=()=>{
                 
             >
             {assessmentArray.map(a=>(
-                <div key={a.student_id}>
+                <div key={a.uniqueID}>
                     <div className="inline-flex justify-start ">
-                        <p className="pr-1 font-bold ">{a.student_name}:</p><p className="px-1 ml-3">{a.total}</p>
+                        <p className="pr-1 font-bold ">{a.first_name+" "+a.surname}:</p><p className="px-1 ml-3">{a.total}</p>
                     </div>
                 </div>
 
@@ -136,7 +149,7 @@ const AssessmentStudentList=()=>{
                         <li key={s.id}>
                             <StudentCard
                                 id={s.id}
-                                student_name={s.student_name}
+                                student_name={s.first_name+" "+s.surname}
                                 attendance={s.attendance}
                                 buttonDisabled = {s.buttonDisabled}
                                 handleChange = {handleChange}

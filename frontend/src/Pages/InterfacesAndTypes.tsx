@@ -10,20 +10,38 @@ export interface AssessmentInputs{
 }
 
 export interface FinalAssessment{
-    church:string;
-    class:string;
-    date:string;
-    student_id:string;
-    student_name:string;
-    attendance:string;
-    songs_4:string;
-    worship_message:string;
-    table_message:string;
-    behaviour:string;
-    memory_verses:string;
-    total:string;
-    remarks:string;
+    church:string,
+    class:string,
+    date:string,
+    uniqueID:string,
+    first_name:string,
+    surname:string,
+    attendance:string,
+    songs_4:string,
+    worship_message:string,
+    table_message:string,
+    behaviour:string,
+    memory_verses:string,
+    total:string,
+    remarks:string
 }
+
+export interface AssessmentsObject{
+    studentsMarks:FinalAssessment[],
+    username:string
+}
+
+export interface StudentsDataObject{
+    students:studentDetails[],
+    username:string,
+    church:string,
+    class:string
+}
+
+
+
+
+
 
 export type LocationState = {
     state:{

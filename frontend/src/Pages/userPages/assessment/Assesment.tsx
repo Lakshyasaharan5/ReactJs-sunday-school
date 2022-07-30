@@ -17,7 +17,7 @@ const Assessment = ()=>{
     // console.log(student_id)
 
     const assessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray)
-    const [studentAssessment,setStudentAssessment] = useState<FinalAssessment>(assessmentArray.filter(student=>student.student_id===student_id)[0]);
+    const [studentAssessment,setStudentAssessment] = useState<FinalAssessment>(assessmentArray.filter(student=>student.uniqueID===student_id)[0]);
     const [isEmpty,setIsEmpty] = useState(true); // component at default has nothing to show
 
     const initialValue = {
@@ -26,10 +26,10 @@ const Assessment = ()=>{
         table_message:studentAssessment?.table_message,
         behaviour:studentAssessment?.behaviour,
         memory_verses:studentAssessment?.memory_verses,
-        total_marks:2,
+        total_marks:studentAssessment?.total,
         remarks:studentAssessment?.remarks
     }
-
+    
     const [assessmentValues] = useState<AssessmentInputs>({
         songs:useRef<HTMLSelectElement | null>(null),
         worship_message:useRef<HTMLSelectElement | null>(null),
@@ -49,7 +49,11 @@ const Assessment = ()=>{
         }
     },[studentAssessment,student_id,navigate])
     // console.log(studentAssessment)
-    
+    useEffect(()=>{
+        if(parseInt(initialValue.total_marks)!==0){
+            setTotal(initialValue.total_marks)
+        }
+    },[initialValue.total_marks])
     
     const HandleChange=(e:any)=>{
         
@@ -78,8 +82,9 @@ const Assessment = ()=>{
             "church": studentAssessment?.church,
             "class":studentAssessment?.class,
             "date": studentAssessment?.date,
-            "student_id": studentAssessment?.student_id,
-            "student_name": studentAssessment?.student_name,
+            "uniqueID": studentAssessment?.uniqueID,
+            "first_name": studentAssessment?.first_name,
+            "surname": studentAssessment?.surname,
             "attendance": "present",
             "songs_4": songs_marks.toString(),
             "worship_message": worship_message_marks.toString(),
@@ -109,7 +114,7 @@ const Assessment = ()=>{
             <form className="flex flex-col gap-6 bg-white shadow-2xl px-5 py-5 mx-3  rounded-2xl font-serif w-[20.2rem]">
                 <div className="">
                     <div className="flex justify-center ">
-                        <p className="pr-1 font-bold ">Student Name : </p><p className="px-1 ml-3"> {studentAssessment?.student_name}</p>   
+                        <p className="pr-1 font-bold ">Student Name : </p><p className="px-1 ml-3"> {studentAssessment?.first_name+" "+studentAssessment?.surname}</p>   
                     </div>
                 </div>
                 <div className="grid gap-1" >

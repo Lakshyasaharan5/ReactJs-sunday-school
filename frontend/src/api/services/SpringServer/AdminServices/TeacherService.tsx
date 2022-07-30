@@ -1,5 +1,5 @@
 import { getTeachersArray, teacherDetails, teacherObject } from "../../../../Pages/InterfacesAndTypes";
-import axios from "../../userService"
+import axios from "../../authService"
 // import useAxiosPrivate from "../../../Hooks/useAxiosPrivate";
 
 const SPRING_SERVER_BASE_URL = "http://localhost:8080";

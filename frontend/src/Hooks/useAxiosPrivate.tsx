@@ -1,4 +1,4 @@
-import { axiosPrivate } from "../api/services/userService";
+import { axiosPrivate } from "../api/services/authService";
 import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
 import { useSelector } from "react-redux";

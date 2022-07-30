@@ -11,7 +11,7 @@ export const assessmentSlice = createSlice({
       state.assessmentArray = action.payload
     },
     updateArray: (state,action) => {
-    state.assessmentArray = state.assessmentArray.map(obj=> action.payload.find(o=>o.student_id === obj.student_id)|| obj);
+    state.assessmentArray = state.assessmentArray.map(obj=> action.payload.find(o=>o.uniqueID === obj.uniqueID)|| obj);
 
     },
     deleteArray: (state) => {

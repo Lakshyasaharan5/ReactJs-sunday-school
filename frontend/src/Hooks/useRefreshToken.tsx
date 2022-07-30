@@ -1,4 +1,4 @@
-import axios from '../api/services/userService';
+import axios from '../api/services/authService';
 import { updateAccessToken } from '../redux/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
