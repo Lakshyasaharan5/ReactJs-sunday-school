@@ -2,46 +2,28 @@
 When teacher clicks on Take Assessment
 
 SENDING ->
-http://localhost:8080/viewAssessmentMarks?username=kakashi32609		GET
+http://localhost:8080/getStudents?username=kakashi32609		GET
 
 EXPECTING ->
 {
-	students : [
-				{	"uniqueID" : "Naruto-7023332609-Uzumaki",
-   					 "church" : "Beersheba",	
-   					 "class" : "Junior Boys",
-    					"date" : "2022-08-08",
-    					"student_name" : "Naruto Uzumaki",
-    					"attendance" : "0",
-					 "songs_4" : "0",
-    					"worship_message" : "0",
-    					"table_message" : "0",
-    					"behaviour" : "0",
-    					"memory_verses" : "0",
-    					"total" : "0",
-    					"remarks" : "",
-    
-				},
-
-				{
-					"uniqueID" : "Sasuke-9928722998-Uchiha",
-   					 "church" : "Beersheba",	
-   					 "class" : "Junior Boys",
-    					"date" : "2022-08-08",
-    					"student_name" : "Sasuke Uchiha",
-    					"attendance" : "0",
-					 "songs_4" : "0",
-    					"worship_message" : "0",
-    					"table_message" : "0",
-    					"behaviour" : "0",
-    					"memory_verses" : "0",
-    					"total" : "0",
-    					"remarks" : "",
-    
-				}
-
-			
-			],
+	"students": [
+                {
+                  "surname": "Uzumaki",
+                  "church": "Beersheba",
+                  "mobile": "7023332609",
+                  "first_name": "Naruto",
+                  "class": "Intermediate-Boys",
+                  "uniqueID": "Naruto-7023332609-Uzumaki"
+                },
+                {
+                  "surname": "Uchiha",
+                  "church": "Beersheba",
+                  "mobile": "7023332609",
+                  "first_name": "Sasuke",
+                  "class": "Intermediate-Boys",
+                  "uniqueID": "Sasuke-7023332609-Uchiha"
+                }
+            ],
 
 	"username" : "kakashi32609",
 	"church" : "Beersheba",
@@ -64,7 +46,8 @@ SENDING ->
 					 "church" : "Beersheba",	
    					 "class" : "Junior Boys",
     					"date" : "2022-08-08",
-    					"student_name" : "Naruto Uzumaki",
+    					"first_name": "Naruto",
+					"surname": "Uzumaki",
     					"attendance" : "1",
 					 "songs_4" : "1",
     					"worship_message" : "1",
@@ -81,7 +64,8 @@ SENDING ->
    					 "church" : "Beersheba",	
    					 "class" : "Junior Boys",
     					"date" : "2022-08-08",
-    					"student_name" : "Sasuke Uchiha",
+    					"first_name": "Sasuke",
+					"surname": "Uchiha",
     					"attendance" : "1",
 					 "songs_4" : "1",
     					"worship_message" : "1",
@@ -120,7 +104,8 @@ EXPECTING->
    					"church" : "Beersheba",	
    					"class" : "Junior Boys",
     					"date" : "2022-08-08",
-    					"student_name" : "Naruto Uzumaki",
+    					"first_name": "Naruto",
+					"surname": "Uzumaki",
     					"attendance" : "1",
 					"songs_4" : "1",
     					"worship_message" : "1",
@@ -137,7 +122,8 @@ EXPECTING->
    					"church" : "Beersheba",	
    					"class" : "Junior Boys",
     					"date" : "2022-08-08",
-    					"student_name" : "Sasuke Uchiha",
+    					"first_name": "Sasuke",
+					"surname": "Uchiha",
     					"attendance" : "1",
 					"songs_4" : "1",
     					"worship_message" : "1",
@@ -169,7 +155,8 @@ SENDING ->
    					"church" : "Beersheba",	
    					"class" : "Junior Boys",
     					"date" : "2022-08-08",
-    					"student_name" : "Naruto Uzumaki",
+    					"first_name": "Naruto",
+					"surname": "Uzumaki",
     					"attendance" : "1",
 					"songs_4" : "1",
     					"worship_message" : "1",
@@ -186,7 +173,8 @@ SENDING ->
    					"church" : "Beersheba",	
    					"class" : "Junior Boys",
     					"date" : "2022-08-08",
-    					"student_name" : "Sasuke Uchiha",
+    					"first_name": "Sasuke",
+					"surname": "Uchiha",
     					"attendance" : "1",
 					"songs_4" : "1",
     					"worship_message" : "1",
