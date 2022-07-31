@@ -3,9 +3,12 @@ package com.sundayschool.dao;
 public class AssessmentMarksDAO {
 	
 	private int id_assessmentMarks = 0;
-	private String church_class = "";
+	private String uniqueID = "";
+	private String church = "";
+	private String assigned_class = "";
 	private String date = "";
-	private String student_name = "";
+	private String first_name = "";
+	private String surname = "";
 	private int attendance = 0;
 	private int songs_4 = 0;
 	private int worship_message = 0;
@@ -27,12 +30,28 @@ public class AssessmentMarksDAO {
 		this.id_assessmentMarks = id_assessmentMarks;
 	}
 
-	public String getChurch_class() {
-		return church_class;
+	public String getUniqueID() {
+		return uniqueID;
 	}
 
-	public void setChurch_class(String church_class) {
-		this.church_class = church_class;
+	public void setUniqueID(String uniqueID) {
+		this.uniqueID = uniqueID;
+	}
+
+	public String getChurch() {
+		return church;
+	}
+
+	public void setChurch(String church) {
+		this.church = church;
+	}
+
+	public String getAssigned_class() {
+		return assigned_class;
+	}
+
+	public void setAssigned_class(String assigned_class) {
+		this.assigned_class = assigned_class;
 	}
 
 	public String getDate() {
@@ -43,12 +62,20 @@ public class AssessmentMarksDAO {
 		this.date = date;
 	}
 
-	public String getStudent_name() {
-		return student_name;
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setStudent_name(String student_name) {
-		this.student_name = student_name;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public int getAttendance() {
@@ -114,6 +141,6 @@ public class AssessmentMarksDAO {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	
-	
+
+		
 }

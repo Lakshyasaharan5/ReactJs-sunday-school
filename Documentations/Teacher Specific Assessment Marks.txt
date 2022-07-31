@@ -1,0 +1,162 @@
+
+
+***************************************************************************************************************
+
+Adding Assessment Marks:
+
+http://localhost:8080/addAssessmentMarks	POST
+
+
+SENDING ->
+{
+	studentsMarks : [
+				{
+   					 "church" : "Beersheba",	
+   					 "class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"student_name" : "Naruto Uzumaki",
+    					"attendance" : "1",
+					 "songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				},
+
+				{
+   					 "church" : "Beersheba",	
+   					 "class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"student_name" : "Sasuke Uchiha",
+    					"attendance" : "1",
+					 "songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				}
+
+			
+			],
+
+	"username" : "kakashi32609",
+
+}
+
+
+EXPECTING ->
+OK : Success
+BAD REQUEST : Failure
+
+***************************************************************************************************************
+
+Manage Assessment Marks (When teacher clicks on that manage assessment marks button)
+
+SENDING->
+http://localhost:8080/viewAssessmentMarks?username=kakashi32609&date=(Current Date)	GET
+
+EXPECTING->
+{
+	studentsMarks : [
+				{
+					"uniqueID" : "Naruto-7023332609-Uzumaki",
+   					"church" : "Beersheba",	
+   					"class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"student_name" : "Naruto Uzumaki",
+    					"attendance" : "1",
+					"songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				},
+
+				{
+					"uniqueID" : "Sasuke-9928722998-Uchiha",
+   					"church" : "Beersheba",	
+   					"class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"student_name" : "Sasuke Uchiha",
+    					"attendance" : "1",
+					"songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				}
+
+			
+			],
+
+	"username" : "kakashi32609",
+
+}
+
+
+***************************************************************************************************************
+
+Editing assessment marks by a teacher 
+
+SENDING ->
+{
+	studentsMarks : [
+				{
+					"uniqueID" : "Naruto-7023332609-Uzumaki",
+   					"church" : "Beersheba",	
+   					"class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"student_name" : "Naruto Uzumaki",
+    					"attendance" : "1",
+					"songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				},
+
+				{
+					"uniqueID" : "Sasuke-9928722998-Uchiha",
+   					"church" : "Beersheba",	
+   					"class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"student_name" : "Sasuke Uchiha",
+    					"attendance" : "1",
+					"songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				}
+
+			
+			],
+
+	"username" : "kakashi32609",
+
+}
+
+
+EXPECTING->
+OK : Success
+BAD REQUEST : Failure
+
+***************************************************************************************************************
