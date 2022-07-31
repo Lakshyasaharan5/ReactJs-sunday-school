@@ -180,4 +180,49 @@ public class TeacherHandler {
 		}
 		return status;
 	}
+
+	public String getTeacherDataByUsername(String username) throws SQLException {
+		ConnectionUtility.loadDriver();
+		Connection con = ConnectionUtility.getConnection();
+		boolean status = false;
+		PreparedStatement ps;
+		String JsonResponse = "";
+		TeacherDAO teacherDao = new TeacherDAO();
+		
+		try {
+				String query = "SELECT * FROM teacher WHERE username=\""+username+"\" AND enabled=1;";
+				ps = con.prepareStatement(query);
+				ResultSet rs = ps.executeQuery();
+				
+				
+				while(rs.next()) {
+					teacherDao.setId_teacher(rs.getInt("id_teacher"));
+					teacherDao.setUsername(rs.getString("username"));
+					teacherDao.setTeacher_name(rs.getString("teacher_name"));
+					teacherDao.setChurch(rs.getString("church"));
+					teacherDao.setAssigned_class(rs.getString("assigned_class"));
+					teacherDao.setMobile(rs.getString("mobile"));
+				}
+				
+				JsonResponse = createJsonResponse(teacherDao);
+			
+		}catch (Exception e) {
+			e.printStackTrace();			
+			return "";
+		}
+		finally {
+			con.close();
+		}
+		return JsonResponse;
+	}
+
+	private String createJsonResponse(TeacherDAO teacherDao) {
+		JSONObject tempObj = new JSONObject();
+		tempObj.put("username", teacherDao.getUsername());
+		tempObj.put("teacher_name", teacherDao.getTeacher_name());			
+		tempObj.put("church", teacherDao.getChurch());
+		tempObj.put("assigned_class", teacherDao.getAssigned_class());
+		tempObj.put("mobile", teacherDao.getMobile());
+		return tempObj.toString();
+	}
 }
