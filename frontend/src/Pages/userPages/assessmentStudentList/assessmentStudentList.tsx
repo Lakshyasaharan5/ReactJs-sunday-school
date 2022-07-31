@@ -8,6 +8,7 @@ import StudentCard from "./studentCard";
 import { addAssessment } from "../../../api/services/SpringServer/UserService/AssessmentsService";
 
 
+
 const AssessmentStudentList=()=>{
 
 
@@ -18,7 +19,7 @@ const AssessmentStudentList=()=>{
     const [submitModalOpened,setSubmitModalOpened] = useState(false);
     const storeAssessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray);
 
-    const [assessmentArray,setAssessmentArray] = useState(storeAssessmentArray.map(
+    const [assessmentArray,setAssessmentArray] = useState(storeAssessmentArray?.map(
         s=>({
             "church" : s.church,
             "class":s.class,
@@ -37,7 +38,7 @@ const AssessmentStudentList=()=>{
         })
     ))
 
-    const [newStudentsArray,setNewStudentsArray] = useState(assessmentArray.map(
+    const [newStudentsArray,setNewStudentsArray] = useState(assessmentArray?.map(
         student=>({
             "id":student.uniqueID, 
             "church":student.church,
@@ -57,7 +58,7 @@ const AssessmentStudentList=()=>{
 
     // if the component has nothing to show it redirects to dashboard 
     useEffect(()=>{
-        if(newStudentsArray.length === 0){
+        if(newStudentsArray?.length === 0){
             navigate('/');
         }else{
             setIsEmpty(false)
@@ -69,10 +70,10 @@ const AssessmentStudentList=()=>{
         e.preventDefault();
         // console.log(e.target.value)
         if(e.target.value==="present"){
-            setNewStudentsArray(newStudentsArray=>newStudentsArray.map(
+            setNewStudentsArray(newStudentsArray=>newStudentsArray?.map(
                 obj=>obj.id === id ? Object.assign(obj,{attendance:"present",buttonDisabled:false}) : obj))
         }else if(e.target.value==="absent"){
-            setNewStudentsArray(newStudentsArray=>newStudentsArray.map(
+            setNewStudentsArray(newStudentsArray=>newStudentsArray?.map(
                 obj=>obj.id === id ? Object.assign(obj,{attendance:"absent",buttonDisabled:true}) : obj))
         }
     }
@@ -90,7 +91,7 @@ const AssessmentStudentList=()=>{
         
         for(let i in newStudentsArray){
             if(newStudentsArray[i].attendance==="absent"){
-                setAssessmentArray(assessmentArray=>assessmentArray.map(
+                setAssessmentArray(assessmentArray=>assessmentArray?.map(
                     obj=>obj.uniqueID===newStudentsArray[i].id ? Object.assign(obj,{attendance:"absent",songs_4:"0",memory_verses:"0",behaviour:"0",worship_message:"0",table_message:"0",remarks:"",total:"0"}) : obj
                 ))
             }
@@ -114,7 +115,12 @@ const AssessmentStudentList=()=>{
         
     }
 
-    
+    const backtoDashboard = (e:any) =>{
+        e.preventDefault();
+        dispatch(deleteArray())
+        navigate("/")
+    }
+     
     return (
 
         <div className="flex flex-col ">
@@ -124,7 +130,7 @@ const AssessmentStudentList=()=>{
                 title="Class Assessment Marks"
                 
             >
-            {assessmentArray.map(a=>(
+            {assessmentArray?.map(a=>(
                 <div key={a.uniqueID}>
                     <div className="inline-flex justify-start ">
                         <p className="pr-1 font-bold ">{a.first_name+" "+a.surname}:</p><p className="px-1 ml-3">{a.total}</p>
@@ -145,7 +151,7 @@ const AssessmentStudentList=()=>{
                     <h1 className="  text-xl">BEERSHEBA JUNIOR BOYS </h1>
                 </div>
                 <ul className="divide-y-2  ">
-                    {newStudentsArray.map(s=>( 
+                    {newStudentsArray?.map(s=>( 
                         <li key={s.id}>
                             <StudentCard
                                 id={s.id}
@@ -159,7 +165,7 @@ const AssessmentStudentList=()=>{
                     ))}    
                 </ul>
                 <div className="flex justify-between">
-                    <Link to="/"><button className=" bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></Link>
+                    <a href="/#" onClick={(e)=>backtoDashboard(e)}><button className=" bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></a>
                     <button className=" bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>
                 </div>
                 

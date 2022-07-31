@@ -147,7 +147,7 @@ const ManageTeachersPage = () => {
                           setTeacherModalOpened(false)
                           setFieldDisabled(true)
                         }}
-                        title="Student Details" 
+                        title="Teacher Details" 
                     >
                         
                         <div className='grid gap-4'>

@@ -17,6 +17,8 @@ import ManageStudentsPage from './Pages/AdminPages/ManageStudents/ManageStudents
 import ManageTeachersPage from './Pages/AdminPages/ManageTeachers/ManageTeachersPage';
 import AddStudent from './Pages/AdminPages/ManageStudents/AddStudent';
 import AddTeacher from './Pages/AdminPages/ManageTeachers/AddTeacher';
+import ManageStudentAssessment from './Pages/userPages/manageStudentAssessment/manageStudentAssessment';
+
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
           <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}></Route>
           <Route path="/assessment-studentlist" element={<ProtectedRoute><ClassAssessmentPage /></ProtectedRoute>}></Route>
           <Route path="/assessment" element={<ProtectedRoute><AssessmentPage /></ProtectedRoute>}></Route>
+          <Route path="/manageStudentAssessment" element={<ProtectedRoute><ManageStudentAssessment/></ProtectedRoute>}></Route>
+          
           <Route path="/profile" element={<ProtectedRoute><TeacherProfile /></ProtectedRoute>}></Route>
           <Route path="/students" element={<ProtectedRoute><StudentListPage /></ProtectedRoute>}></Route>
           <Route path="/managestudents" element={<ProtectedRoute><ManageStudentsPage /></ProtectedRoute>}></Route>

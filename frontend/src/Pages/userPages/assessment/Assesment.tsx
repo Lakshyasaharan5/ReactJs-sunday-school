@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link,useLocation, useNavigate } from "react-router-dom";
 import { FinalAssessment,AssessmentInputs,LocationState } from "../../InterfacesAndTypes"
 
+// export interface AssessmentStudentListProps{
+//     backPageUrl:string
+// }
 const Assessment = ()=>{
     
     const location = useLocation() as unknown as LocationState;
@@ -21,7 +24,7 @@ const Assessment = ()=>{
     const [isEmpty,setIsEmpty] = useState(true); // component at default has nothing to show
 
     const initialValue = {
-        songs:studentAssessment?.songs_4,
+        songs_4:studentAssessment?.songs_4,
         worship_message:studentAssessment?.worship_message,
         table_message:studentAssessment?.table_message,
         behaviour:studentAssessment?.behaviour,
@@ -31,7 +34,7 @@ const Assessment = ()=>{
     }
     
     const [assessmentValues] = useState<AssessmentInputs>({
-        songs:useRef<HTMLSelectElement | null>(null),
+        songs_4:useRef<HTMLSelectElement | null>(null),
         worship_message:useRef<HTMLSelectElement | null>(null),
         table_message:useRef<HTMLSelectElement | null>(null),
         behaviour:useRef<HTMLSelectElement | null>(null),
@@ -66,7 +69,7 @@ const Assessment = ()=>{
         let total:string = initialValue.total_marks.toString();
         let remarks:string="";
         
-        if(assessmentValues.songs.current!==null) songs_marks = (isNaN(parseInt(assessmentValues.songs.current.value,10))? 0:parseInt(assessmentValues.songs.current.value,10));
+        if(assessmentValues.songs_4.current!==null) songs_marks = (isNaN(parseInt(assessmentValues.songs_4.current.value,10))? 0:parseInt(assessmentValues.songs_4.current.value,10));
         if(assessmentValues.worship_message.current!==null) worship_message_marks = (isNaN(parseInt(assessmentValues.worship_message.current.value,10))? 0: parseInt(assessmentValues.worship_message.current.value,10));
         if(assessmentValues.table_message.current!==null) table_message_marks = (isNaN(parseInt(assessmentValues.table_message.current.value,10))? 0:parseInt(assessmentValues.table_message.current.value,10));
         if(assessmentValues.behaviour.current!==null) behaviour_marks = (isNaN(parseInt(assessmentValues.behaviour.current.value,10))? 0:parseInt(assessmentValues.behaviour.current.value,10));
@@ -120,7 +123,7 @@ const Assessment = ()=>{
                 <div className="grid gap-1" >
                     <div className="flex justify-between text-sm">
                     <label htmlFor="songs" className="pr-2 font-bold">4 Songs: </label>
-                     <select className="ml-3 pl-1   rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" ref={assessmentValues.songs} name="songs_4" defaultValue={initialValue.songs} onChange={HandleChange} >
+                     <select className="ml-3 pl-1   rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" ref={assessmentValues.songs_4} name="songs_4" defaultValue={initialValue.songs_4} onChange={HandleChange} >
                         <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>

@@ -7,6 +7,9 @@ import 'react-calendar/dist/Calendar.css';
 import { dashboardProps, studentDetails } from "../InterfacesAndTypes";
 import {IoLocationOutline} from 'react-icons/io5';
 import { getStudentsData } from "../../api/services/SpringServer/UserService/AssessmentsService";
+import useCurrData from "../../Hooks/useCurrData";
+
+
 // import teacherData from '../teacher.json'
 
 export default function DashboardItems(props:dashboardProps){
@@ -21,12 +24,12 @@ export default function DashboardItems(props:dashboardProps){
         }
     },[date])
 
-    const today = new Date()
-    const dd = String(today.getDate()).padStart(2,'0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    const yyyy = today.getFullYear();
-    const currDate = yyyy+"-"+mm+"-"+dd;
-    
+    // const today = new Date()
+    // const dd = String(today.getDate()).padStart(2,'0');
+    // const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    // const yyyy = today.getFullYear();
+    // const currDate = yyyy+"-"+mm+"-"+dd;
+    const currDate = useCurrData();
     // const studentsArray = studentsData.students
     const [studentsArray,setStudentsArray] = useState<studentDetails[]>();
     const [church_name,setChurch_name] = useState("");

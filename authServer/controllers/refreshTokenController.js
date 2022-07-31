@@ -2,10 +2,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../config/dbConnection')
 
 const handleRefreshToken = async(req,res)=>{
-    // const cookies = req.cookies;
-    // console.log(req.cookies)
-    // if (!cookies?.jwt) return res.sendStatus(401);
-    // const refreshToken = cookies.jwt;
+  
     const refreshToken = req.body.refreshToken
     const decoded = jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET);
     db.query("SELECT * FROM users WHERE username = ? ",[decoded.username],

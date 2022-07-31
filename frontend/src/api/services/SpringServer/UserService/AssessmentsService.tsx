@@ -10,3 +10,11 @@ export const addAssessment = (AssessmentsObject:AssessmentsObject)=>{
 export const getStudentsData = (username:string)=>{
     return axios.get<StudentsDataObject>(`${SPRING_SERVER_BASE_URL}/getStudents?username=${username}`)
 }
+
+export const viewAssessmentMarks = (username:string,date:string) =>{
+    return axios.get<AssessmentsObject>(`${SPRING_SERVER_BASE_URL}/viewAssessmentMarks?username=${username}&date=${date}`)
+}
+
+export const editAssessment = (updatedAssessmentsObject:AssessmentsObject)=>{
+    return axios.post(`${SPRING_SERVER_BASE_URL}/editAssessmentMarks`,updatedAssessmentsObject);
+}

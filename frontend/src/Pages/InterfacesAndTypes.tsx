@@ -1,6 +1,6 @@
 export interface AssessmentInputs{
     
-    songs:React.MutableRefObject<HTMLSelectElement | null>;
+    songs_4:React.MutableRefObject<HTMLSelectElement | null>;
     worship_message:React.MutableRefObject<HTMLSelectElement | null>;
     table_message:React.MutableRefObject<HTMLSelectElement | null>;
     behaviour:React.MutableRefObject<HTMLSelectElement | null>;
