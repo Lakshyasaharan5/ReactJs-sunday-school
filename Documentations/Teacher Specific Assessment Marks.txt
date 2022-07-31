@@ -201,7 +201,7 @@ BAD REQUEST : Failure
 Get teacher details
 
 SENDING ->
-http://localhost:8080/getTeachersData?username=kakashi32609	GET
+http://localhost:8080/getTeacherData?username=kakashi32609	GET
 
 EXPECTING->
 {
