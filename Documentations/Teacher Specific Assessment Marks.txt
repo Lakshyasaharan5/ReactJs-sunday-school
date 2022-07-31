@@ -102,7 +102,7 @@ EXPECTING->
 				{
 					"uniqueID" : "Naruto-7023332609-Uzumaki",
    					"church" : "Beersheba",	
-   					"class" : "Junior Boys",
+   					"class" : "Junior-Boys",
     					"date" : "2022-08-08",
     					"first_name": "Naruto",
 					"surname": "Uzumaki",
@@ -120,7 +120,7 @@ EXPECTING->
 				{
 					"uniqueID" : "Sasuke-9928722998-Uchiha",
    					"church" : "Beersheba",	
-   					"class" : "Junior Boys",
+   					"class" : "Junior-Boys",
     					"date" : "2022-08-08",
     					"first_name": "Sasuke",
 					"surname": "Uchiha",
@@ -153,7 +153,7 @@ SENDING ->
 				{
 					"uniqueID" : "Naruto-7023332609-Uzumaki",
    					"church" : "Beersheba",	
-   					"class" : "Junior Boys",
+   					"class" : "Junior-Boys",
     					"date" : "2022-08-08",
     					"first_name": "Naruto",
 					"surname": "Uzumaki",
@@ -171,7 +171,7 @@ SENDING ->
 				{
 					"uniqueID" : "Sasuke-9928722998-Uchiha",
    					"church" : "Beersheba",	
-   					"class" : "Junior Boys",
+   					"class" : "Junior-Boys",
     					"date" : "2022-08-08",
     					"first_name": "Sasuke",
 					"surname": "Uchiha",
