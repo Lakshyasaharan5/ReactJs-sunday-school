@@ -178,9 +178,9 @@ SENDING ->
 					"songs_4" : "1",
     					"worship_message" : "1",
     					"table_message" : "1",
-    					"behaviour" : "1",
-    					"memory_verses" : "1",
-    					"total" : "7",
+    					"behaviour" : "2",
+    					"memory_verses" : "2",
+    					"total" : "9",
     					"remarks" : "",
     
 				}
