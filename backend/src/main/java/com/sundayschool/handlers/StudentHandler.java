@@ -145,23 +145,23 @@ public class StudentHandler {
 	
 	public String createJsonResponse(ArrayList<StudentDAO> studentDaoList) {
 			
-			JSONObject responseJson = new JSONObject();
-			JSONArray studentsArray = new JSONArray();
-			
-			for(int i=0; i<studentDaoList.size(); i++) {
-				JSONObject tempObj = new JSONObject();
-				tempObj.put("uniqueID", studentDaoList.get(i).getUniqueID());
-				tempObj.put("first_name", studentDaoList.get(i).getFirst_name());
-				tempObj.put("surname", studentDaoList.get(i).getSurname());			
-				tempObj.put("church", studentDaoList.get(i).getChurch());
-				tempObj.put("class", studentDaoList.get(i).getAssigned_class());
-				tempObj.put("mobile", studentDaoList.get(i).getMobile());
-				studentsArray.put(tempObj);
-			}
-			
-			responseJson.put("students", studentsArray);
-			return responseJson.toString();
+		JSONObject responseJson = new JSONObject();
+		JSONArray studentsArray = new JSONArray();
+		
+		for(int i=0; i<studentDaoList.size(); i++) {
+			JSONObject tempObj = new JSONObject();
+			tempObj.put("uniqueID", studentDaoList.get(i).getUniqueID());
+			tempObj.put("first_name", studentDaoList.get(i).getFirst_name());
+			tempObj.put("surname", studentDaoList.get(i).getSurname());			
+			tempObj.put("church", studentDaoList.get(i).getChurch());
+			tempObj.put("class", studentDaoList.get(i).getAssigned_class());
+			tempObj.put("mobile", studentDaoList.get(i).getMobile());
+			studentsArray.put(tempObj);
 		}
+		
+		responseJson.put("students", studentsArray);
+		return responseJson.toString();
+	}
 
 	public boolean deleteStudent(String uniqueID) throws SQLException {
 		ConnectionUtility.loadDriver();
