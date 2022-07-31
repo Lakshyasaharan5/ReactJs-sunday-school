@@ -3,17 +3,21 @@
 {
 	"students":[
 			{
-				"student_id" : "naruto-beersheba-boys-uzumaki",
+				"uniqueID" : "naruto-beersheba-boys-uzumaki",
 				"first_name" : "Naruto",
 				"surname":"Uzumaki",
-				"mobile" : "7023332609"
+				"mobile" : "7023332609",
+				"class":"Beersheba",
+				"church":"Intermediate-Boys"
 			},
 
 			{
-				"student_id" : "sasuke-beersheba-boys-uchiha",
+				"uniqueID" : "sasuke-beersheba-boys-uchiha",
 				"first_name" : "Sasuke",
 				"surname":"Uchiha",
-				"mobile" : "7023332609"
+				"mobile" : "7023332609",
+				"class":"Beersheba",
+				"church":"Intermediate-Boys"
 			}
 
 		],

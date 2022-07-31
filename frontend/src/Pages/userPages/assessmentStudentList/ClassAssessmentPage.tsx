@@ -15,7 +15,7 @@ export default function ClassAssessmentPage(){
             userIcon={false}
             headerTitle={""}/>
             <main className="relative  flex flex-col gap-4">
-                <AssessmentStudentList />
+                <AssessmentStudentList/>
             </main>
         </div>
         :null}

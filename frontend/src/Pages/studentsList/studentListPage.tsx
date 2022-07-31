@@ -1,15 +1,20 @@
 import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 import Header from '../../Components/header'
-import studentsData from '../students.json'
+// import studentsData from '../students.json'
 import { Modal} from '@mantine/core';
 import { studentDetails } from '../InterfacesAndTypes';
+import { getStudentsData } from '../../api/services/SpringServer/UserService/AssessmentsService';
+import { useSelector } from 'react-redux';
 
 export default function StudentListPage() {
-    const students = studentsData.students;
+    const [studentsArray,setStudentsArray] = useState<studentDetails[]>();
     const [studentModalOpened,setStudentModalOpened]=useState(false);
     const [selectedStudentId,setSelectedStudentId]=useState("")
     const [student,setStudent] = useState<studentDetails>();
+    const user:string = useSelector((state:any)=>state.auth.user)
+    const [church_name,setChurch_name] = useState("");
+    const [class_name,setClass_name] = useState("");
 
     const viewStudentDetails=(e:any,id:string)=>{
         e.preventDefault();
@@ -17,10 +22,18 @@ export default function StudentListPage() {
         
         setStudentModalOpened(true);
     }
+
     useEffect(()=>{
-        setStudent(students.filter(student=>student.student_id === selectedStudentId)[0])
-    },[students,selectedStudentId])
+        setStudent(studentsArray?.filter(student=>student.uniqueID === selectedStudentId)[0])
+    },[studentsArray,selectedStudentId])
     
+    useEffect(()=>{
+        getStudentsData(user).then(res=>{
+            setStudentsArray(res.data.students);
+            setChurch_name(res.data.church);
+            setClass_name(res.data.class);
+        })
+    })
   return (
     <div className='h-screen p-0 flex flex-col gap-5'>
             < Modal
@@ -46,14 +59,14 @@ export default function StudentListPage() {
                 <div className='flex justify-center'>
                     <div className='bg-white shadow-2xl px-8 py-3 pt-5 mx-3  rounded-2xl grid gap-5 font-serif w-[21rem]'>
                         <div className="flex justify-center ">
-                            <h1 className="  text-xl">{studentsData.church+" "+studentsData.class}</h1>
+                            <h1 className="  text-xl">{church_name+" "+class_name}</h1>
                         </div>
                         <ul className=' flex flex-col gap-3'>
-                            {students.map(s=>(
-                                <li key={s.student_id}>
+                            {studentsArray?.map(s=>(
+                                <li key={s.uniqueID}>
                                     <div className='flex justify-between'>
                                         <p className=''>{s.first_name+" "+s.surname}</p>
-                                        <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2' onClick={(e)=>viewStudentDetails(e,s.student_id)}>view details</button>
+                                        <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2' onClick={(e)=>viewStudentDetails(e,s.uniqueID)}>view details</button>
                                     </div>
                                 </li>
                             ))}

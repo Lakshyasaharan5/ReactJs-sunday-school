@@ -5,6 +5,8 @@ import { Link,useNavigate } from "react-router-dom";
 import { FinalAssessment } from "../../InterfacesAndTypes"
 import { Modal} from '@mantine/core';
 import StudentCard from "./studentCard";
+import { addAssessment } from "../../../api/services/SpringServer/UserService/AssessmentsService";
+
 
 
 const AssessmentStudentList=()=>{
@@ -12,17 +14,19 @@ const AssessmentStudentList=()=>{
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const user:string = useSelector((state:any)=>state.auth.user)
     const [isEmpty,setIsEmpty] = useState(true); // component at default has nothing to show
     const [submitModalOpened,setSubmitModalOpened] = useState(false);
     const storeAssessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray);
 
-    const [assessmentArray,setAssessmentArray] = useState(storeAssessmentArray.map(
+    const [assessmentArray,setAssessmentArray] = useState(storeAssessmentArray?.map(
         s=>({
             "church" : s.church,
             "class":s.class,
             "date" : s.date,
-            "student_id":s.student_id,
-            "student_name" : s.student_name,
+            "uniqueID": s.uniqueID,
+            "first_name": s.first_name,
+            "surname": s.surname,
             "attendance" : s.attendance,
             "songs_4" : s.songs_4,
             "worship_message" : s.worship_message,
@@ -34,12 +38,13 @@ const AssessmentStudentList=()=>{
         })
     ))
 
-    const [newStudentsArray,setNewStudentsArray] = useState(assessmentArray.map(
+    const [newStudentsArray,setNewStudentsArray] = useState(assessmentArray?.map(
         student=>({
-            "id":student.student_id, 
+            "id":student.uniqueID, 
             "church":student.church,
             "class":student.class,
-            "student_name":student.student_name,
+            "first_name": student.first_name,
+            "surname": student.surname,
             "attendance":student.attendance,
             buttonDisabled:true
         })
@@ -53,7 +58,7 @@ const AssessmentStudentList=()=>{
 
     // if the component has nothing to show it redirects to dashboard 
     useEffect(()=>{
-        if(newStudentsArray.length === 0){
+        if(newStudentsArray?.length === 0){
             navigate('/');
         }else{
             setIsEmpty(false)
@@ -65,10 +70,10 @@ const AssessmentStudentList=()=>{
         e.preventDefault();
         // console.log(e.target.value)
         if(e.target.value==="present"){
-            setNewStudentsArray(newStudentsArray=>newStudentsArray.map(
+            setNewStudentsArray(newStudentsArray=>newStudentsArray?.map(
                 obj=>obj.id === id ? Object.assign(obj,{attendance:"present",buttonDisabled:false}) : obj))
         }else if(e.target.value==="absent"){
-            setNewStudentsArray(newStudentsArray=>newStudentsArray.map(
+            setNewStudentsArray(newStudentsArray=>newStudentsArray?.map(
                 obj=>obj.id === id ? Object.assign(obj,{attendance:"absent",buttonDisabled:true}) : obj))
         }
     }
@@ -86,8 +91,8 @@ const AssessmentStudentList=()=>{
         
         for(let i in newStudentsArray){
             if(newStudentsArray[i].attendance==="absent"){
-                setAssessmentArray(assessmentArray=>assessmentArray.map(
-                    obj=>obj.student_id===newStudentsArray[i].id ? Object.assign(obj,{attendance:"absent",songs_4:"0",memory_verses:"0",behaviour:"0",worship_message:"0",table_message:"0",remarks:"",total:"0"}) : obj
+                setAssessmentArray(assessmentArray=>assessmentArray?.map(
+                    obj=>obj.uniqueID===newStudentsArray[i].id ? Object.assign(obj,{attendance:"absent",songs_4:"0",memory_verses:"0",behaviour:"0",worship_message:"0",table_message:"0",remarks:"",total:"0"}) : obj
                 ))
             }
         }
@@ -97,11 +102,25 @@ const AssessmentStudentList=()=>{
 
     const confirmClassAssessment = (e:any)=>{
         e.preventDefault();
+        const AssessmentsObject = {
+            studentsMarks:assessmentArray,
+            username:user
+        }
+        console.log(AssessmentsObject)
+        addAssessment(AssessmentsObject).then(res=>{
+            console.log(res);
+            dispatch(deleteArray())
+            navigate("/")
+        })
+        
+    }
+
+    const backtoDashboard = (e:any) =>{
+        e.preventDefault();
         dispatch(deleteArray())
         navigate("/")
     }
-
-    
+     
     return (
 
         <div className="flex flex-col ">
@@ -111,10 +130,10 @@ const AssessmentStudentList=()=>{
                 title="Class Assessment Marks"
                 
             >
-            {assessmentArray.map(a=>(
-                <div key={a.student_id}>
+            {assessmentArray?.map(a=>(
+                <div key={a.uniqueID}>
                     <div className="inline-flex justify-start ">
-                        <p className="pr-1 font-bold ">{a.student_name}:</p><p className="px-1 ml-3">{a.total}</p>
+                        <p className="pr-1 font-bold ">{a.first_name+" "+a.surname}:</p><p className="px-1 ml-3">{a.total}</p>
                     </div>
                 </div>
 
@@ -132,11 +151,11 @@ const AssessmentStudentList=()=>{
                     <h1 className="  text-xl">BEERSHEBA JUNIOR BOYS </h1>
                 </div>
                 <ul className="divide-y-2  ">
-                    {newStudentsArray.map(s=>( 
+                    {newStudentsArray?.map(s=>( 
                         <li key={s.id}>
                             <StudentCard
                                 id={s.id}
-                                student_name={s.student_name}
+                                student_name={s.first_name+" "+s.surname}
                                 attendance={s.attendance}
                                 buttonDisabled = {s.buttonDisabled}
                                 handleChange = {handleChange}
@@ -146,7 +165,7 @@ const AssessmentStudentList=()=>{
                     ))}    
                 </ul>
                 <div className="flex justify-between">
-                    <Link to="/"><button className=" bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></Link>
+                    <a href="/#" onClick={(e)=>backtoDashboard(e)}><button className=" bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></a>
                     <button className=" bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>submitClassAssessment(e)} >Submit</button>
                 </div>
                 

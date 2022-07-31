@@ -50,14 +50,18 @@ const ManageTeachersPage = () => {
           [name]:value
       })
   }
+
+
   const EditTeacherHandler = (e:any) =>{
     e.preventDefault();
-    setFieldDisabled(false)
+    setFieldDisabled(o=>!o)
   }
+
+
   const SubmitEditTeacherHandler = (e:any) =>{
     e.preventDefault();
     const teacherObject = {
-      teacher_id : selectedTeacherId,
+      username : selectedTeacherId,
       teacher_name:teacher.teacher_name,
       mobile:teacher.mobile,
       church:teacher.church,
@@ -68,6 +72,8 @@ const ManageTeachersPage = () => {
       setTeacherModalOpened(false)
     })
   }
+
+
   const DeleteTeacherHandler = (e:any) =>{
     e.preventDefault();
     // console.log(selectedTeacherId)
@@ -76,10 +82,11 @@ const ManageTeachersPage = () => {
     })
   }
 
+
   useEffect(()=>{
     if(selectedChurch!=="DEFAULT"){
       viewTeacher(selectedChurch).then(res=>{
-        setTeachersList(res.data)
+        setTeachersList(res.data.teachers)
       })
     }else{
       setTeachersList([])
@@ -87,7 +94,14 @@ const ManageTeachersPage = () => {
   },[selectedChurch])
 
   useEffect(()=>{
-    const t = teachersList?.filter(teacher=>teacher.teacher_id === selectedTeacherId)[0]
+    viewTeacher(selectedChurch).then(res=>{
+      setTeachersList(res.data.teachers)
+    })
+    if(!teacherModalOpened) setFieldDisabled(true);
+  },[selectedChurch,teacherModalOpened])
+
+  useEffect(()=>{
+    const t = teachersList?.filter(teacher=>teacher.username === selectedTeacherId)[0]
     if(t!==undefined){
       setTeacher({
         teacher_name : t?.teacher_name,
@@ -133,7 +147,7 @@ const ManageTeachersPage = () => {
                           setTeacherModalOpened(false)
                           setFieldDisabled(true)
                         }}
-                        title="Student Details" 
+                        title="Teacher Details" 
                     >
                         
                         <div className='grid gap-4'>
@@ -188,21 +202,22 @@ const ManageTeachersPage = () => {
                                 </div>
                             </div>
                             <div className='flex justify-between'>
-                                <button className=" bg-cyan-500 hover:bg-cyan-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditTeacherHandler(e)} >Edit</button>
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitEditTeacherHandler(e)} disabled={fieldDisabled}>Submit</button>
+                                {fieldDisabled?<button className=" bg-cyan-500 hover:bg-cyan-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditTeacherHandler(e)} >Edit</button>:null}
+                                {fieldDisabled?null:<button className=" bg-yellow-500 hover:bg-yellow-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>EditTeacherHandler(e)} >Cancel</button>}
+                                {fieldDisabled?null:<button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded  disabled:opacity-50" type="button" onClick={(e)=>SubmitEditTeacherHandler(e)} >Submit</button>}
                             </div>
                             <div className='flex justify-end'>
-                                <button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded disabled:opacity-50" type="button" onClick={(e)=>DeleteTeacherHandler(e)} disabled={fieldDisabled} >Remove</button>
+                                {fieldDisabled?null:<button className=" bg-red-500 hover:bg-red-700 text-white font-sans font-semibold py-1 px-2 rounded disabled:opacity-50" type="button" onClick={(e)=>DeleteTeacherHandler(e)}>Remove</button>}
                             </div>
                             <div className='clearfix'></div>
                         </div>
                     </Modal>
                     <ul className='grid gap-3'>
                       {teachersList?.map(t=>(
-                        <li key={t.teacher_id}>
+                        <li key={t.username}>
                           <div className='flex justify-between'>
                               <p className=''>{t.teacher_name}</p>
-                              <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2 font-sans' onClick={(e)=>viewTeacherDetails(e,t.teacher_id)}>view details</button>
+                              <button className='text-sm bg-blue-300 hover:bg-blue-400 rounded  px-2 font-sans' onClick={(e)=>viewTeacherDetails(e,t.username)}>view details</button>
                           </div>
                         </li>
                       ))}

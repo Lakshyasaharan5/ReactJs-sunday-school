@@ -1,6 +1,6 @@
 export interface AssessmentInputs{
     
-    songs:React.MutableRefObject<HTMLSelectElement | null>;
+    songs_4:React.MutableRefObject<HTMLSelectElement | null>;
     worship_message:React.MutableRefObject<HTMLSelectElement | null>;
     table_message:React.MutableRefObject<HTMLSelectElement | null>;
     behaviour:React.MutableRefObject<HTMLSelectElement | null>;
@@ -10,20 +10,38 @@ export interface AssessmentInputs{
 }
 
 export interface FinalAssessment{
-    church:string;
-    class:string;
-    date:string;
-    student_id:string;
-    student_name:string;
-    attendance:string;
-    songs_4:string;
-    worship_message:string;
-    table_message:string;
-    behaviour:string;
-    memory_verses:string;
-    total:string;
-    remarks:string;
+    church:string,
+    class:string,
+    date:string,
+    uniqueID:string,
+    first_name:string,
+    surname:string,
+    attendance:string,
+    songs_4:string,
+    worship_message:string,
+    table_message:string,
+    behaviour:string,
+    memory_verses:string,
+    total:string,
+    remarks:string
 }
+
+export interface AssessmentsObject{
+    studentsMarks:FinalAssessment[],
+    username:string
+}
+
+export interface StudentsDataObject{
+    students:studentDetails[],
+    username:string,
+    church:string,
+    class:string
+}
+
+
+
+
+
 
 export type LocationState = {
     state:{
@@ -50,9 +68,11 @@ export interface headerProps{
 }
 
 export interface studentDetails{
-    student_id:string,
+    uniqueID:string,
     first_name:string,
     surname:string,
+    church:string,
+    class:string,
     mobile:string
 }
 export interface studentObject{
@@ -63,7 +83,7 @@ export interface studentObject{
     class:string
 }
 export interface teacherDetails{
-    teacher_id : string,
+    username : string,
     teacher_name : string,
     mobile : string,
     church:string,
@@ -80,4 +100,11 @@ export interface token{
     iat: number,
     role: string,
     username: string
+}
+export interface getStudentsArray{
+    "students":studentDetails[]
+}
+
+export interface getTeachersArray{
+    "teachers":teacherDetails[]
 }

@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link,useLocation, useNavigate } from "react-router-dom";
 import { FinalAssessment,AssessmentInputs,LocationState } from "../../InterfacesAndTypes"
 
+// export interface AssessmentStudentListProps{
+//     backPageUrl:string
+// }
 const Assessment = ()=>{
     
     const location = useLocation() as unknown as LocationState;
@@ -17,21 +20,21 @@ const Assessment = ()=>{
     // console.log(student_id)
 
     const assessmentArray:[FinalAssessment] = useSelector((state:any)=>state.assessment.assessmentArray)
-    const [studentAssessment,setStudentAssessment] = useState<FinalAssessment>(assessmentArray.filter(student=>student.student_id===student_id)[0]);
+    const [studentAssessment,setStudentAssessment] = useState<FinalAssessment>(assessmentArray.filter(student=>student.uniqueID===student_id)[0]);
     const [isEmpty,setIsEmpty] = useState(true); // component at default has nothing to show
 
     const initialValue = {
-        songs:studentAssessment?.songs_4,
+        songs_4:studentAssessment?.songs_4,
         worship_message:studentAssessment?.worship_message,
         table_message:studentAssessment?.table_message,
         behaviour:studentAssessment?.behaviour,
         memory_verses:studentAssessment?.memory_verses,
-        total_marks:2,
+        total_marks:studentAssessment?.total,
         remarks:studentAssessment?.remarks
     }
-
+    
     const [assessmentValues] = useState<AssessmentInputs>({
-        songs:useRef<HTMLSelectElement | null>(null),
+        songs_4:useRef<HTMLSelectElement | null>(null),
         worship_message:useRef<HTMLSelectElement | null>(null),
         table_message:useRef<HTMLSelectElement | null>(null),
         behaviour:useRef<HTMLSelectElement | null>(null),
@@ -49,7 +52,11 @@ const Assessment = ()=>{
         }
     },[studentAssessment,student_id,navigate])
     // console.log(studentAssessment)
-    
+    useEffect(()=>{
+        if(parseInt(initialValue.total_marks)!==0){
+            setTotal(initialValue.total_marks)
+        }
+    },[initialValue.total_marks])
     
     const HandleChange=(e:any)=>{
         
@@ -62,7 +69,7 @@ const Assessment = ()=>{
         let total:string = initialValue.total_marks.toString();
         let remarks:string="";
         
-        if(assessmentValues.songs.current!==null) songs_marks = (isNaN(parseInt(assessmentValues.songs.current.value,10))? 0:parseInt(assessmentValues.songs.current.value,10));
+        if(assessmentValues.songs_4.current!==null) songs_marks = (isNaN(parseInt(assessmentValues.songs_4.current.value,10))? 0:parseInt(assessmentValues.songs_4.current.value,10));
         if(assessmentValues.worship_message.current!==null) worship_message_marks = (isNaN(parseInt(assessmentValues.worship_message.current.value,10))? 0: parseInt(assessmentValues.worship_message.current.value,10));
         if(assessmentValues.table_message.current!==null) table_message_marks = (isNaN(parseInt(assessmentValues.table_message.current.value,10))? 0:parseInt(assessmentValues.table_message.current.value,10));
         if(assessmentValues.behaviour.current!==null) behaviour_marks = (isNaN(parseInt(assessmentValues.behaviour.current.value,10))? 0:parseInt(assessmentValues.behaviour.current.value,10));
@@ -78,8 +85,9 @@ const Assessment = ()=>{
             "church": studentAssessment?.church,
             "class":studentAssessment?.class,
             "date": studentAssessment?.date,
-            "student_id": studentAssessment?.student_id,
-            "student_name": studentAssessment?.student_name,
+            "uniqueID": studentAssessment?.uniqueID,
+            "first_name": studentAssessment?.first_name,
+            "surname": studentAssessment?.surname,
             "attendance": "present",
             "songs_4": songs_marks.toString(),
             "worship_message": worship_message_marks.toString(),
@@ -109,13 +117,13 @@ const Assessment = ()=>{
             <form className="flex flex-col gap-6 bg-white shadow-2xl px-5 py-5 mx-3  rounded-2xl font-serif w-[20.2rem]">
                 <div className="">
                     <div className="flex justify-center ">
-                        <p className="pr-1 font-bold ">Student Name : </p><p className="px-1 ml-3"> {studentAssessment?.student_name}</p>   
+                        <p className="pr-1 font-bold ">Student Name : </p><p className="px-1 ml-3"> {studentAssessment?.first_name+" "+studentAssessment?.surname}</p>   
                     </div>
                 </div>
                 <div className="grid gap-1" >
                     <div className="flex justify-between text-sm">
                     <label htmlFor="songs" className="pr-2 font-bold">4 Songs: </label>
-                     <select className="ml-3 pl-1   rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" ref={assessmentValues.songs} name="songs_4" defaultValue={initialValue.songs} onChange={HandleChange} >
+                     <select className="ml-3 pl-1   rounded-sm bg-gray-200 text-gray-700 border border-gray-200 font-sans" ref={assessmentValues.songs_4} name="songs_4" defaultValue={initialValue.songs_4} onChange={HandleChange} >
                         <option value="DEFAULT" disabled>select marks</option>
                         <option value="0">0</option>
                         <option value="1">1</option>

@@ -77,9 +77,15 @@ export default function Header(props:headerProps) {
                                         <Link to="/"><p>Dashboard</p></Link>
                                     </div>
 
-                                    { role==="user" ?<div>
-                                        <Link to="/students"><p>My Students</p></Link>
-                                    </div>  :null}
+                                    { role==="user" ?
+                                    <>
+                                        <div>
+                                            <Link to="/students"><p>My Students</p></Link>
+                                        </div>
+                                        <div>
+                                            <Link to="/manageStudentAssessment"><p>Manage Assessment</p></Link> 
+                                        </div>  
+                                    </>:null}
 
                                     { role==="admin" ?
                                     <>

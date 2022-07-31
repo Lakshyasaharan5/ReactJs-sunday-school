@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { decodeToken } from "react-jwt";
 import { setCredentials } from '../../redux/authSlice';
-import axios from '../../api/services/userService';
+import axios from '../../api/services/authService';
 
 import { useNavigate } from 'react-router-dom';
 import { token } from '../InterfacesAndTypes';
@@ -35,7 +35,7 @@ const LoginPage=()=>{
                 // console.log(res.data.accessToken)
                 // console.log(typeof(res.data.accessToken))
                 if(res.statusText==="OK"){
-                    console.log(res.data)
+                    // console.log(res.data)
                     if(res.data.accessToken){
                         decodedToken = decodeToken(res.data.accessToken)
                         dispatch(setCredentials({
