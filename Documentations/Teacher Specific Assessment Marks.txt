@@ -60,7 +60,7 @@ SENDING ->
 				},
 
 				{
-					"uniqueID" : "Naruto-7023332609-Uzumaki",
+					"uniqueID" : "Sasuke-7023332609-Uchiha",
    					 "church" : "Beersheba",	
    					 "class" : "Junior Boys",
     					"date" : "2022-08-08",
