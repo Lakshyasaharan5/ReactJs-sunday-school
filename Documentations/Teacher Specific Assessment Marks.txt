@@ -180,7 +180,7 @@ SENDING ->
     					"table_message" : "2",
     					"behaviour" : "2",
     					"memory_verses" : "2",
-    					"total" : "12",
+    					"total" : "11",
     					"remarks" : "",
     
 				}
