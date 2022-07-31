@@ -2,7 +2,7 @@
 When teacher clicks on Take Assessment
 
 SENDING ->
-http://localhost:8080/getStudents?username=kakashi32609		GET
+http://localhost:8080/getStudentsForAssessment?username=kakashi32609		GET
 
 EXPECTING ->
 {
