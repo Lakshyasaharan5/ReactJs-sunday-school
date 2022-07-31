@@ -4,8 +4,11 @@ import Header from '../../Components/header'
 // import studentsData from '../students.json'
 import { Modal} from '@mantine/core';
 import { studentDetails } from '../InterfacesAndTypes';
-import { getStudentsData } from '../../api/services/SpringServer/UserService/AssessmentsService';
+
 import { useSelector } from 'react-redux';
+import { SPRING_SERVER_BASE_URL } from '../../api/services/SpringServer/spring';
+import useAxiosPrivate from '../../Hooks/useAxiosPrivate';
+// import { getStudentsDataforAssessment } from '../../api/services/SpringServer/UserService/AssessmentsService';
 
 export default function StudentListPage() {
     const [studentsArray,setStudentsArray] = useState<studentDetails[]>();
@@ -15,6 +18,9 @@ export default function StudentListPage() {
     const user:string = useSelector((state:any)=>state.auth.user)
     const [church_name,setChurch_name] = useState("");
     const [class_name,setClass_name] = useState("");
+
+
+    const axiosPrivate = useAxiosPrivate();
 
     const viewStudentDetails=(e:any,id:string)=>{
         e.preventDefault();
@@ -28,12 +34,17 @@ export default function StudentListPage() {
     },[studentsArray,selectedStudentId])
     
     useEffect(()=>{
-        getStudentsData(user).then(res=>{
-            setStudentsArray(res.data.students);
-            setChurch_name(res.data.church);
-            setClass_name(res.data.class);
+        // getStudentsDataforAssessment(user).then(res=>{
+        //     setStudentsArray(res.data.studentsMarks);
+        //     setChurch_name(res.data.studentsMarks[0].church);
+        //     setClass_name(res.data.studentsMarks[0].class);
+        // })
+        axiosPrivate.get(`${SPRING_SERVER_BASE_URL}/getStudentsForAssessment?username=${user}`).then(res=>{
+            setStudentsArray(res.data.studentsMarks);
+            setChurch_name(res.data.studentsMarks[0].church);
+            setClass_name(res.data.studentsMarks[0].class);
         })
-    })
+    },[axiosPrivate,user])
   return (
     <div className='h-screen p-0 flex flex-col gap-5'>
             < Modal

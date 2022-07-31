@@ -12,8 +12,8 @@ const StudentCard = (props:studentCardProps)=>{
                 <div className="flex text-sm " >
                     <label htmlFor="attendance" className="font-bold pr-1">Attendance :</label>
                     <select className="ml-7 px-3 pl-5 rounded-sm bg-gray-200 text-gray-700 border border-gray-200" name="attendance" defaultValue={props.attendance} onChange={(e)=>props.handleChange(e,props.id)} >
-                        <option value="present">Present</option>
-                        <option value="absent">Absent</option>
+                        <option value="2">Present</option>
+                        <option value="0">Absent</option>
                         
                     </select>
                 </div>

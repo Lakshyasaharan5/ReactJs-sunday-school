@@ -1,5 +1,5 @@
 export interface AssessmentInputs{
-    
+    attendance:React.MutableRefObject<HTMLSelectElement | null>;
     songs_4:React.MutableRefObject<HTMLSelectElement | null>;
     worship_message:React.MutableRefObject<HTMLSelectElement | null>;
     table_message:React.MutableRefObject<HTMLSelectElement | null>;
@@ -27,15 +27,16 @@ export interface FinalAssessment{
 }
 
 export interface AssessmentsObject{
+    studentsMarks:FinalAssessment[]
+}
+
+export interface updatedAssessmentsObject{
     studentsMarks:FinalAssessment[],
     username:string
 }
 
 export interface StudentsDataObject{
-    students:studentDetails[],
-    username:string,
-    church:string,
-    class:string
+    studentsMarks:studentDetails[],
 }
 
 
