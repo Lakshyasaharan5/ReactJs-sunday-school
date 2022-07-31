@@ -175,12 +175,12 @@ SENDING ->
     					"first_name": "Sasuke",
 					"surname": "Uchiha",
     					"attendance" : "1",
-					"songs_4" : "1",
-    					"worship_message" : "1",
-    					"table_message" : "1",
+					"songs_4" : "2",
+    					"worship_message" : "2",
+    					"table_message" : "2",
     					"behaviour" : "2",
     					"memory_verses" : "2",
-    					"total" : "9",
+    					"total" : "12",
     					"remarks" : "",
     
 				}
