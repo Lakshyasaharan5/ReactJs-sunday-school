@@ -1,0 +1,213 @@
+
+When teacher clicks on Take Assessment
+
+SENDING ->
+http://localhost:8080/getStudentsForAssessment?username=kakashi32609		GET
+
+EXPECTING ->
+{
+	"students": [
+                {
+                  "surname": "Uzumaki",
+                  "church": "Beersheba",
+                  "mobile": "7023332609",
+                  "first_name": "Naruto",
+                  "class": "Intermediate-Boys",
+                  "uniqueID": "Naruto-7023332609-Uzumaki"
+                },
+                {
+                  "surname": "Uchiha",
+                  "church": "Beersheba",
+                  "mobile": "7023332609",
+                  "first_name": "Sasuke",
+                  "class": "Intermediate-Boys",
+                  "uniqueID": "Sasuke-7023332609-Uchiha"
+                }
+            ],
+
+	"username" : "kakashi32609",
+	"church" : "Beersheba",
+	"class" : "Junior Boys"
+
+}
+
+***************************************************************************************************************
+
+Adding Assessment Marks:
+
+http://localhost:8080/addAssessmentMarks	POST
+
+
+SENDING ->
+{
+	studentsMarks : [
+				{
+   					 "uniqueID" : "Naruto-7023332609-Uzumaki",
+					 "church" : "Beersheba",	
+   					 "class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"first_name": "Naruto",
+					"surname": "Uzumaki",
+    					"attendance" : "1",
+					 "songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				},
+
+				{
+					"uniqueID" : "Sasuke-7023332609-Uchiha",
+   					 "church" : "Beersheba",	
+   					 "class" : "Junior Boys",
+    					"date" : "2022-08-08",
+    					"first_name": "Sasuke",
+					"surname": "Uchiha",
+    					"attendance" : "1",
+					 "songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				}
+
+			
+			],
+
+	"username" : "kakashi32609",
+
+}
+
+
+EXPECTING ->
+OK : Success
+BAD REQUEST : Failure
+
+***************************************************************************************************************
+
+Manage Assessment Marks (When teacher clicks on that manage assessment marks button)
+
+SENDING->
+http://localhost:8080/viewAssessmentMarks?username=kakashi32609&date=(Current Date)	GET
+
+EXPECTING->
+{
+	studentsMarks : [
+				{
+					"uniqueID" : "Naruto-7023332609-Uzumaki",
+   					"church" : "Beersheba",	
+   					"class" : "Junior-Boys",
+    					"date" : "2022-08-08",
+    					"first_name": "Naruto",
+					"surname": "Uzumaki",
+    					"attendance" : "1",
+					"songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				},
+
+				{
+					"uniqueID" : "Sasuke-7023332609-Uchiha",
+   					"church" : "Beersheba",	
+   					"class" : "Junior-Boys",
+    					"date" : "2022-08-08",
+    					"first_name": "Sasuke",
+					"surname": "Uchiha",
+    					"attendance" : "1",
+					"songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				}
+
+			
+			],
+
+
+}
+
+
+***************************************************************************************************************
+
+Editing assessment marks by a teacher 
+
+SENDING ->
+{
+	studentsMarks : [
+				{
+					"uniqueID" : "Naruto-7023332609-Uzumaki",
+   					"church" : "Beersheba",	
+   					"class" : "Junior-Boys",
+    					"date" : "2022-08-08",
+    					"first_name": "Naruto",
+					"surname": "Uzumaki",
+    					"attendance" : "1",
+					"songs_4" : "1",
+    					"worship_message" : "1",
+    					"table_message" : "1",
+    					"behaviour" : "1",
+    					"memory_verses" : "1",
+    					"total" : "7",
+    					"remarks" : "",
+    
+				},
+
+				{
+					"uniqueID" : "Sasuke-7023332609-Uchiha",
+   					"church" : "Beersheba",	
+   					"class" : "Junior-Boys",
+    					"date" : "2022-08-08",
+    					"first_name": "Sasuke",
+					"surname": "Uchiha",
+    					"attendance" : "1",
+					"songs_4" : "2",
+    					"worship_message" : "2",
+    					"table_message" : "2",
+    					"behaviour" : "2",
+    					"memory_verses" : "2",
+    					"total" : "11",
+    					"remarks" : "",
+    
+				}
+
+			
+			],
+
+	"username" : "kakashi32609",
+
+}
+
+
+EXPECTING->
+OK : Success
+BAD REQUEST : Failure
+
+***************************************************************************************************************
+Get teacher details
+
+SENDING ->
+http://localhost:8080/getTeacherData?username=kakashi32609	GET
+
+EXPECTING->
+{
+	"teacher_name":"Kakashi Hatake",
+    	"mobile":"9876545670",
+    	"church":"Beersheba",
+    	"assigned_class":"Juniour-Boys"
+
+}

@@ -28,17 +28,36 @@ public class SundaySchoolController {
 		return "hey";
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	***************************************************************************************************************************************************
+//	CRUD OPERATIONS FROM STUDENT	
+	
+	
 	@RequestMapping(value = "/addAssessment", method = RequestMethod.POST)
 	public String addAssessment(@RequestBody String JsonData) {
 		
 		boolean status = false;
 		
 		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
-		AssessmentMarksDAO assessmentMarksDao = new AssessmentMarksDAO();
-		assessmentMarksDao = assessmentMarksHandler.parseJsonData(JsonData);
+		 
 		
 		try {
-			status = assessmentMarksHandler.storeNewAssessmentMarksData(assessmentMarksDao);
+			status = assessmentMarksHandler.storeNewAssessmentMarksData(JsonData);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return HttpStatus.BAD_REQUEST.getReasonPhrase();
@@ -56,16 +75,58 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value="/getStudentsForAssessment", method=RequestMethod.GET)
-	public String sendStudentListForAssessmentMarks(@RequestParam("username") String TeacherUsername) {
+	public String sendStudentListForAssessmentMarks(@RequestParam("username") String teacherUsername) {
 		
 		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
 		try {
-			return assessmentMarksHandler.getStudentsListByTeacherUsername(TeacherUsername);
+			return assessmentMarksHandler.getStudentsListByTeacherUsername(teacherUsername);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return HttpStatus.BAD_REQUEST.getReasonPhrase();
 		}
 	}
+	
+	@RequestMapping(value="/viewAssessmentMarks", method=RequestMethod.GET)
+	public String viewAssessmentMarks(@RequestParam("username") String teacherUsername, @RequestParam("date") String date) {
+		
+		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
+		try {
+			return assessmentMarksHandler.getStudentsAssessmentMarks(teacherUsername, date);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpStatus.BAD_REQUEST.getReasonPhrase();
+		}
+	}
+	
+	@RequestMapping(value="/editAssessmentMarks", method=RequestMethod.PUT)
+	public String editAssessmentMarks(@RequestBody String JsonData) {
+		boolean status = false;
+		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
+		
+		try {
+			status = assessmentMarksHandler.editStudentsAssessmentMarks(JsonData);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return HttpStatus.BAD_REQUEST.getReasonPhrase();
+		}
+		
+		if(status) {
+			// SHOW A MESSAGE OF SUCCESS
+			return HttpStatus.OK.getReasonPhrase();
+			
+		}else {
+			// ASK TO RETRY
+			return HttpStatus.BAD_REQUEST.getReasonPhrase();
+		}	
+		
+	}
+	
+//	***************************************************************************************************************************************************
+	
+	
+	
+	
+	
 	
 	
 	
@@ -107,6 +168,15 @@ public class SundaySchoolController {
 		boolean status = false;
 		TeacherHandler teacherHandler = new TeacherHandler();
 		return teacherHandler.getListOfTeacher(church);	
+	
+	}
+	
+	@RequestMapping(value = "/getTeacherData", method = RequestMethod.GET)
+	public String getTeacherData(@RequestParam("username") String username) throws SQLException {
+		
+		boolean status = false;
+		TeacherHandler teacherHandler = new TeacherHandler();
+		return teacherHandler.getTeacherDataByUsername(username);	
 	
 	}
 	
