@@ -3,12 +3,13 @@ import Header from '../../Components/header'
 import userImage from '../../assets/images/user.png'
 import useAxiosPrivate from '../../Hooks/useAxiosPrivate';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { SPRING_SERVER_BASE_URL } from '../../api/services/SpringServer/spring';
+import { useSelector } from 'react-redux';
 // import teacherData from '../teacher.json'
 interface userData{
-  userID:string,
-  full_name:string,
+  teacher_name:string,
   church:string,
-  class:string,
+  assigned_class:string,
   mobile:string
 }
 
@@ -17,16 +18,16 @@ export default function TeacherProfile() {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
-
+  const user:string = useSelector((state:any)=>state.auth.user)
   useEffect(()=>{
     let isMounted = true;
     const controller = new AbortController();
 
     const getUsers = async () => {
         try {
-            const response = await axiosPrivate.get('/user');
-            console.log(response.data);
-            isMounted && setTeacherData(response.data.userData);
+            const response = await axiosPrivate.get(`${SPRING_SERVER_BASE_URL}/getTeacherData?username=${user}`);
+            console.log(response);
+            isMounted && setTeacherData(response.data);
         } catch (err) {
             console.error(err);
             navigate('/login', { state: { from: location }, replace: true });
@@ -39,7 +40,7 @@ export default function TeacherProfile() {
         isMounted = false;
         controller.abort();
     }
-  },[axiosPrivate,location,navigate])
+  },[axiosPrivate,location,navigate,user])
   return (
     <div className='h-screen p-0 flex flex-col gap-5'>
             <Header 
@@ -51,7 +52,7 @@ export default function TeacherProfile() {
                   <img src={userImage} className=" w-[88px]" alt="userImage.png"/>
                   </div>
                   <div className='py-3 flex justify-center'>
-                      <h3 className=' text-xl font-extrabold '>{teacherData?.userID}</h3>
+                      <h3 className=' text-xl font-bold '>{user}</h3>
                   </div>
               </div>
               <div className="flex justify-center">
@@ -62,7 +63,7 @@ export default function TeacherProfile() {
                         <div className='flex flex-col gap-4'>
                           <div className='flex flex-col gap-1'>
                             <h1 className="text-sm">Full Name</h1>
-                            <p className='text-xs font-extralight'>{teacherData?.full_name}</p>
+                            <p className='text-xs font-extralight'>{teacherData?.teacher_name}</p>
                           </div>
                           <div className='flex flex-col gap-1'>
                             <h1 className=" text-sm">Church</h1>
@@ -70,7 +71,7 @@ export default function TeacherProfile() {
                           </div>
                           <div className='flex flex-col gap-1'>
                             <h1 className="text-sm">Class/Section</h1>
-                            <p className='text-xs font-extralight'>{teacherData?.class}</p>
+                            <p className='text-xs font-extralight'>{teacherData?.assigned_class}</p>
                           </div>
                           <div className='flex flex-col gap-1'>
                             <h1 className="text-sm">Phone Number</h1>

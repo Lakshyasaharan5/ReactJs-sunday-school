@@ -34,6 +34,7 @@ const Assessment = ()=>{
     }
     
     const [assessmentValues] = useState<AssessmentInputs>({
+        attendance:useRef<HTMLSelectElement | null>(null),
         songs_4:useRef<HTMLSelectElement | null>(null),
         worship_message:useRef<HTMLSelectElement | null>(null),
         table_message:useRef<HTMLSelectElement | null>(null),
@@ -43,6 +44,7 @@ const Assessment = ()=>{
         remarks:useRef<HTMLTextAreaElement | null>(null),
     })
     
+    const [assessmentSavedAlert,setStudentAssessmentSaved] = useState(false)
     // console.log(studentAssessment)
     useEffect(()=>{
         if(studentAssessment===undefined||student_id=== ""){
@@ -59,6 +61,7 @@ const Assessment = ()=>{
     },[initialValue.total_marks])
     
     const HandleChange=(e:any)=>{
+        setStudentAssessmentSaved(false);
         
         let Attendance_marks:number = 2;
         let songs_marks:number = 0;
@@ -81,6 +84,8 @@ const Assessment = ()=>{
         } 
         if(assessmentValues.remarks.current!==null) remarks = assessmentValues.remarks.current.value;
         setTotal(total)
+        
+
         const updatedAssessmentValues:FinalAssessment = {
             "church": studentAssessment?.church,
             "class":studentAssessment?.class,
@@ -88,7 +93,7 @@ const Assessment = ()=>{
             "uniqueID": studentAssessment?.uniqueID,
             "first_name": studentAssessment?.first_name,
             "surname": studentAssessment?.surname,
-            "attendance": "present",
+            "attendance": "2",
             "songs_4": songs_marks.toString(),
             "worship_message": worship_message_marks.toString(),
             "table_message": table_message_marks.toString(),
@@ -102,10 +107,11 @@ const Assessment = ()=>{
     }
 
     
-    const uploadAssessment=(e:any)=>{
+    const saveAssessment=(e:any)=>{
         e.preventDefault();
         // console.log([studentAssessment])
         dispatch(updateArray([studentAssessment]))
+        setStudentAssessmentSaved(true);
         
     }
   
@@ -219,10 +225,13 @@ const Assessment = ()=>{
                     <textarea ref={assessmentValues.remarks} className="border-2 border-gray-500 rounded-md h-20 font-sans" defaultValue={initialValue.remarks} onChange={HandleChange} id="remarks" ></textarea>
                     
                 </div>
+                {assessmentSavedAlert?
+                <p>{studentAssessment.first_name}'s assessment saved!</p>:null}
+                
 
                 <div className="flex justify-between">
                     <Link to="/assessment-studentlist"><button className="bg-gray-500 hover:bg-gray-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button">Back</button></Link>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>uploadAssessment(e)} >upload</button>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-sans font-semibold py-1 px-2 rounded" type="button" onClick={(e)=>saveAssessment(e)} >save</button>
                 </div>
                 <div className="clearfix"></div>
             </form>

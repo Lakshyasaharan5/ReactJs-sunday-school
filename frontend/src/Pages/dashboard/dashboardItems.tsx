@@ -6,8 +6,11 @@ import {useNavigate} from "react-router-dom"
 import 'react-calendar/dist/Calendar.css';
 import { dashboardProps, studentDetails } from "../InterfacesAndTypes";
 import {IoLocationOutline} from 'react-icons/io5';
-import { getStudentsData } from "../../api/services/SpringServer/UserService/AssessmentsService";
+
 import useCurrData from "../../Hooks/useCurrData";
+// import { getStudentsDataforAssessment } from "../../api/services/SpringServer/UserService/AssessmentsService";
+import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
+import { SPRING_SERVER_BASE_URL } from "../../api/services/SpringServer/spring";
 
 
 // import teacherData from '../teacher.json'
@@ -41,7 +44,7 @@ export default function DashboardItems(props:dashboardProps){
         "uniqueID":s.uniqueID,
         "first_name" : s.first_name,
         "surname":s.surname,
-       "attendance" : "absent",
+       "attendance" : "0",
         "songs_4" : "0",
         "worship_message" : "0",
         "table_message" : "0",
@@ -61,14 +64,22 @@ export default function DashboardItems(props:dashboardProps){
     }
     const role = useSelector((state:any)=>state.auth.role)
     const user:string = useSelector((state:any)=>state.auth.user)
-    
+    const axiosPrivate = useAxiosPrivate()
+
     useEffect(()=>{
-        getStudentsData(user).then(res=>{
-            setStudentsArray(res.data.students);
-            setChurch_name(res.data.church);
-            setClass_name(res.data.class);
+        axiosPrivate.get(`${SPRING_SERVER_BASE_URL}/getStudentsForAssessment?username=${user}`).then(res=>{
+            setStudentsArray(res.data.studentsMarks);
+            setChurch_name(res.data.studentsMarks[0].church);
+            setClass_name(res.data.studentsMarks[0].class);
         })
-    })
+    },[axiosPrivate,user])
+    // useEffect(()=>{
+    //     getStudentsDataforAssessment(user).then(res=>{
+    //         setStudentsArray(res.data.studentsMarks);
+    //         setChurch_name(res.data.studentsMarks[0].church);
+    //         setClass_name(res.data.studentsMarks[0].class);
+    //     })
+    // },[user])
     return (
         <div className=" grid grid-cols-1 mb-2">
             

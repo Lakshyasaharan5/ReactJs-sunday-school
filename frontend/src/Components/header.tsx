@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { headerProps } from '../Pages/InterfacesAndTypes';
 import { AuthContext } from '../Hooks/auth';
 import { useSelector } from 'react-redux';
+import useMediaQuery from '../Hooks/useMediaQuery';
 
 export default function Header(props:headerProps) {
     const [navbarOpened, setNavbarOpened] = useState(false);
@@ -19,6 +20,7 @@ export default function Header(props:headerProps) {
         logout();
         navigate("/login");
     }
+    const xs = useMediaQuery("(min-width: 540px)");
   return (
         <>
             <header className="flex justify-between   sticky shadow-2xl p-1 ">
@@ -30,7 +32,6 @@ export default function Header(props:headerProps) {
                     />
                     
                 </div>
-                
                 
                     <div className="p-2 text-xl font-semibold m-auto">
                         <h1>{props.headerTitle}</h1>
@@ -48,11 +49,11 @@ export default function Header(props:headerProps) {
                 
             </header>
             <Drawer
-                anchor='top'
+                anchor={xs? 'left':'top'}
                 open={navbarOpened}
                 onClose={() => setNavbarOpened((o:boolean) => !o)}
                 >
-                <Box width='100vw' height='100vh' textAlign='center'>
+                <Box width={xs?'300px':'100wh'} height='100vh' textAlign='center'>
                     <div className='flex flex-col p-1'>
                         <div className='flex justify-start'>
                             <div className='p-2'>
@@ -64,7 +65,7 @@ export default function Header(props:headerProps) {
                             </div>
                         </div>
                         <div className='flex justify-center'>
-                            <main className='w-[19rem] flex flex-col text-start gap-8'>
+                            <main className=' flex flex-col text-start gap-8'>
                                 <div className='flex'>
                                     <img src={userImage} className=" w-14" alt="userImage.png"/>
                                     <div className='px-4'>
