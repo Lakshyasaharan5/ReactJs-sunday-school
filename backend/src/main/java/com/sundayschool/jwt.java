@@ -35,16 +35,18 @@ public class jwt {
 		
 		
 		try {
-			String key = "ba52e2f2632ab31e115f806448ac3e5c5b307324eebbd141e1979dcc06c4d7328cb252618aac6aed6bfd581d8846730854545bdea007d1b76b5b6ef4a60ccd3f";
+//			String key = "ba52e2f2632ab31e115f806448ac3e5c5b307324eebbd141e1979dcc06c4d7328cb252618aac6aed6bfd581d8846730854545bdea007d1b76b5b6ef4a60ccd3f";
+			String key = "secret";
 		    Algorithm algorithm = Algorithm.HMAC256(key); //use more secure key
 		    JWTVerifier verifier = JWT.require(algorithm)
 //		        .withIssuer("auth0")
 		        .build(); //Reusable verifier instance
 		    DecodedJWT jwt = verifier.verify(token);
-		    System.out.println(jwt.getClaims().get("username"));
+		    System.out.println(jwt.getClaims().get("userId"));
 		    
 		} catch (JWTVerificationException exception){
 		    exception.printStackTrace();
+		    throw exception;
 		}
 		
 	}

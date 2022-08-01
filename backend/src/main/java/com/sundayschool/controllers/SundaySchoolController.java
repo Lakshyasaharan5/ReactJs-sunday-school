@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,33 +30,25 @@ public class SundaySchoolController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 //	***************************************************************************************************************************************************
 //	CRUD OPERATIONS FROM STUDENT	
 	
 	
 	@RequestMapping(value = "/addAssessment", method = RequestMethod.POST)
-	public String addAssessment(@RequestBody String JsonData) {
+	public String addAssessment(@RequestHeader(value="Authorization") String bearer, @RequestBody String JsonData) {
 		
-		boolean status = false;
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
-		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
-		 
-		
+	
+		boolean status = false;		
+		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();		
 		try {
 			status = assessmentMarksHandler.storeNewAssessmentMarksData(JsonData);
 		}catch(Exception e) {
@@ -75,7 +68,16 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value="/getStudentsForAssessment", method=RequestMethod.GET)
-	public String sendStudentListForAssessmentMarks(@RequestParam("username") String teacherUsername) {
+	public String sendStudentListForAssessmentMarks(@RequestHeader(value="Authorization") String bearer, @RequestParam("username") String teacherUsername) {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
 		try {
@@ -87,7 +89,16 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value="/viewAssessmentMarks", method=RequestMethod.GET)
-	public String viewAssessmentMarks(@RequestParam("username") String teacherUsername, @RequestParam("date") String date) {
+	public String viewAssessmentMarks(@RequestHeader(value="Authorization") String bearer, @RequestParam("username") String teacherUsername, @RequestParam("date") String date) {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
 		try {
@@ -99,7 +110,17 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value="/editAssessmentMarks", method=RequestMethod.PUT)
-	public String editAssessmentMarks(@RequestBody String JsonData) {
+	public String editAssessmentMarks(@RequestHeader(value="Authorization") String bearer, @RequestBody String JsonData) {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
+		
 		boolean status = false;
 		AssessmentMarksHandler assessmentMarksHandler = new AssessmentMarksHandler();
 		
@@ -144,7 +165,16 @@ public class SundaySchoolController {
 //	CRUD OPERATIONS FROM TEACHER
 	
 	@RequestMapping(value = "/addTeacher", method = RequestMethod.POST)
-	public String addTeacher(@RequestBody String JsonData) throws SQLException {
+	public String addTeacher(@RequestHeader(value="Authorization") String bearer, @RequestBody String JsonData) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		boolean status = false;
 		TeacherHandler teacherHandler = new TeacherHandler();
@@ -163,7 +193,16 @@ public class SundaySchoolController {
 	
 	
 	@RequestMapping(value = "/viewTeacher", method = RequestMethod.GET)
-	public String viewTeacher(@RequestParam("church") String church) throws SQLException {
+	public String viewTeacher(@RequestHeader(value="Authorization") String bearer, @RequestParam("church") String church) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		boolean status = false;
 		TeacherHandler teacherHandler = new TeacherHandler();
@@ -172,7 +211,16 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value = "/getTeacherData", method = RequestMethod.GET)
-	public String getTeacherData(@RequestParam("username") String username) throws SQLException {
+	public String getTeacherData(@RequestHeader(value="Authorization") String bearer, @RequestParam("username") String username) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		boolean status = false;
 		TeacherHandler teacherHandler = new TeacherHandler();
@@ -181,7 +229,17 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value = "/editTeacher", method = RequestMethod.PUT)
-	public String editTeacher(@RequestBody String JsonData) throws SQLException {
+	public String editTeacher(@RequestHeader(value="Authorization") String bearer, @RequestBody String JsonData) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
+		
 		boolean status = false;
 		TeacherHandler teacherHandler = new TeacherHandler();
 		status = teacherHandler.editTeacher(JsonData);
@@ -198,7 +256,16 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value = "/deleteTeacher", method = RequestMethod.DELETE)
-	public String viewTeachers(@RequestParam("username") String username) throws SQLException {
+	public String viewTeachers(@RequestHeader(value="Authorization") String bearer, @RequestParam("username") String username) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		boolean status = false;
 		TeacherHandler teacherHandler = new TeacherHandler();
@@ -239,7 +306,16 @@ public class SundaySchoolController {
 //	CRUD OPERATIONS FROM STUDENT	
 	
 	@RequestMapping(value = "/addStudent", method = RequestMethod.POST)
-	public String addStudent(@RequestBody String JsonData) throws SQLException {
+	public String addStudent(@RequestHeader(value="Authorization") String bearer, @RequestBody String JsonData) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		boolean status = false;
 		
@@ -257,7 +333,16 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value = "/viewStudent", method = RequestMethod.GET)
-	public String viewStudent(@RequestParam("church") String church, @RequestParam("class") String assigned_class) throws SQLException {
+	public String viewStudent(@RequestHeader(value="Authorization") String bearer, @RequestParam("church") String church, @RequestParam("class") String assigned_class) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		boolean status = false;
 		StudentHandler studentHandler = new StudentHandler();
@@ -266,7 +351,17 @@ public class SundaySchoolController {
 	}
 	
 	@RequestMapping(value = "/editStudent", method = RequestMethod.PUT)
-	public String editStudent(@RequestBody String JsonData) throws SQLException {
+	public String editStudent(@RequestHeader(value="Authorization") String bearer, @RequestBody String JsonData) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
+		
 		boolean status = false;
 		StudentHandler studentHandler = new StudentHandler();
 		status = studentHandler.editStudent(JsonData);
@@ -284,7 +379,16 @@ public class SundaySchoolController {
 	
 	
 	@RequestMapping(value = "/deleteStudent", method = RequestMethod.DELETE)
-	public String viewStudent(@RequestParam("uniqueID") String uniqueID) throws SQLException {
+	public String viewStudent(@RequestHeader(value="Authorization") String bearer, @RequestParam("uniqueID") String uniqueID) throws SQLException {
+		
+		String token = bearer.split(" ")[1];
+		jwt j = new jwt();
+		try {
+			j.verifyToken(token);
+		}catch(Exception e) {
+//			return HttpStatus.FORBIDDEN.value();
+			return "403";
+		}
 		
 		boolean status = false;
 		StudentHandler studentHandler = new StudentHandler();
@@ -320,9 +424,12 @@ public class SundaySchoolController {
 	
 	
 	@RequestMapping(value="/tokens")
-	public void tokens() {
+	public void tokens(@RequestHeader(value="Authorization") String bearer) {
+		
+		System.out.println(bearer.split(" ")[1]);
 		jwt j = new jwt();
 		String token = j.createToken();
+		j.verifyToken(token);
 		j.verifyToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hcnV0byIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU4NTk0NzAwLCJleHAiOjE2NTg2ODExMDB9.48Rzj_6wb0YIgA3Lv7Nh_qUhOSKA0CcMQqH4zfKXDXw");
 	}
 	
