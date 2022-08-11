@@ -1,6 +1,6 @@
 import React,{useContext, useState} from 'react'
 import { Burger } from '@mantine/core';
-import {FaUserCircle} from 'react-icons/fa'
+import {CgProfile} from 'react-icons/cg'
 import userImage from '../assets/images/user.png'
 
 import { Box, Drawer } from '@mui/material'
@@ -17,13 +17,13 @@ export default function Header(props:headerProps) {
     const { logout } = useContext(AuthContext);
     const role = useSelector((state:any)=>state.auth.role);
     const logoutHandler = () =>{
-        logout();
         navigate("/login");
+        logout();
     }
     const xs = useMediaQuery("(min-width: 540px)");
   return (
         <>
-            <header className="flex justify-between   sticky shadow-2xl p-1 ">
+            <header className="flex justify-between   sticky shadow-2xl p-1 bg-white ">
                 <div className="p-2">
                     <Burger
                         opened={navbarOpened}
@@ -38,10 +38,10 @@ export default function Header(props:headerProps) {
                     </div>
                 {   props.userIcon ? 
                     <Link to="/profile" className="p-2">
-                        <FaUserCircle 
+                        <CgProfile 
                         style={{fontSize:"2rem"}}/>
                     </Link>:<div className="p-2">
-                        <FaUserCircle 
+                        <CgProfile 
                         style={{fontSize:"2rem",color:"white"}}/>
                     </div>
                 }

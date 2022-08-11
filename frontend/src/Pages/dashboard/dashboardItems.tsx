@@ -86,7 +86,7 @@ export default function DashboardItems(props:dashboardProps){
             <div className=" flex justify-center mt-2 mb-7">
                 
                 {showAttendence && role==="user"? 
-                <a href="/#" className="  flex flex-col justify-between w-64 h-20 " onClick={(e)=>toStudentList(e)}>
+                <a href="/#" className="  flex flex-col justify-between w-11/12 h-20 " onClick={(e)=>toStudentList(e)}>
                     <div className="bg-blue-200 rounded-2xl shadow-lg">
                         <div className="text-xs p-3 px-4 flex justify-between">
                         <p className="  ">Junior Boys</p>

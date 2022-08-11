@@ -18,7 +18,7 @@ import com.sundayschool.handlers.AssessmentMarksHandler;
 import com.sundayschool.handlers.StudentHandler;
 import com.sundayschool.handlers.TeacherHandler;
 
-@CrossOrigin(origins = "http://192.168.1.4:3000")
+@CrossOrigin(origins = {"http://192.168.1.4:3000","http://localhost:3000"})
 @RestController
 @RequestMapping
 public class SundaySchoolController {

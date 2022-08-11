@@ -28,15 +28,15 @@ export default function DashboardPage(){
     },[assessmentDate])
 
     return (
-        <div className="  h-screen p-0 flex flex-col gap-5">
+        <div className="  h-screen p-0 flex flex-col gap-5 bg-slate-500">
             <Header 
             userIcon= {true}
             headerTitle={"Sunday School"}/>
             
-            <main className="relative  flex flex-col gap-4">
+            <main className="relative  flex flex-col gap-4 ">
                 <div className="flex justify-center">
-                    <div className="container shadow-2xl rounded-2xl bg-white w-[20.2rem]">
-                        <div className=" p-3 flex justify-center">
+                    <div className="container shadow-2xl rounded-2xl bg-white w-11/12 xs:w-[21rem] ">
+                        <div className=" p-3 py-4 flex justify-center">
                             <Calendar 
                             value={assessmentDate} 
                             onChange={setAssessmentDate}
@@ -47,7 +47,7 @@ export default function DashboardPage(){
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div className="container shadow-2xl rounded-2xl bg-white w-[20.2rem]">
+                    <div className="container shadow-2xl rounded-2xl bg-white w-11/12 xs:w-[21rem]">
                         <div className="inline-flex p-2 px-3">
                             <p className=" font-semibold">{today}</p><p className="px-1 font-light">{currmonthDate}</p>
                         </div>
