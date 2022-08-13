@@ -29,6 +29,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/samuelpediredla/Desktop/projects/ReactJs-sunday-school/backend/JAR Files/mysql-connector-java-8.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/samue/Desktop/ReactJs-sunday-school/backend/JAR Files/mysql-connector-java-8.0.28.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
