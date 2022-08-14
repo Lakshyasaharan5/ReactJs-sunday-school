@@ -3,7 +3,7 @@ import { fetchRecentDataType } from "../types/interfacesAndTypes"
 import { RecentVideosParams } from "../types/interfacesAndTypes";
 
 export const YOUTUBE_PLAYLIST_ITEMS_API="https://www.googleapis.com/youtube/v3/playlistItems"
-export const YOUTUBE_API_KEY =  "AIzaSyCjhYYUR3EwPFi1_eT5uV6EfO4s9yA-kt0"
+export const YOUTUBE_API_KEY =  process.env.REACT_APP_GOOGLE_API_KEY
 
 export const fetchRecentData = async () =>{
     const data:fetchRecentDataType = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCjm1A-rBB_6nbP-fuqyIrow&eventType=none&maxResults=30&order=date&type=video&key=${YOUTUBE_API_KEY}`)
