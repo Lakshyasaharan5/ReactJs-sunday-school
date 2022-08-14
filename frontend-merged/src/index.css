@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.meetingsBoxtext{
+font-size: 0.7rem;
+line-height: 0.9rem}
