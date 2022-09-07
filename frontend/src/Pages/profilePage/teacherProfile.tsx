@@ -19,6 +19,7 @@ export default function TeacherProfile() {
   const navigate = useNavigate();
   const location = useLocation();
   const user:string = useSelector((state:any)=>state.auth.user)
+
   useEffect(()=>{
     let isMounted = true;
     const controller = new AbortController();
@@ -26,11 +27,11 @@ export default function TeacherProfile() {
     const getUsers = async () => {
         try {
             const response = await axiosPrivate.get(`${SPRING_SERVER_BASE_URL}/getTeacherData?username=${user}`);
-            console.log(response);
+            // console.log(response);
             isMounted && setTeacherData(response.data);
         } catch (err) {
-            console.error(err);
-            navigate('/login', { state: { from: location }, replace: true });
+            // console.error(err);
+            navigate('/', { state: { from: location }, replace: true });
         }
     }
 

@@ -2,9 +2,11 @@ import { Modal } from '@mantine/core'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { deleteStudent, editStudent, viewStudent } from '../../../api/services/SpringServer/AdminServices/StudentService'
+// import { deleteStudent, editStudent, viewStudent } from '../../../api/services/SpringServer/AdminServices/StudentService'
+import { SPRING_SERVER_BASE_URL } from '../../../api/services/SpringServer/spring'
 import Header from '../../../Components/header'
-import { studentDetails } from '../../InterfacesAndTypes'
+import useAxiosPrivate from '../../../Hooks/useAxiosPrivate'
+import { getStudentsArray, studentDetails } from '../../InterfacesAndTypes'
 // import studentsData from '../../students.json'
 
 const ManageStudentsPage = () => {
@@ -28,12 +30,6 @@ const ManageStudentsPage = () => {
       
       setStudentModalOpened(true);
   }
-  
-    // const church = studentsData.church;
-    // const class_name = studentsData.class;
-    // const selectChurchHandler = (e:any) =>{
-    //   select
-    // }
 
     const [invalidFirstName,setInvalidFirstName] = useState(false);
     const [invalidSurname,setInvalidSurname] = useState(false);
@@ -60,29 +56,19 @@ const ManageStudentsPage = () => {
       classData = beershebaClasses
     }
 
+    const axiosPrivate = useAxiosPrivate()
     // runs and updates the teacherArray when church and class selected
     useEffect(()=>{
       if(selectedClass!=="DEFAULT"&&selectedChurch!=="DEFAULT"){
-        viewStudent(selectedChurch,selectedClass).then(res=>{
-          console.log(res.data)
-          setStudentsList(res.data.students)
-        })
+          axiosPrivate.get<getStudentsArray>(`${SPRING_SERVER_BASE_URL}/viewStudent?church=${selectedChurch}&class=${selectedClass}`).then(res=>{
+            console.log(res.data)
+            setStudentsList(res.data.students)
+          })
       }else{
         setStudentsList([])
       }
-    },[selectedClass,selectedChurch])
+    },[selectedClass,selectedChurch,axiosPrivate])
     
-    // runs and updates the teacherArray when model is openned or closed
-    useEffect(()=>{
-      viewStudent(selectedChurch,selectedClass).then(res=>{
-        console.log(res.data)
-        setStudentsList(res.data.students)
-      })
-      if(!studentModalOpened) setFieldDisabled(true)
-      // console.log(studentModalOpened)
-    },[selectedClass,selectedChurch,studentModalOpened])
-
-    // runs and updates the teacherArray student id is selected
     useEffect(()=>{
       const s = studentsList?.filter(student=>student.uniqueID === selectedStudentId)[0]
       if(s!==undefined){
@@ -105,7 +91,7 @@ const ManageStudentsPage = () => {
 
   const SubmitEditStudentHandler = (e:any) =>{
     e.preventDefault();
-    const studentObject = {
+    const studentObject:studentDetails = {
       uniqueID:selectedStudentId,
       first_name:student.first_name,
       surname:student.surname,
@@ -114,18 +100,38 @@ const ManageStudentsPage = () => {
       class:student.class
     }
     // console.log(studentObject);
-    editStudent(studentObject).then(res=>{
-      console.log(res);
+    axiosPrivate.put(`${SPRING_SERVER_BASE_URL}/editStudent`,studentObject).then(()=>{
+      setStudentModalOpened(false)
+      const updatedList = studentsList?.map(item=>{
+        if(item.uniqueID===selectedStudentId){
+          return {...item,first_name:student.first_name,
+            surname:student.surname,
+            mobile:student.mobile,
+            church:student.church,
+            class:student.class}
+        }
+        return item
+      })
+      console.log(updatedList);
+      setStudentsList(updatedList);
+      setFieldDisabled(true);
     })
-    setStudentModalOpened(false)
+
+    // editStudent(studentObject).then(res=>{
+    //   console.log(res);
+    // })
+    
   }
 
   const DeleteStudentHandler = (e:any) =>{
     e.preventDefault();
     // console.log(selectedStudentId)
-    deleteStudent(selectedStudentId).then(res=>{
-      console.log(res)
+    axiosPrivate.delete(`${SPRING_SERVER_BASE_URL}/deleteStudent?uniqueID=${selectedStudentId}`).then(()=>{
+      setStudentModalOpened(false)
     })
+    // deleteStudent(selectedStudentId).then(res=>{
+    //   console.log(res)
+    // })
   }
 
   return (

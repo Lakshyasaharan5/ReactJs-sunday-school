@@ -67,12 +67,12 @@ export default function DashboardItems(props:dashboardProps){
     const axiosPrivate = useAxiosPrivate()
 
     useEffect(()=>{
-        axiosPrivate.get(`${SPRING_SERVER_BASE_URL}/getStudentsForAssessment?username=${user}`).then(res=>{
+        role==='user' && axiosPrivate.get(`${SPRING_SERVER_BASE_URL}/getStudentsForAssessment?username=${user}`).then(res=>{
             setStudentsArray(res.data.studentsMarks);
             setChurch_name(res.data.studentsMarks[0].church);
             setClass_name(res.data.studentsMarks[0].class);
         })
-    },[axiosPrivate,user])
+    },[axiosPrivate,user,role])
     // useEffect(()=>{
     //     getStudentsDataforAssessment(user).then(res=>{
     //         setStudentsArray(res.data.studentsMarks);

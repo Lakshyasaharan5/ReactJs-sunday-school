@@ -1,14 +1,12 @@
 import axios from '../api/services/authService';
 import { updateAccessToken } from '../redux/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const useRefreshToken = () => {
     const dispatch = useDispatch();
-    const refreshToken = useSelector((state:any)=>state.auth.refreshToken)
+    // const refreshToken = useSelector((state:any)=>state.auth.refreshToken)
     const refresh = async () => {
-        const response = await axios.post('/refresh', {
-            refreshToken
-        });
+        const response = await axios.get('/refresh');
         dispatch(updateAccessToken({accessToken:response.data.accessToken}))
         return response.data.accessToken;
     }
