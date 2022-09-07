@@ -2,7 +2,9 @@ import { Modal } from '@mantine/core'
 import {useState,useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { deleteTeacher, editTeacher, viewTeacher } from '../../../api/services/SpringServer/AdminServices/TeacherService'
+import { axiosPrivate } from '../../../api/services/authService'
+import { SPRING_SERVER_BASE_URL } from '../../../api/services/SpringServer/spring'
+// import { deleteTeacher, editTeacher, viewTeacher } from '../../../api/services/SpringServer/AdminServices/TeacherService'
 import Header from '../../../Components/header'
 import { teacherDetails } from '../../InterfacesAndTypes'
 // import teachersData from '../../teacher.json'
@@ -67,38 +69,49 @@ const ManageTeachersPage = () => {
       church:teacher.church,
       assigned_class:teacher.assigned_class
     }
-    editTeacher(teacherObject).then(res=>{
-      console.log(res)
+    axiosPrivate.put(`${SPRING_SERVER_BASE_URL}/editTeacher`,teacherObject).then(()=>{
       setTeacherModalOpened(false)
     })
+    // editTeacher(teacherObject).then(res=>{
+    //   console.log(res)
+    //   setTeacherModalOpened(false)
+    // })
   }
 
 
   const DeleteTeacherHandler = (e:any) =>{
     e.preventDefault();
     // console.log(selectedTeacherId)
-    deleteTeacher(selectedTeacherId).then(res=>{
-      console.log(res)
-    })
+    axiosPrivate.delete(`${SPRING_SERVER_BASE_URL}/deleteTeacher?username=${selectedTeacherId}`)
+    // deleteTeacher(selectedTeacherId).then(res=>{
+    //   console.log(res)
+    // })
   }
 
 
   useEffect(()=>{
     if(selectedChurch!=="DEFAULT"){
-      viewTeacher(selectedChurch).then(res=>{
+      axiosPrivate.get(`${SPRING_SERVER_BASE_URL}/viewTeacher?church=${selectedChurch}`).then(res=>{
         setTeachersList(res.data.teachers)
       })
+      // viewTeacher(selectedChurch).then(res=>{
+      //   setTeachersList(res.data.teachers)
+      // })
     }else{
       setTeachersList([])
     }
   },[selectedChurch])
 
   useEffect(()=>{
-    viewTeacher(selectedChurch).then(res=>{
-      setTeachersList(res.data.teachers)
-    })
+    if(selectedChurch!=="DEFAULT"){
+      axiosPrivate.get(`${SPRING_SERVER_BASE_URL}/viewTeacher?church=${selectedChurch}`).then(res=>{
+        setTeachersList(res.data.teachers)
+      })
+    }
+    
     if(!teacherModalOpened) setFieldDisabled(true);
-  },[selectedChurch,teacherModalOpened])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[teacherModalOpened])
 
   useEffect(()=>{
     const t = teachersList?.filter(teacher=>teacher.username === selectedTeacherId)[0]

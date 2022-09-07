@@ -25,12 +25,14 @@ const LoginPage=()=>{
         e.preventDefault();
         if(inputValues.username==="") setUsernameInvalid(true);
         if(inputValues.password==="") setPasswordInvalid(true);
-    
+        
         if(inputValues.username!=="" && inputValues.password!==""){
-            await axios.post("/login",{
+            const loginObject={
                 username:inputValues.username,
                 password:inputValues.password
-            }).then(res=>{
+            }
+            // console.log(loginObject)
+            await axios.post("/login",loginObject).then(res=>{
                 // console.log(res)
                 // console.log(res.data.accessToken)
                 // console.log(typeof(res.data.accessToken))
@@ -41,13 +43,13 @@ const LoginPage=()=>{
                         dispatch(setCredentials({
                             user:decodedToken?.username,
                             accessToken:res.data.accessToken,
-                            refreshToken:res.data.refreshToken,
+                            // refreshToken:res.data.refreshToken,
                             isLoggedIn:true,
                             userRole:decodedToken?.role
                         }))
                         // localStorage.setItem('token', res.data.accessToken)
                         // if(decodedToken?.role==="user"){
-                        //     navigate("/",{
+                        //     navigate("/dashboard",{
                         //         state:{
                         //             username:decodedToken?.username
                         //         }
@@ -59,7 +61,7 @@ const LoginPage=()=>{
                         //         }
                         //     })
                         // } 
-                        navigate("/");
+                        navigate("/dashboard");
                         }else{
                             setInputValues({
                                 username:"",

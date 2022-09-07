@@ -2,9 +2,10 @@ const mysql = require("mysql2");
 
 const db = mysql.createConnection({
     user:"root",
-    host:"localhost",
-    password:"Sam012345",
-    database:"users_db"
+    // host:process.env.DB_HOST,
+    socketPath:process.env.DB__SOCKPATH,
+    password:process.env.DB_PASSWORD,
+    database:"sundayschool_db1"
 });
     
 

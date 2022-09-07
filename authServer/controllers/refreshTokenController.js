@@ -3,7 +3,8 @@ const db = require('../config/dbConnection')
 
 const handleRefreshToken = async(req,res)=>{
   
-    const refreshToken = req.body.refreshToken
+    const {refreshToken} = req.cookies;
+    console.log(refreshToken)
     const decoded = jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET);
     db.query("SELECT * FROM users WHERE username = ? ",[decoded.username],
     (err,result)=>{

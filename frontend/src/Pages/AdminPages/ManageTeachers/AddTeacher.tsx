@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addTeacher } from '../../../api/services/SpringServer/AdminServices/TeacherService';
+// import { addTeacher } from '../../../api/services/SpringServer/AdminServices/TeacherService';
+import { SPRING_SERVER_BASE_URL } from '../../../api/services/SpringServer/spring';
 
 import Header from '../../../Components/header';
+import useAxiosPrivate from '../../../Hooks/useAxiosPrivate';
 
 const AddTeacher = () => {
     const role = useSelector((state:any)=>state.auth.role)
@@ -24,6 +26,7 @@ const AddTeacher = () => {
     if (TeacherDetails.church==="BEERSHEBA"){
       classData = beershebaClasses
     }
+    const axiosPrivate = useAxiosPrivate();
     const AddTeacherHandler = (e:any) =>{
         e.preventDefault();
         if(TeacherDetails.teacherFullName==="") setInvalidFullName(true);
@@ -36,9 +39,10 @@ const AddTeacher = () => {
             church:TeacherDetails.church,
             assigned_class:TeacherDetails.selectedClass
           }
-        addTeacher(teacherObject).then(res=>{
-            console.log(res)
-        })
+        axiosPrivate.post(`${SPRING_SERVER_BASE_URL}/addTeacher`,teacherObject)
+        // addTeacher(teacherObject).then(res=>{
+        //     console.log(res)
+        // })
     }
     const HandleChange = (e:any) =>{
         const {name,value} = e.target;

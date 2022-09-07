@@ -62,7 +62,7 @@ const AssessmentStudentList=()=>{
     // if the component has nothing to show it redirects to dashboard 
     useEffect(()=>{
         if(newStudentsArray?.length === 0){
-            navigate('/');
+            navigate('/dashboard');
         }else{
             setIsEmpty(false)
         }
@@ -99,7 +99,7 @@ const AssessmentStudentList=()=>{
                 ))
             }
         }
-        console.log(assessmentArray)
+        // console.log(assessmentArray)
         setSubmitModalOpened(true)
     }
 
@@ -111,7 +111,7 @@ const AssessmentStudentList=()=>{
             studentsMarks:assessmentArray,
             username:user
         }
-        console.log(AssessmentsObject)
+        // console.log(AssessmentsObject)
         // viewAssessmentMarks(user,currDate).then(res=>{
         //     if(res.data.studentsMarks.length!==0){
         //         setDataAlreadyExists(true)

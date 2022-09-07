@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addStudent } from '../../../api/services/SpringServer/AdminServices/StudentService'
+// import { addStudent } from '../../../api/services/SpringServer/AdminServices/StudentService'
+import { SPRING_SERVER_BASE_URL } from '../../../api/services/SpringServer/spring'
 
 import Header from '../../../Components/header'
+import useAxiosPrivate from '../../../Hooks/useAxiosPrivate'
 
 const AddStudent = () => {
     const role = useSelector((state:any)=>state.auth.role);
@@ -26,6 +28,7 @@ const AddStudent = () => {
     if (StudentDetails.church==="Beersheba"){
       classData = beershebaClasses
     }
+    const axiosPrivate = useAxiosPrivate()
     const AddStudentHandler = (e:any) =>{
         e.preventDefault();
         if(StudentDetails.studentFirstName==="") setInvalidFirstName(true);
@@ -41,7 +44,7 @@ const AddStudent = () => {
             class:StudentDetails.selectedClass
           }
         // console.log(studentObject)
-        addStudent(studentObject).then(res=>{
+        axiosPrivate.post(`${SPRING_SERVER_BASE_URL}/addStudent`,studentObject).then(res=>{
             console.log(res)
         })
 
